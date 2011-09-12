@@ -1,0 +1,56 @@
+
+# -*- conf -*-
+
+# System-wide settings are ignored if you have ~/.inputrc
+$include /etc/inputrc
+
+
+# append a '/' to show a dir is a dir
+set mark-directories on
+set mark-symlinked-directories on
+# use ls -F style highlights for completion
+set visible-stats on
+
+# go right to showing multiple options
+set show-all-if-ambiguous on
+
+
+set expand-tilde on
+
+set show-all-if-ambiguous on
+
+
+# use a visible bell if one is available
+set bell-style visible
+
+# don't strip characters to 7 bits
+set input-meta on
+set output-meta on
+
+# allow iso-latin1 characters to be inserted rather
+# than converted to prefix-meta sequences
+set convert-meta off
+
+# display characters with the eighth bit set directly
+# rather than as meta-prefixed characters
+set output-meta on
+
+# My computer is fast enough to handle more than 100 completions without delay
+set completion-query-items 500
+
+
+
+# For FTP
+$if Ftp
+"\C-xg": "get \M-?"
+"\C-xt": "put \M-?"
+"\M-.": yank-last-arg
+$endif
+
+# Two silly macros
+#
+# Insert double quotes & set cursor between them
+"\C-x\"": "\"\"\C-b"
+#
+# Insert single quotes & set cursor between them
+"\C-x'": "''\C-b"
