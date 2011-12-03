@@ -1,9 +1,9 @@
-
 # -*- conf -*-
+#
+# Fernando Carmona Varo
 
 # System-wide settings are ignored if you have ~/.inputrc
 $include /etc/inputrc
-
 
 # append a '/' to show a dir is a dir
 set mark-directories on
@@ -14,11 +14,9 @@ set visible-stats on
 # go right to showing multiple options
 set show-all-if-ambiguous on
 
-
 set expand-tilde on
 
 set show-all-if-ambiguous on
-
 
 # use a visible bell if one is available
 set bell-style visible
@@ -35,10 +33,15 @@ set convert-meta off
 # rather than as meta-prefixed characters
 set output-meta on
 
-# My computer is fast enough to handle more than 100 completions without delay
-set completion-query-items 500
+# Only hit once <tab> for showing all the results
+set show-all-if-ambiguous on
+set show-all-if-unmodified on
+set page-completions Off
+set completion-query-items 2000
+set completion-query-items -1
 
-
+"\C-p": history-search-backward
+"\C-n": history-search-forward
 
 # For FTP
 $if Ftp
