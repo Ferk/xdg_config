@@ -1,0 +1,144 @@
+
+OPTIONS=boulder:0, autodig, !cmdassist, norest_on_space
+
+OPTIONS= fruit: scrumpty papaya, gender:male
+
+OPTIONS= pickup_types:$?!/", pushweapon
+
+OPTIONS= hilite_pet, pettype:dog
+
+
+#DUNGEON= . │ ─ ┌ ┐ └ ┘ ┼ ┴ ┬ ┤ ├ · ■ ■ + + ≡ ± · ░ ▒ < > < > _ | \ # ⌠ ≋ · ≋ · · # # ) # ≋
+
+
+OPTIONS=color,menucolors,decgraphics
+
+MENUCOLOR="uncursed"=green
+MENUCOLOR="blessed"=cyan&bold
+MENUCOLOR="cursed"=orange&bold
+
+MENUCOLOR="loadstone\|wand \(of\|called\) cancellation"=underline
+MENUCOLOR="Amulet of Yendor named"=magenta                           # color only the real Amulet
+MENUCOLOR="gold piece"=yellow
+
+MENUCOLOR="[a-zA-Z] - [a-zA-Z ]+[ ]+[0-9]+\*[ ]+[a-z]+[ ]+[0-9]+%"=magenta  # forgotten spell
+
+
+
+# OPTIONS=lit_corridor,windowtype:tty,eight_bit_tty
+
+# #
+# #
+# # Big "Tile" Nethack Font
+# #
+# #        ilgl wepn armr ring amul tool food potn scrl
+# #	 splb wand gold gem  bldr ball chan vnom
+# OBJECTS= 221  169  219  189  162  168  165  161  191 \
+# 	 171  175  164  170  224  176  172   42
+# #
+# #	  ant  blob cock dog  eye  flne gmln hmnd imp  jlly kbld lpcn mimc
+# #	  nymp orc  prcr qdpd rdnt spdr trpr uncn vrtx worm xan  ylow zrty
+# #	  Angl Bat  Cntr Drgn Elmt Fngs Gnom Hmnd Invb Jbwk Kop  Lich Mumy
+# #	  Naga Ogre Pdng Qntm Rust Snak Trol Umbr Vamp Wrth Xorn Yeti Zomb
+# #	  you  gost golm demn lzrd sea  wmtl mmca
+# MONSTERS= 225  226  227  228  229  230  231  232  233  234  235  236  237 \
+# 	  238  239  240  241  242  243  244  245  246  247  248  249  250 \
+# 	  193  194  195  196  197  198  199  200   63  202  203  204  205 \
+# 	  206  207  208  209  210  211  212  213  214  215  216  217  218 \
+# 	   64  160  167   38  187  186  254  221
+
+# DUNGEON=  \
+# #solid Rock
+# 32 \
+# #vert wall
+# 177 \
+# #horizontal wall
+# 178 \
+# #upper left corner
+# 179 \
+# #upper right corner
+# 179 \
+# #lower left corner
+# 180 \
+# # lower right corner
+# 180 \
+# #cross wall
+# 179 \
+# #upward t wall
+# 180 \
+# #downward t wall
+# 179 \
+# # leftwared t wall
+# 179 \ 
+# #rightward t wall
+# 179 \
+# #no door
+# 174 \
+# #vertical open door
+# 181 \
+# #horizontal open door
+# 182 \
+# #verical closed door
+# 183 \
+# #horizontal closed door
+# 183 \
+# #iron bars
+# 35 \
+# # tree
+# 35 \ # Boden of standard room
+# 174 \
+# #dark corridor
+# 184 \
+# #lit corridor
+# 185 \
+# #stairs up
+# 188 \
+# #stairs down
+# 190 \
+# #ladder up
+# 188 \
+# #ladder down
+# 190 \
+# #altar
+# 223 \
+# #grave
+# 252 \
+# #throne
+# 220 \
+# #kitchen sink
+# 163 \
+# #fountain
+# 123 \
+# #pool or moat
+# 125 \
+# #ice
+# 185 \
+# #lava
+# 125 \
+# #verical lowered drawbridge
+# 191 \
+# #hoizontal lowered drawbridge
+# 220 \
+# #vertical raised drawbridge
+# 191 \
+# #horizontal raised drawbridge
+# 220 \
+# #air
+# 174 \
+# #cloud
+# 224 \
+# #under water.
+# 125
+# #	 arrw dart rock sqek bear mine bldr gas  rust fire
+# #	 pit  spik hole door tlpt levl mprt web  stat magc
+# #	 amag morp
+# TRAPS=	 251  251  253  166  192  166  166  177  166  178 \
+# 	 173  173  201  201  202  222  179  255  166  180 \
+# 	 181  182
+# #
+# #        vert horz lsln rsln dgbm flsh lbmr rbmr mgc1 mgc2
+# #        mgc3 mgc4 swul swum swur swml swmr swll swlm swlr
+# #        xpul xpum xpur xpml xpmm xpmr xpll xplm xplr
+# EFFECTS= 124   45   92   47  183  184   60   62   79   35 \
+#           43   42   47   45   92  124  124   92   45   47 \
+#           47   45   92  124   42  124   92   45   47
