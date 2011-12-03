@@ -1,0 +1,9 @@
+
+Here I'll add my config files when I have more time.
+
+
+
+The files in the home directory are just there to be symlinked to $HOME. I have them here just because I like to have these files under the same directory tree so I can backup the whole configuration easily, and track them without having a version control running on my main home directory.
+
+
+
