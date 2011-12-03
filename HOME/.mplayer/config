@@ -1,0 +1,38 @@
+# -*- conf -*-
+# Mplayer config file
+# author: Fernando Carmona Varo
+
+[default]
+# Default config options here!
+
+# Video and Audio default Outputs
+vo=gl,vx,xvmc,x11
+ao=pulse
+
+# Video Filters
+vf=denoise3d
+
+msglevel=all=5
+
+## Enable software mixed instead of soundcard
+# It allows volume to go higher than 100%
+softvol=true
+softvol-max= 500
+
+## Subtitles
+slang=Spanish,spa,es,English,eng,en
+# outline/blur range: 0-8
+subfont-outline=6
+subfont-blur=4
+# proporcional a 1:altura 2:ancho 3:diagonal
+subfont-autoscale=3
+subfont-osd-scale=0.9
+subfont-text-scale=3
+
+[gnome-mplayer]
+profile-desc="Configuration for gnome-mplayer interface"
+vo=xv
+ao=alsa
+msglevel=all=5
+vf=eq2
+
