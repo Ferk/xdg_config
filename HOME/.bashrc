@@ -4,7 +4,7 @@
 # Time-stamp: <03-Sep-2008 07:47:37 ferk>
 
 # If not running interactively, don't do anything
-# [ -z "$PS1" ] && return
+[ -z "$PS1" ] && return
 
 
 # List of commands to ignore (& means ignore duplicates)
@@ -22,13 +22,7 @@ shopt -s dirspell
 shopt -s globstar
 
 # make less more friendly for non-text input fithen I noticeles, see lesspipe(1)
-#[ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"
-
-# set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
-fi
-
+[ -x /usr/bin/lesspipe.sh ] && eval "$(lesspipe.sh)"
 
 
 # fancy Prompt
@@ -58,7 +52,7 @@ case "$TERM" in
         trap 'echo -ne "\e]2;${BASH_COMMAND/\\/\\\\}\007"' DEBUG
         #Title to have when running interactive shell
         #PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}:${PWD/$HOME/~} - ${TERM}\007"'
-        PROMPT_COMMAND='echo -ne "\e]2;${PWD/$HOME/~} - ${TERM}\007"'
+        PROMPT_COMMAND=" echo -ne \"\e]2;${PWD/$HOME/~} - ${TERM}\007\" "
         # #Iconname
         # #echo -ne "\e]1;gnome-terminal\007"
         ;;
@@ -66,13 +60,6 @@ case "$TERM" in
         ;;
 esac
 
-
-# Enable the Alt+SysRq+commandkeys
-# echo "1" > /proc/sys/kernel/sysrq
-
-
-# Alias definitions.
-alias ls="ls -hp --color"
 
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
@@ -100,19 +87,32 @@ export BROWSER=$HOME/bin/browser
 export EDITOR="emacsclient -c"
 export ALTERNATE_EDITOR="" # spawn emacs --daemon
 
-export LESS="-P ?c<- .?f%f:Standard input.  ?n:?eEND:?p%pj\%.. .?c%ccol . ?mFile %i of %m  .?xNext\ %x.%t Press h for help"
-# Less Colors for Man Pages
-export LESS_TERMCAP_mb=$'\E[01;31m'       # begin blinking mode
-export LESS_TERMCAP_md=$'\E[01;38;5;74m'  # begin bold mode
-export LESS_TERMCAP_me=$'\E[0m'           # end bold/blink mode
-export LESS_TERMCAP_so=$'\E[38;5;246m'    # begin standout-mode, info box
-export LESS_TERMCAP_se=$'\E[0m'           # end standout-mode
-export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
-export LESS_TERMCAP_ue=$'\E[0m'           # end underline
 
-export DE="gnome" # xdg-open is stupid and doesn't work for generic DEs
+export LESS="-R -P ?c<- .?f%f:Standard input.  ?n:?eEND:?p%pj\%.. .?c%ccol . ?mFile %i of %m  .?xNext\ %x.%t Press h for help"
 
-export LANG="es_ES.utf8"
+## More colors for Less ;)
+# 01: bold
+# 07: invert colors
+# 5-6: blink (slow-fast)
+# 38: next argument "5;x", "x" is a fg 0-256 color
+# 48: next argument "5;x", "x" is a bg 0-256 color
+# 30-37: fg color (darker)
+# 40-47: bg color (darker)
+# 90-97: fg color (bright)
+# 100-107: fg color (bright)
+export LESS_TERMCAP_mb=$'\e[01;31m'       # blinking markout
+export LESS_TERMCAP_md=$'\e[01;38;5;74m'  # bold markout
+export LESS_TERMCAP_so=$'\e[1;104m'       # standout, info box
+export LESS_TERMCAP_us=$'\e[04;38;5;146m' # underline
+
+export LESS_TERMCAP_me=$'\e[0m'           # markout end
+export LESS_TERMCAP_se=$'\e[0m'           # standout end
+export LESS_TERMCAP_ue=$'\e[0m'           # underline end
+
+#export DE="gnome" # xdg-open is stupid and doesn't work for generic DEs
+
+#export LANG="es_ES.utf8"
+export LANG="de_DE.utf8"
 export LC_ALL=
 export LC_COLLATE="C"
 
