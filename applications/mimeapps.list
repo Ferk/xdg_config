@@ -1,0 +1,45 @@
+# -*- conf -*-
+
+[Default Applications]
+image/png=sxiv.desktop
+image/jpeg=sxiv.desktop
+text/html=chromium.desktop
+text/plain=emacsclient.desktop
+text/x-csrc=emacsclient.desktop
+text/x-makefile=emacsclient.desktop
+text/x-chdr=emacsclient.desktop
+video/mp4=mplayer-no-gui.desktop
+video/x-msvideo=mplayer-no-gui.desktop
+video/x-matroska=mplayer-no-gui.desktop
+video/x-flv=mplayer-no-gui.desktop
+video/mpeg=userapp-mplayer-RZR90V.desktop
+audio/mpeg=totem.desktop
+audio/x-scpls=emacsclient.desktop
+application/x-rar=xarchiver.desktop
+application/pdf=evince.desktop
+application/x-cbr=evince.desktop
+application/x-cbz=evince.desktop
+application/x-desktop=emacsclient.desktop
+application/xml=emacsclient.desktop
+
+[Added Associations]
+image/png=sxiv.desktop;gimp.desktop;
+image/jpg=sxiv.desktop;gimp.desktop;
+text/plain=emacsclient.desktop;emacs.desktop;
+application/xml=emacsclient.desktop;
+text/x-csrc=emacsclient.desktop;
+text/x-makefile=emacsclient.desktop;
+text/x-chdr=wine-extension-txt.desktop;emacsclient.desktop;
+video/mp4=mplayer-no-gui.desktop;
+image/jpeg=sxiv.desktop;
+application/pdf=evince.desktop;
+video/x-msvideo=mplayer-no-gui.desktop;subdownloader.desktop;totem.desktop;
+video/x-matroska=mplayer-no-gui.desktop;
+audio/x-scpls=emacsclient.desktop;
+video/x-flv=mplayer-no-gui.desktop;
+text/html=chromium.desktop;
+video/mpeg=mplayer-no-gui.desktop;
+application/x-rar=xarchiver.desktop;
+application/x-cbr=evince.desktop;
+application/x-cbz=evince.desktop;
+audio/mpeg=mplayer-no-gui.desktop;totem.desktop;
