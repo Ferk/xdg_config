@@ -14,6 +14,15 @@
 ! --------
 ! general
 
+*background:            #080808
+*foreground:            #FFF
+*fading:                25
+*fadeColor:             #333
+*cursorColor:           #FF0
+*pointerColorBackground:#222
+*pointerColorForeground:#BBB
+
+
 ! -------
 ! terminal emulators
 
@@ -24,6 +33,30 @@ xterm*foreground:           white
 urxvt*background:            black
 urxvt*foreground:            white
 
+!! black dark/light
+*color0:                #333
+*color8:                #080808
+!! red dark/light
+*color1:                #B00
+*color9:                #F33
+!! green dark/light
+*color2:                #0B0
+*color10:               #2F2
+!! yellow dark/light
+*color3:                #DB0
+*color11:               #FF0
+!! blue dark/light
+*color4:                #22B
+*color12:               #55F
+!! magenta dark/light
+*color5:                #B0B
+*color13:               #B5B
+!! cyan dark/light
+*color6:                #0BB
+*color14:               #0FF
+!! white dark/light
+*color7:                #777
+*color15:               #FFF
 
 ! ---------
 ! xmessage
