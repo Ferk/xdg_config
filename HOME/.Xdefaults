@@ -1,3 +1,49 @@
+! -*- conf -*-
+! .Xdefaults / .Xresources configuration file
+! Fernando Carmona Varo <ferkiwi@gmail.com>
+! ----
+! Xdefaults is the old name, still used as convention, but it´s called 
+! Xresources since years and located in the users $HOME as a hidden file. 
+! If you dont have this file it´s normal. Most people will have to create
+! it before it is there.
+! ----
+! Changes wont be visible until you run
+! $ xrdb ~/.Xdefaults
+! -------
 
+! --------
+! general
+
+! -------
+! terminal emulators
+
+*.vt100.font: -*-proggycleanszbp-*-*-*-*-*-*-*-*-*-*-*-*
+*.vt100.encodingMode: locale
+xterm*background:           black
+xterm*foreground:           white
 urxvt*background:            black
 urxvt*foreground:            white
+
+
+! ---------
+! xmessage
+
+xmessage*font:                         -*-clean-*-*-*-*-*-120-*-*-*-*-iso8859-1
+xmessage*center:                        true
+xmessage*Scrollbar.width:               1
+xmessage*Scrollbar.borderWidth:         0
+xmessage.form.okay.shapeStyle:         rectangle
+xmessage*defaultButton:                okay
+xmessage*Background:                   #333
+xmessage*Foreground:                   #eee
+xmessage*message.background:           #111
+xmessage*message.foreground:           #ddd
+xmessage*message.Scroll:               WhenNeeded
+xmessage*Command.background:           #111
+xmessage*Command.foreground:           #ff0
+xmessage*Command.shapeStyle:           rectangle
+xmessage*Text.?.cursorColor:           white
+
+
+
+ 
