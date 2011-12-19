@@ -26,7 +26,7 @@ subfont-outline=6
 subfont-blur=4
 # proporcional a 1:altura 2:ancho 3:diagonal
 subfont-autoscale=3
-subfont-osd-scale=0.9
+subfont-osd-scale=0.6
 subfont-text-scale=3
 
 [gnome-mplayer]
