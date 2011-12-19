@@ -65,6 +65,19 @@ EXEC 01;32   # files with execute permission:
 .bat 00;32
 .sh 00;32
 .py 00;32
+ # libraries and compiled stuff
+.o 00;37
+.so 00;37
+.a 00;37
+.lib 00;37
+.ld 00;37
+.fw 00;37
+.class 00;37
+.pyc 00;37
+.elc 00;37
+# backup files
+~ 47;90
+\# 47;90
  # archives or compressed (red)
 .tar 00;91
 .tgz 00;91
@@ -98,6 +111,8 @@ EXEC 01;32   # files with execute permission:
 .cpio 00;91
 .7z 00;91
 .rz 00;91
+.cbr 00;91
+.cbz 00;91
  # image/video formats
 .jpg 00;35
 .JPG 00;35
@@ -138,6 +153,7 @@ EXEC 01;32   # files with execute permission:
 .rmvb 00;35
 .flc 00;35
 .avi 00;35
+.divx 00;35
 .fli 00;35
 .flv 00;35
 .gl 00;35
@@ -169,3 +185,5 @@ EXEC 01;32   # files with execute permission:
 .oga 00;36
 .spx 00;36
 .xspf 00;36
+.pls 00;36
+
