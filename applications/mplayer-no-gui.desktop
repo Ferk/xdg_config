@@ -2,8 +2,7 @@
 Type=Application
 Name=MPlayer (no GUI)
 Comment=Minimalist interface (default) for mplayer 
-Icon=mplayer
-TryExec=mplayer
+Icon=applications-multimedia
 Exec=mplayer %F
 Terminal=true
 Categories=AudioVideo;Audio;Video;Player;TV;
