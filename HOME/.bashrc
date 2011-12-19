@@ -39,7 +39,7 @@ ERRCOLOR='eval [[ $?m = 0m ]] && echo -e "\e[32m" || echo -e "\e[31m";'
 #PS1='\e[33m\t ${debian_chroot:+($debian_chroot)}$($ERRCOLOR)\u\e[0m:\e[34m\w\e[0m\$ '
 
 
-PS1='\[\e[33m\]\t \[$($ERRCOLOR)\]\u\[\e[0m\]:\[\e[34m\]\w\[\e[0m\]\$ '
+PS1='\[\e[33m\]\t \[$($ERRCOLOR)\]\u\[\e[0m\]:\[\e[94m\]\w\[\e[0m\]\$ '
 
 
 
@@ -69,8 +69,8 @@ if [ -f ~/.bash_aliases ]; then
 fi
 
 # enable color support of ls and also add handy aliases
-if [ "$TERM" != "dumb" ] && [ -x /usr/bin/dircolors ]; then
-    eval "`dircolors -b`"
+if [ "$TERM" != "dumb" ] && which dircolors > /dev/null; then
+    eval "$(dircolors -b ~/.dir_colors)"
 fi
 
 # # enable programmable completion features (you don't need to enable
@@ -91,15 +91,23 @@ export ALTERNATE_EDITOR="" # spawn emacs --daemon
 export LESS="-R -P ?c<- .?f%f:Standard input.  ?n:?eEND:?p%pj\%.. .?c%ccol . ?mFile %i of %m  .?xNext\ %x.%t Press h for help"
 
 ## More colors for Less ;)
+
+### Formatting escape codes
+# 00: none
 # 01: bold
+# 04: undeline
+# 05-6: blink (slow-fast)
 # 07: invert colors
-# 5-6: blink (slow-fast)
+# 08: concealed
 # 38: next argument "5;x", "x" is a fg 0-256 color
 # 48: next argument "5;x", "x" is a bg 0-256 color
-# 30-37: fg color (darker)
-# 40-47: bg color (darker)
+# 30-37: fg color (dark)
+# 40-47: bg color (dark)
 # 90-97: fg color (bright)
-# 100-107: fg color (bright)
+# 100-107: bg color (bright)
+## *0-*7 colors:
+# 0:black 1:red 2:green 3:yellow 4:blue 5:purple 6:cyan 7:white
+
 export LESS_TERMCAP_mb=$'\e[01;31m'       # blinking markout
 export LESS_TERMCAP_md=$'\e[01;38;5;74m'  # bold markout
 export LESS_TERMCAP_so=$'\e[1;104m'       # standout, info box
@@ -119,7 +127,7 @@ export LC_COLLATE="C"
 ################################################################
 # add personal PATH to system PATH
 
-export PATH="$PATH:~/bin/"
+export PATH="$PATH:$HOME/bin/"
 
 #export CDPATH=.:~
 
@@ -146,3 +154,4 @@ echo -e '\e[00m'
 #     echo $$ > /sys/fs/cgroup/cpu/user/$$/tasks
 # fi
 
+source /home/ferk/Source/ToolChain_STM32/ToolChain/scripts/SourceMe.sh
