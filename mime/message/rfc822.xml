@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<mime-type xmlns="http://www.freedesktop.org/standards/shared-mime-info" type="message/rfc822">
-  <!--Created automatically by update-mime-database. DO NOT EDIT!-->
-  <glob pattern="*.mht"/>
-  <glob pattern="*.mhtml"/>
-  <comment>MHTML Document</comment>
-</mime-type>
