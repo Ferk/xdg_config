@@ -12,7 +12,8 @@ ao=pulse
 # Video Filters
 vf=denoise3d
 
-msglevel=all=5
+# Verbose level (for more modules see "mplayer -msglevel help")
+msglevel=all=2:demux=4:statusline=5
 
 ## Enable software mixed instead of soundcard
 # It allows volume to go higher than 100%
