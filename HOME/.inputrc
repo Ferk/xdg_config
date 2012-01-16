@@ -25,6 +25,8 @@ set bell-style visible
 set input-meta on
 set output-meta on
 
+set horizontal-scroll-mode off
+
 # allow iso-latin1 characters to be inserted rather
 # than converted to prefix-meta sequences
 set convert-meta off
