@@ -8,7 +8,7 @@
 
 
 # List of commands to ignore (& means ignore duplicates)
-export HISTIGNORE="&:??:exit:history*"
+export HISTIGNORE="&:??:exit:history"
 
 export HISTSIZE=100000
 
@@ -21,76 +21,12 @@ shopt -s dirspell
 # enables recursive globbing with **
 shopt -s globstar
 
-# make less more friendly for non-text input fithen I noticeles, see lesspipe(1)
-[ -x /usr/bin/lesspipe.sh ] && eval "$(lesspipe.sh)"
 
+# Color! ...if the terminal where this subshell is running supports it
+[ "$TERM" != "dumb" ] && {
 
-# fancy Prompt
-
-# GOLD= "\e[33m"
-# GREEN="\e[32m"
-# BLUE= "\e[34m"
-# GRAY= "\e[37m"
-# CYAN= "\e[36m"
-# RED=  "\e[31m"
-# NO_COLOR="\e[0m"
-
-ERRCOLOR='eval [[ $?m = 0m ]] && echo -e "\e[32m" || echo -e "\e[31m";'
-#PS1='\e[33m\t ${debian_chroot:+($debian_chroot)}$($ERRCOLOR)\u\e[0m:\e[34m\w\e[0m\$ '
-
-
-PS1='\[\e[33m\]\t \[$($ERRCOLOR)\]\u\[\e[0m\]:\[\e[94m\]\w\[\e[0m\]\$ '
-
-
-
-# If this is an xterm set the title
-case "$TERM" in
-    xterm*)
-		;;
-	rxvt*)
-        # #Show current running program in titlebar
-        trap 'echo -ne "\e]2;${BASH_COMMAND/\\/\\\\}\007"' DEBUG
-        #Title to have when running interactive shell
-        #PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}:${PWD/$HOME/~} - ${TERM}\007"'
-        PROMPT_COMMAND=" echo -ne \"\e]2;${PWD/$HOME/~} - ${TERM}\007\" "
-        # #Iconname
-        # #echo -ne "\e]1;gnome-terminal\007"
-        ;;
-    *)
-        ;;
-esac
-
-
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
-
-# enable color support of ls and also add handy aliases
-if [ "$TERM" != "dumb" ] && which dircolors > /dev/null; then
-    eval "$(dircolors -b ~/.dir_colors)"
-fi
-
-# # enable programmable completion features (you don't need to enable
-# # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-# # sources /etc/bash.bashrc).
-# if [ -f /etc/bash_completion ]; then
-#     . /etc/bash_completion
-# fi
-
-
-# Variables
-export PAGER=less
-export BROWSER=$HOME/bin/browser
-export EDITOR="emacsclient -c"
-export ALTERNATE_EDITOR="" # spawn emacs --daemon
-
-
-export LESS="-R -P ?c<- .?f%f:Standard input.  ?n:?eEND:?p%pj\%.. .?c%ccol . ?mFile %i of %m  .?xNext\ %x.%t Press h for help"
-
-## More colors for Less ;)
+    # set LS variable for ls filename colorization (see ~/.dir_colors)
+    hash dircolors 2> /dev/null && eval "$(dircolors -b ~/.dir_colors)"
 
 ### Formatting escape codes
 # 00: none
@@ -108,35 +44,53 @@ export LESS="-R -P ?c<- .?f%f:Standard input.  ?n:?eEND:?p%pj\%.. .?c%ccol . ?mF
 ## *0-*7 colors:
 # 0:black 1:red 2:green 3:yellow 4:blue 5:purple 6:cyan 7:white
 
-export LESS_TERMCAP_mb=$'\e[01;31m'       # blinking markout
-export LESS_TERMCAP_md=$'\e[01;38;5;74m'  # bold markout
-export LESS_TERMCAP_so=$'\e[1;104m'       # standout, info box
-export LESS_TERMCAP_us=$'\e[04;38;5;146m' # underline
 
-export LESS_TERMCAP_me=$'\e[0m'           # markout end
-export LESS_TERMCAP_se=$'\e[0m'           # standout end
-export LESS_TERMCAP_ue=$'\e[0m'           # underline end
+    ###
+    # Fancy Prompt
 
-#export DE="gnome" # xdg-open is stupid and doesn't work for generic DEs
+    # Add Version Control status to the prompt
+    if hash vcprompt 2>&-; then VCPS='vcprompt'
+    elif hash __git_ps1 2>&-; then VCPS='__git_ps1'
+    fi
+    
+    # Different color according to error value
+    ERRCOLOR='eval [[ $? = 0 ]] && echo -ne "\e[32m" || echo -ne "\e[31m";'
 
-#export LANG="es_ES.utf8"
-export LANG="de_DE.utf8"
-export LC_ALL=
-export LC_COLLATE="C"
+    PS1='\[\e[33m\]\t \[$($ERRCOLOR)\]\u\[\e[0m\]:\[\e[94m\]\w\[\e[0m\]\$ '
+
+    
+    # Show current running program in window title
+    trap 'echo -ne "\e]2;${BASH_COMMAND/\\/\\\\}\a"' DEBUG
+    # If not running a program, show this title instead
+    PROMPT_COMMAND='echo -ne "\e]2;${PWD/$HOME/~} - ${TERM}\a"'
+
+    # # set iconname
+    # echo -ne "\e]1;gnome-terminal\a"
+
+}
+
+
+# You may want to put all your additions into a separate file like
+# ~/.bash_aliases, instead of adding them here directly.
+# See /usr/share/doc/bash-doc/examples in the bash-doc package.
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
+# # enable programmable completion features (you don't need to enable
+# # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+# # sources /etc/bash.bashrc).
+# if [ -f /etc/bash_completion ]; then
+#     . /etc/bash_completion
+# fi
+
+
+
 
 ################################################################
-# add personal PATH to system PATH
-
-export PATH="$PATH:$HOME/bin/"
 
 #export CDPATH=.:~
 
-
-export PVM_ROOT=/usr/lib/pvm3
-export PVM_ARCH=LINUX64
-export JAVA_HOME=/usr/lib/jvm/java-6-sun
-
-export XDG_DATA_HOME=~/.config
 
 #############################
 # display login messages
@@ -147,11 +101,6 @@ echo -e '\e[33m'
 fortune -cs
 echo -e '\e[00m'
 
-#ipython -p sh
+# mkdir -m 0700 /sys/fs/cgroup/cpu/user/$$
+# echo $$ > /sys/fs/cgroup/cpu/user/$$/tasks
 
-# if [ "$PS1" ] ; then
-#     mkdir -m 0700 /sys/fs/cgroup/cpu/user/$$
-#     echo $$ > /sys/fs/cgroup/cpu/user/$$/tasks
-# fi
-
-source /home/ferk/Source/ToolChain_STM32/ToolChain/scripts/SourceMe.sh
