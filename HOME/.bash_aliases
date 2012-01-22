@@ -33,23 +33,30 @@ alias aps='aptitude search'
 alias ach='aptitude show'
 alias afs='apt-file -x search'
 
-alias pac="sudo pacman"
+#alias pac="sudo pacman"
 
 alias a='sudo aptitude'
 # permitir autocompletado aptitude
 complete -F _aptitude $default a
 
+# Add autocompletion to pac
+complete -F _pacman pac
+
 alias o="xdg-open"
 
 alias mp="mplayer"
 
-alias grep='grep --color=auto '
+alias cp="cp -v"
+alias mv="mv -v"
+alias ln="ln -v"
+
+alias grep='grep --color=always '
 alias g='grep'
 alias gi='g -i '
 
 alias grexp='grep --exclude=*[~#] --exclude-dir=.svn -nIHr . -e '
 
-alias ls='ls --color=auto -F '
+alias ls='ls --color=always -F '
 alias ll='ls -hl'
 alias la='ls -A'
 
@@ -100,6 +107,7 @@ alias wifi="sudo wifi-select wlan0"
 #alias off="gksudo poweroff"
 alias rmorphans='sudo pacman -Rs $(pacman -Qtdq)'
 
+alias engage="play -n -c1 synth whitenoise band -n 100 20 band -n 50 20 gain +25  fade h 1 864000 1"
 
 function netp() {
 	sudo /etc/rc.d/net-profiles start
