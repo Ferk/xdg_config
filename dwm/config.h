@@ -116,6 +116,7 @@ static const Tag tags[] = {
 #include "other/togglemax.c"
 #include "other/push.c"
 #include "other/shiftview.c"
+#include "other/showurgent.c"
 
 /* key definitions */
 #define ALTKEY Mod1Mask
@@ -170,6 +171,7 @@ static Key keys[] = {
 	{ MODKEY|ControlMask,           XK_w,       pushup,         {0} },
 	/* -- j,k,RET,PGUP; C-j,k */
 
+	{ MODKEY,			XK_u,	   showurgent,	   {0} },
 
 	/* WASD controls */
 	{ MODKEY,                       XK_w,       focusstack,     {.i = +1 } },
