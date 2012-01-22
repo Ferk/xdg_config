@@ -62,7 +62,6 @@
 ;; (debug)
 
 
-
 (xbindkey '(control shift q) "xbindkeys_show")
 
 ;; set directly keycode (here control + f with my keyboard)
@@ -87,19 +86,29 @@
  
 
 (xbindkey '(Alt F1) "urxvt")
-(xbindkey '(Help)        "urxvt")
 (xbindkey '(Alt Help)        "urxvt")
 
-(xbindkey '(Alt F2) "dmenu_run")
-(xbindkey '(mod4 r) "dmenu_run")
-(xbindkey '(Alt XF86MonBrightnessDown) "dmenu_run")
+;;; Agenda/TODO
+(xbindkey '(Help) "urxvt -e emacsclient -nw -e \"(org-agenda)\"")
+(xbindkey '(mod4 o) "urxvt -e emacsclient -nw ~/org/")
+
+;;; Run dialog
+(xbindkey '(Alt F2) "drun -f")
+(xbindkey '(Alt XF86MonBrightnessDown) "drun -f")
+(xbindkey '(mod4 r) "drun -f")
+
+(xbindkey '(Alt Escape) "t top")
 
 
+;;; Volume control
 (xbindkey '(XF86AudioLowerVolume) "vol.sh -7")
 (xbindkey '(XF86AudioRaiseVolume) "vol.sh +5")
 (xbindkey '(XF86AudioMute) "vol.sh mute")
 
+;;; Screenshotting
+(xbindkey '(Print) "scrot 'screenshot-%m%d-%H%M(%S).png'")
 
+;;; Music player control
 (xbindkey '(XF86AudioPlay) "nyxmms2 toggle")
 (xbindkey '(XF86AudioStop) "nyxmms2 stop")
 (xbindkey '(XF86AudioPrev) "nyxmms2 prev")
@@ -108,23 +117,32 @@
 (xbindkey '(Alt XF86AudioPlay) "dxmms2 coll")
 (xbindkey '(Alt XF86AudioPrev) "dxmms2 list")
 
-(xbindkey '(Shift mod4 XF86AudioStop) "pm-suspend")
+;;; Suspend key (requires visudo permisions)
+(xbindkey '(Shift mod4 XF86AudioStop) "sudo pm-suspend")
 
-(xbindkey '(Shift mod4 l) "keylog.sh")
-(xbindkey '(Shift mod4 k) 
+;;; ASCII-art insertion
+(xbindkey '(Shift mod4 i) "dmenu_ascii")
+
+;; Record and execute xmacros
+(xbindkey '(control mod4 r) "xmacrorec2 -k 9 > $XDG_CACHE_HOME/xmacro; notify-send 'xmacro stopped' \"exit code: $?\"")
+(xbindkey '(control mod4 e) "echo 'Delay 500' | cat - \"$XDG_CACHE_HOME/xmacro\" | xmacroplay -s 0.7")
+(xbindkey '(control mod4 k) 
 	  "pkill turboclick.sh || turboclick.sh")
+(xbindkey '(control mod4 l) "keylog.sh")
 
-(xbindkey '(Alt F4) "xrand --output VGA1 --right-of LVDS1")
+;;; Multi Display management
+;;(xbindkey '(control XF86SplitScreen) "multihead || xrandr --output VGA1 -s 0  --primary --output LVDS1 --auto -s 0  --left-of VGA1")
+(xbindkey '(control F4) "multihead || xrandr --output VGA1 -s 0  --primary --output LVDS1 --auto -s 0  --left-of VGA1")
 (xbindkey '(Shift F4) "xrand --auto")
-					 
+
 ;; (xbindkey '(control a)
 ;;                     "decho KeyStr Home | xmacroplay ")
 ;; (xbindkey '(control e)
 ;;                     "echo KeyStr End | xmacroplay ")
 
-(xbindkey '(mod5 j)
+(xbindkey '(mod4 j)
                    "echo KeyStr PagDown | xmacroplay")
-(xbindkey '(mod5 k)
+(xbindkey '(mod4 k)
                    "echo KeyStr PagUp | xmacroplay")
 
 
