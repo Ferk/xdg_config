@@ -85,9 +85,6 @@ fi
     }
 }
 
-# directories to use as the search path for "cd"
-export CDPATH=.:~
-
 # # enable programmable completion features (you don't need to enable
 # # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # # sources /etc/bash.bashrc).

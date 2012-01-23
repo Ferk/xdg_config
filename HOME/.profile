@@ -15,6 +15,9 @@
 # add personal executables directory to system PATH
 export PATH="$PATH:$HOME/bin/"
 
+# search path for "cd", for faster directory switching
+export CDPATH=.:~
+
 #export LANG="es_ES.utf8"
 export LANG="de_DE.utf8"
 export LC_ALL=
