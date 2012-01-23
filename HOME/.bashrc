@@ -50,20 +50,12 @@ shopt -s checkjobs # needs to double close if there are pending jobs
     ###
     # Fancy Prompt
 
-    # Add Version Control status to the prompt
-    if hash vcprompt 2>&-; then VCPS='vcprompt'
-    elif hash __git_ps1 2>&-; then VCPS='__git_ps1'
-    fi
-
     # Different color according to error value
     ERRCOLOR='eval [[ $? = 0 ]] && echo -ne "\e[32m" || echo -ne "\e[31m";'
     PS1='\[\e[33m\]\t \[$($ERRCOLOR)\]\u\[\e[0m\]:\[\e[94m\]\w\[\e[0m\]\$ '
 
     # Show current running command in window title (but not $PROMPT_COMMAND)
-    on_debug() {
-	[[ "$BASH_COMMAND" != "$PROMPT_COMMAND" ]] && {
-	    echo -ne "\e]2;${BASH_COMMAND/\\/\\\\}\a"
-	};}
+    on_debug() { printf "\e]2;%s\a" "${BASH_COMMAND/\\/\\\\}"; }
     trap on_debug DEBUG
     # If not running a program, show this title instead
     PROMPT_COMMAND='echo -ne "\e]2;${PWD/$HOME/~} - ${TERM}\a"'
@@ -75,13 +67,22 @@ shopt -s checkjobs # needs to double close if there are pending jobs
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
-if [ -f ~/.bash_aliases ]; then
+if [[ -f ~/.bash_aliases ]]; then
     . ~/.bash_aliases
 fi
 
-cd() {
-    builtin cd $@
-    hash vcprompt 2>&- && vcprompt -f "$(pwd)/: %n %b (%r%m)" && echo
+
+# Show Version Control status after cd'ing to a versioned directory
+if hash vcprompt 2>&-; then 
+    VCPS='vcprompt'
+    export VCPROMPT_FORMAT="Version control: %n %b (%r%m)"
+elif hash __git_ps1 2>&-; then 
+    VCPS='__git_ps1'
+fi
+[[ "$VCPS" ]] && cd() {
+    builtin cd $@ && {
+	${VCPS} && echo
+    }
 }
 
 # directories to use as the search path for "cd"
