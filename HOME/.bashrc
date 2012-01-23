@@ -59,16 +59,18 @@ shopt -s checkjobs # needs to double close if there are pending jobs
     ERRCOLOR='eval [[ $? = 0 ]] && echo -ne "\e[32m" || echo -ne "\e[31m";'
     PS1='\[\e[33m\]\t \[$($ERRCOLOR)\]\u\[\e[0m\]:\[\e[94m\]\w\[\e[0m\]\$ '
 
-    # Show current running program in window title (no printing programs)
-    trap '[ ${BASH_COMMAND%% *} != "printf" ] && echo -ne "\e]2;${BASH_COMMAND/\\/\\\\}\a"' DEBUG
+    # Show current running command in window title (but not $PROMPT_COMMAND)
+    on_debug() {
+	[[ "$BASH_COMMAND" != "$PROMPT_COMMAND" ]] && {
+	    echo -ne "\e]2;${BASH_COMMAND/\\/\\\\}\a"
+	};}
+    trap on_debug DEBUG
     # If not running a program, show this title instead
     PROMPT_COMMAND='echo -ne "\e]2;${PWD/$HOME/~} - ${TERM}\a"'
 
     # # set iconname
     # echo -ne "\e]1;gnome-terminal\a"
 }
-
-LANG=es_ES.utf8
 
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
