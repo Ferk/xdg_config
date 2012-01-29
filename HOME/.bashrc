@@ -70,8 +70,6 @@ shopt -s checkjobs # needs to double close if there are pending jobs
     }
 }
 
-# Separate alias file
-[[ -f ~/.bash_aliases ]] && . ~/.bash_aliases
 # Custom programmable completion features 
 [[ -f ~/.bash_completion ]] && . ~/.bash_completion
 

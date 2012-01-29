@@ -1,19 +1,20 @@
 #  -*- Shell-Script -*-
 #
-# Bash aliases
+# Shell aliases
+#
+# Should be kept as compatible as possible, so that it can be used not just for bash
+# but for other interactive shells too (zsh, fish, dash, etc).
 #
 # Fernando Carmona Varo
 
 
 # alias cd='pushd'
-alias cd..='cd ..'
-alias cd...='cd ../..'
-alias cd....='cd ../../..'
-alias cd.....='cd ../../../..'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
 
-function md () { 
-    mkdir -p "$@" && eval cd "\"\$$#\""; 
-}
+# md() { mkdir -p "$1" && eval cd "\"\$$#\""; }
 
 
 alias ff='find . -name $*'
@@ -23,24 +24,19 @@ alias dusage='du -s -B M * | sort -nr | $PAGER'
 
 alias notify-send-finish='notify-send "Operation finished" || notify-send "Error on Operation"'
 
-alias aptitude=' aptitude -r '
-alias agu='sudo aptitude update'
-agg() { sudo aptitude safe-upgrade -y && notify-send-finish; }
-agi() { sudo aptitude install $* && notify-send-finish; }
-agr() { sudo aptitude remove $* && notify-send-finish; }
-alias acs='apt-cache search'
-alias aps='aptitude search'
-alias ach='aptitude show'
-alias afs='apt-file -x search'
+# alias aptitude=' aptitude -r '
+# alias agu='sudo aptitude update'
+# agg() { sudo aptitude safe-upgrade -y && notify-send-finish; }
+# agi() { sudo aptitude install $* && notify-send-finish; }
+# agr() { sudo aptitude remove $* && notify-send-finish; }
+# alias acs='apt-cache search'
+# alias afs='apt-file -x search'
+# alias aps='aptitude search'
+# alias ach='aptitude show'
+# alias a='sudo aptitude'
+
 
 #alias pac="sudo pacman"
-
-alias a='sudo aptitude'
-# permitir autocompletado aptitude
-complete -F _aptitude $default a
-
-# Add autocompletion to pac
-complete -F _pacman pac
 
 alias o="xdg-open"
 
@@ -109,33 +105,5 @@ alias rmorphans='sudo pacman -Rs $(pacman -Qtdq)'
 
 alias engage="play -n -c1 synth whitenoise band -n 100 20 band -n 50 20 gain +25  fade h 1 864000 1"
 
-function netp() {
-	sudo /etc/rc.d/net-profiles start
-	while [ $? != 0 ]
-	do
-		sudo /etc/rc.d/net-profiles start
-	done
-}
 
-#######
-#
-function pack() {
-     if [ $# -lt 2 ] ; then
-        echo -e "\npack() usage:"
-        echo -e "\tpack archive_file_name file1 file2 ... fileN"
-        echo -e "\tcreates archive of files 1-N\n"
-     else 
-       DEST=$1
-       shift
 
-       case $DEST in 
-        *.tar.bz2)      tar -cvjf $DEST "$@" ;;  
-        *.tar.gz)       tar -cvzf $DEST "$@" ;;  
-        *.zip)          zip -r $DEST "$@" ;;
-        *.xpi)          zip -r $DEST "$@" ;;
-        *)              echo "Unknown file type - $DEST" ;;
-       esac
-     fi
-}
-
-#complete -G "Flash*" mplayer

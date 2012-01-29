@@ -47,6 +47,9 @@ export XDG_CONFIG_HOME=~/.config/
 export XDG_DATA_HOME=~/.local/share/
 export XDG_CACHE_HOME=~/.cache/
 
+# Load separate file with some aliases
+[[ -f ~/.sh_aliases ]] && . ~/.sh_aliases
+
 ###
 # "less" configuration
 export LESS="-Rq -XF -P ?c<- .?f%f:Standard input.  ?n:?eEND:?p%pj\%.. .?c%ccol . ?mFile %i of %m  .?xNext\ %x.%t (h for help)"
