@@ -54,8 +54,8 @@ shopt -s checkjobs # needs to double close if there are pending jobs
     # Fancy Prompt
 
     # Different color according to error value
-    ERRCOLOR='eval [[ $? = 0 ]] && echo -ne "\e[32m" || echo -ne "\e[31m";'
-    PS1='\[\e[33m\]\t \[$($ERRCOLOR)\]\u\[\e[0m\]:\[\e[94m\]\w\[\e[0m\]\$ '
+    PSCOLOR='eval [[ $? = 0 ]] && { [[ $EUID = 0  ]] && echo -ne "\e[1;36m" || echo -ne "\e[32m"; } || echo -ne "\e[31m";'
+    PS1='\[\e[33m\]\t \[$($PSCOLOR)\]\u\[\e[0m\]:\[\e[94m\]\w\[\e[0m\]\$ '
 
 
     [ "$DISPLAY" ] && {
