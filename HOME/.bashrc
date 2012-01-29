@@ -30,6 +30,10 @@ shopt -s checkjobs # needs to double close if there are pending jobs
     # set LS variable for ls filename colorization (see ~/.dir_colors)
     hash dircolors 2>&- && eval "$(dircolors -b ~/.dir_colors)"
 
+    # Colorize (red) the stderr output in the terminal
+    [ -f "/usr/lib/stderred.so" ] && export LD_PRELOAD="/usr/\$LIB/stderred.so"
+
+
 ### Formatting escape codes
 # 00: none
 # 01: bold
@@ -46,7 +50,6 @@ shopt -s checkjobs # needs to double close if there are pending jobs
 ## *0-*7 colors:
 # 0:black 1:red 2:green 3:yellow 4:blue 5:purple 6:cyan 7:white
 
-
     ###
     # Fancy Prompt
 
@@ -54,43 +57,38 @@ shopt -s checkjobs # needs to double close if there are pending jobs
     ERRCOLOR='eval [[ $? = 0 ]] && echo -ne "\e[32m" || echo -ne "\e[31m";'
     PS1='\[\e[33m\]\t \[$($ERRCOLOR)\]\u\[\e[0m\]:\[\e[94m\]\w\[\e[0m\]\$ '
 
-    # Show current running command in window title (but not $PROMPT_COMMAND)
-    on_debug() { printf "\e]2;%s\a" "${BASH_COMMAND/\\/\\\\}"; }
-    trap on_debug DEBUG
-    # If not running a program, show this title instead
-    PROMPT_COMMAND='echo -ne "\e]2;${PWD/$HOME/~} - ${TERM}\a"'
 
-    # # set iconname
-    # echo -ne "\e]1;gnome-terminal\a"
+    [ "$DISPLAY" ] && {
+        # Show current running command in window title (but not $PROMPT_COMMAND)
+	on_debug() { printf "\e]2;%s\a" "${BASH_COMMAND/\\/\\\\}"; }
+	trap on_debug DEBUG
+        # If not running a program, show this title instead
+	PROMPT_COMMAND='echo -ne "\e]2;${PWD/$HOME/~} - ${TERM}\a"'
+
+       # # set iconname
+       # echo -ne "\e]1;gnome-terminal\a"
+    }
 }
 
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-if [[ -f ~/.bash_aliases ]]; then
-    . ~/.bash_aliases
-fi
+# Separate alias file
+[[ -f ~/.bash_aliases ]] && . ~/.bash_aliases
+# Custom programmable completion features 
+[[ -f ~/.bash_completion ]] && . ~/.bash_completion
 
 
 # Show Version Control status after cd'ing to a versioned directory
 if hash vcprompt 2>&-; then 
     VCPS='vcprompt'
-    export VCPROMPT_FORMAT="Version control: %n %b (%r%m)"
+    export VCPROMPT_FORMAT="Version control: %n %b (%r%m) "
 elif hash __git_ps1 2>&-; then 
     VCPS='__git_ps1'
 fi
 [[ "$VCPS" ]] && cd() {
-    builtin cd $@ && {
-	${VCPS} && echo
+    builtin cd "$1" "$2" "$3" && {
+	${VCPS} && echo 
+        #ls | fmt -w $COLUMNS | head -n 2 | sed '$s/$/ .../'
     }
 }
-
-# # enable programmable completion features (you don't need to enable
-# # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-# # sources /etc/bash.bashrc).
-# if [ -f /etc/bash_completion ]; then
-#     . /etc/bash_completion
-# fi
 
 #############################
 # display login messages
@@ -104,3 +102,4 @@ echo -e '\e[00m'
 # echo $$ > /sys/fs/cgroup/cpu/user/$$/tasks
 
 source /home/ferk/Source/ToolChain_STM32/ToolChain/scripts/SourceMe.sh
+source /home/ferk/Source/ToolChain_STM32_1.0.34/ToolChain/scripts/SourceMe.sh
