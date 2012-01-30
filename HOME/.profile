@@ -48,7 +48,7 @@ export XDG_DATA_HOME=~/.local/share/
 export XDG_CACHE_HOME=~/.cache/
 
 # Load separate file with some aliases
-[[ -f ~/.sh_aliases ]] && . ~/.sh_aliases
+[ -f ~/.sh_aliases ] && . ~/.sh_aliases
 
 ###
 # "less" configuration
