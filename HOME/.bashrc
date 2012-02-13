@@ -59,20 +59,36 @@ shopt -s checkjobs # needs to double close if there are pending jobs
 
 
     [ "$DISPLAY" ] && {
-        # Show current running command in window title (but not $PROMPT_COMMAND)
-	on_debug() { printf "\e]2;%s\a" "${BASH_COMMAND/\\/\\\\}"; }
-	trap on_debug DEBUG
-        # If not running a program, show this title instead
-	PROMPT_COMMAND='echo -ne "\e]2;${PWD/$HOME/~} - ${TERM}\a"'
+
+	__on_debug() { 	    
+            # Show current running command in window title (only printf allows proper sanitization)
+	    printf "\e]2;%s\a" "${BASH_COMMAND/\\/\\\\}"; 
+
+	    # Update history (good in case of a crash)
+	    history -a # ; history -n
+	}
+	trap __on_debug DEBUG
+
+	__before_prompt_hook() {
+	    # # Print a newline if not in the first column
+	    # firstcolumn
+	    # Do a backspace followed by a newline, this way we can
+	    # be sure that the prompt is in the first column.
+	    tput bw && echo -ne "\b\n" # Only works in terminals with "bw" capability
+	    
+            # If not running a program, show this title instead
+	    echo -ne "\e]2;${PWD/$HOME/~} - ${TERM}\a"
+	}
+	PROMPT_COMMAND=__before_prompt_hook
 
        # # set iconname
        # echo -ne "\e]1;gnome-terminal\a"
     }
 }
 
-# Custom programmable completion features 
+# Source additional custom completion and aliases files
 [[ -f ~/.bash_completion ]] && . ~/.bash_completion
-
+[[ -f ~/.sh_aliases ]] && . ~/.sh_aliases
 
 # Show Version Control status after cd'ing to a versioned directory
 if hash vcprompt 2>&-; then 
