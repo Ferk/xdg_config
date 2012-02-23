@@ -74,7 +74,7 @@ shopt -s checkjobs # needs to double close if there are pending jobs
 	    # firstcolumn
 	    # Do a backspace followed by a newline, this way we can
 	    # be sure that the prompt is in the first column.
-	    tput bw && echo -ne "\b\n" # Only works in terminals with "bw" capability
+	    #tput bw && echo -ne "\b\n" # Only works in terminals with "bw" capability
 	    
             # If not running a program, show this title instead
 	    echo -ne "\e]2;${PWD/$HOME/~} - ${TERM}\a"
@@ -88,6 +88,7 @@ shopt -s checkjobs # needs to double close if there are pending jobs
 
 # Source additional custom completion and aliases files
 [[ -f ~/.bash_completion ]] && . ~/.bash_completion
+[[ -d ~/.bash_completion.d ]] && . ~/.bash_completion.d/*
 [[ -f ~/.sh_aliases ]] && . ~/.sh_aliases
 
 # Show Version Control status after cd'ing to a versioned directory
@@ -117,3 +118,4 @@ echo -e '\e[00m'
 
 source /home/ferk/Source/ToolChain_STM32/ToolChain/scripts/SourceMe.sh
 source /home/ferk/Source/ToolChain_STM32_1.0.34/ToolChain/scripts/SourceMe.sh
+

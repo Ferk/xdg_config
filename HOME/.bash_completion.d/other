@@ -1,0 +1,27 @@
+#  -*- Shell-Script -*-
+#
+# Bash completions
+#
+# Fernando Carmona Varo
+
+
+# # permitir autocompletado aptitude
+# complete -F _aptitude a
+
+# Add autocompletion to pac
+complete -F _pacman pac packer
+
+# Autocomplete using previous history
+_history() {
+    history | awk "sub(\"^ *[0-9]* *$COMP_LINE\",\"\") {print \$0}"
+}
+complete -C _history \
+    browser chromium firefox t mount.iso pomodoro wicd-cli xmacroplay    
+
+# # Apply _history completion for every suitable command in history 
+# # that doesn't have a completion already.
+# for cmd in $(history | awk '! /[\[\](){}=]/ && $3 { print $2 }' | sort | uniq -d)
+# do
+#     complete | grep " $cmd\$" || complete -C _history "$cmd"
+# done > /dev/null
+
