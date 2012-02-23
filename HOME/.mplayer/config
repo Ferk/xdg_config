@@ -7,7 +7,7 @@
 
 # Video and Audio default Outputs
 vo=gl,vx,xvmc,x11
-ao=pulse
+ao=pulse,alsa,oss,
 
 # Video Filters
 vf=denoise3d
@@ -18,7 +18,12 @@ msglevel=all=2:demux=4:statusline=5
 ## Enable software mixed instead of soundcard
 # It allows volume to go higher than 100%
 softvol=true
-softvol-max= 500
+softvol-max= 1000
+
+# Drop frames for better audio-video sync
+framedrop=true
+# rebuild index if not found (fixes incomplete files)
+idx=true
 
 ## Subtitles
 slang=Spanish,spa,es,English,eng,en
