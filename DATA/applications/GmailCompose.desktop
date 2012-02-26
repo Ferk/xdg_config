@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Gmail compose
+Type=Application
+Exec=xdg-open https://mail.google.com/mail/?view=cm&fs=1&tf=1&su=&to=%u
+Icon=gmail
+NoDisplay=true
+MimeType=x-scheme-handler/mailto;
+Comment=Compose an email in Gmail.

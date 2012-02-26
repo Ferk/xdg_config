@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Browser
+Type=Application
+Exec=browser %U
+Icon=Internet
+Categories=Network;WebBrowser;
+MimeType=text/html;application/xhtml+xml;x-scheme-handler/http;x-scheme-handler/https;
+Comment=Default browser (from the "BROWSER" environment variable)
