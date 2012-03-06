@@ -2,6 +2,6 @@
 Type=Application
 Name=sxiv
 GenericName=Image Viewer (desktop file modified to open all the images in the directory)
-Exec=sh -c "iv() { /usr/bin/sxiv $@ $(dirname '$1')/*; }; iv %F"
+Exec=sh -c "sxiv $@ $(dirname '$1')/*" %F
 MimeType=image/bmp;image/gif;image/jpeg;image/jpg;image/png;image/tiff;image/x-bmp;
 NoDisplay=true
