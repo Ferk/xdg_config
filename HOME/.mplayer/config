@@ -25,6 +25,9 @@ framedrop=true
 # rebuild index if not found (fixes incomplete files)
 idx=true
 
+# disable infrared sensor control support
+nolirc=yes
+
 ## Subtitles
 slang=Spanish,spa,es,English,eng,en
 # outline/blur range: 0-8
