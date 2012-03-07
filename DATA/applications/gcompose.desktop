@@ -1,0 +1,5 @@
+[Desktop Entry]
+Name=Gmail Compose
+Exec=sh -c "xdg-open https://mail.google.com/mail?view=cm&tf=0&to=${1##mailto:}" %u
+MimeType=x-scheme-handler/mailto
+NoDisplay=true
