@@ -2,11 +2,11 @@
 application/pdf=evince.desktop;
 application/x-cbr=evince.desktop;
 application/x-cbz=evince.desktop;
+application/x-desktop=emacsclient.desktop;
 application/x-rar=xarchiver.desktop;
 application/x-snes=zsnes.desktop;
 application/x-wine-extension-ini=emacsclient.desktop;
 application/xml=emacsclient.desktop;
-application/x-desktop=emacsclient.desktop;
 audio/mpeg=mplayer-no-gui.desktop;
 audio/x-mpegurl=totem.desktop;
 audio/x-scpls=emacsclient.desktop;
@@ -23,8 +23,8 @@ video/webm=mplayer-no-gui.desktop;
 video/x-flv=mplayer-no-gui.desktop;
 video/x-matroska=mplayer-no-gui.desktop;
 video/x-msvideo=mplayer-no-gui.desktop;
+x-scheme-handler/ftp=chromium.desktop;
+x-scheme-handler/mailto=gcompose.desktop;
 x-scheme-handler/http=browser.desktop;
 x-scheme-handler/https=browser.desktop;
-x-scheme-handler/ftp=chromium.desktop;
 x-scheme-handler/irc=irssi.desktop;
-
