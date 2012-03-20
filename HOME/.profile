@@ -16,7 +16,7 @@
 export PATH="$PATH:$HOME/bin/"
 
 # search path for "cd", for faster directory switching
-export CDPATH=.:~
+export CDPATH=".:$HOME"
 
 #export LANG="es_ES.utf8"
 export LANG="de_DE.utf8"
@@ -48,7 +48,7 @@ export XDG_DATA_HOME=~/.local/share/
 export XDG_CACHE_HOME=~/.cache/
 
 # Load separate file with some aliases
-[ -f ~/.sh_aliases ] && . ~/.sh_aliases
+[ -f $HOME/.sh_aliases ] && . $HOME/.sh_aliases
 
 ###
 # "less" configuration
