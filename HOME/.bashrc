@@ -16,6 +16,9 @@
 # List of commands to ignore (& means ignore duplicates)
 export HISTIGNORE="&:??:exit:history"
 
+# Add timestamps to history file
+export HISTTIMEFORMAT="%F %T "
+
 export HISTSIZE=100000
 
 shopt -s checkwinsize # refresh LINES and COLUMNS when window size changes
@@ -35,20 +38,12 @@ shopt -s checkjobs # needs to double close if there are pending jobs
 
 
 ### Formatting escape codes
-# 00: none
-# 01: bold
-# 04: undeline
-# 05-6: blink (slow-fast)
-# 07: invert colors
-# 08: concealed
-# 38: next argument "5;x", "x" is a fg 0-256 color
-# 48: next argument "5;x", "x" is a bg 0-256 color
-# 30-37: fg color (dark)
-# 40-47: bg color (dark)
-# 90-97: fg color (bright)
-# 100-107: bg color (bright)
-## *0-*7 colors:
-# 0:black 1:red 2:green 3:yellow 4:blue 5:purple 6:cyan 7:white
+## *0-*8 attributes ( 00-08:set 20-28:reset )
+# 0:none 1:bold 2:dim 3:italic 4:underline 5-6:blink 7:invert 8:hidden
+## 256 colors ( 38;5;0-256:fg 48;5;0-256:bg )
+# Run 256-colors.sh script
+## *0-*7 colors ( 30-27:darkFg 40-47:darkBg 90-97:lightFg 100-107:darkBg )
+# 0:black 1:red 2:green 3:yellow 4:blue 5:purple 6:cyan 7:white 8:default
 
     ###
     # Fancy Prompt
@@ -64,7 +59,7 @@ shopt -s checkjobs # needs to double close if there are pending jobs
             # Show current running command in window title (only printf allows proper sanitization)
 	    printf "\e]2;%s\a" "${BASH_COMMAND/\\/\\\\}"; 
 
-	    # Update history (good in case of a crash)
+	    # Update history after each command (good in case of a crash)
 	    history -a # ; history -n
 	}
 	trap __on_debug DEBUG
@@ -76,7 +71,7 @@ shopt -s checkjobs # needs to double close if there are pending jobs
 	    # be sure that the prompt is in the first column.
 	    #tput bw && echo -ne "\b\n" # Only works in terminals with "bw" capability
 	    
-            # If not running a program, show this title instead
+            # When the running program ended, show this title instead
 	    echo -ne "\e]2;${PWD/$HOME/~} - ${TERM}\a"
 	}
 	PROMPT_COMMAND=__before_prompt_hook
@@ -92,16 +87,12 @@ shopt -s checkjobs # needs to double close if there are pending jobs
 [[ -f ~/.sh_aliases ]] && . ~/.sh_aliases
 
 # Show Version Control status after cd'ing to a versioned directory
-if hash vcprompt 2>&-; then 
-    VCPS='vcprompt'
-    export VCPROMPT_FORMAT="Version control: %n %b (%r%m) "
-elif hash __git_ps1 2>&-; then 
-    VCPS='__git_ps1'
-fi
-[[ "$VCPS" ]] && cd() {
-    builtin cd "$1" "$2" "$3" && {
-	${VCPS} && echo 
-        #ls | fmt -w $COLUMNS | head -n 2 | sed '$s/$/ .../'
+cd() {
+    builtin cd "$1" "$2" && {
+	git rev-parse --git-dir 2>&- >&- && {
+	    git status -s --untracked-files="no" | column -c $COLUMNS
+	    git log -3 --pretty=format:'%an, %ar: %s'
+	}
     }
 }
 
@@ -117,5 +108,4 @@ echo -e '\e[00m'
 # echo $$ > /sys/fs/cgroup/cpu/user/$$/tasks
 
 source /home/ferk/Source/ToolChain_STM32/ToolChain/scripts/SourceMe.sh
-source /home/ferk/Source/ToolChain_STM32_1.0.34/ToolChain/scripts/SourceMe.sh
 
