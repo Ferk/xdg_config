@@ -1,3 +1,4 @@
+
 [Added Associations]
 application/pdf=evince.desktop;
 application/x-cbr=evince.desktop;
@@ -11,6 +12,7 @@ audio/x-scpls=emacsclient.desktop;
 image/jpeg=sxiv.desktop;
 image/jpg=sxiv.desktop;gimp.desktop;
 image/png=sxiv.desktop;gimp.desktop;
+image/webp=sxiv.desktop;
 text/html=chromium.desktop;
 text/plain=emacsclient.desktop;emacs.desktop;
 text/x-chdr=emacsclient.desktop;
@@ -22,4 +24,7 @@ video/webm=mplayer-no-gui.desktop;
 video/x-flv=mplayer-no-gui.desktop;
 video/x-matroska=mplayer-no-gui.desktop;
 video/x-msvideo=mplayer-no-gui.desktop;subdownloader.desktop;totem.desktop;
+image/svg+xml=chromium.desktop;
 
+[Default Applications]
+image/svg+xml=chromium.desktop
