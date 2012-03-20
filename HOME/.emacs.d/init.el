@@ -110,25 +110,25 @@ configuring, and also it will make emacs load faster."
 ;;;;;;;;;;;;;;;;;;;;;;
 ;;; Customize
 (custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
  '(column-number-mode t)
  '(compilation-auto-jump-to-first-error t)
  '(compilation-scroll-output (quote first-error))
  '(compilation-window-height 6)
  '(compile-command "./compile.sh ")
- '(custom-enabled-themes (quote (darkclean org-latex)))
+ '(custom-enabled-themes (quote (darkclean)))
  '(custom-safe-themes (quote ("83656b96bbb718461906b39ba7c11e2beb9d268b" "d49ce0533a835b784afbda9d0c27445537dec93d" default)))
  '(custom-theme-directory "~/.emacs.d/themes/")
+ '(delete-selection-mode nil)
  '(gdb-many-windows t)
  '(global-hl-line-mode t)
  '(global-semantic-idle-completions-mode t nil (semantic/idle))
- '(global-semantic-idle-scheduler-mode t)
+ '(global-semantic-idle-scheduler-mode t nil (semantic/idle))
  '(global-semantic-idle-summary-mode t)
  '(global-semanticdb-minor-mode t)
- '(gud-gdb-command-name "_/gdb.sh main.elf -i=mi")
  '(indicate-buffer-boundaries (quote left))
  '(indicate-empty-lines t)
  '(inhibit-startup-screen t)
@@ -136,12 +136,15 @@ configuring, and also it will make emacs load faster."
  '(iswitchb-mode t)
  '(iswitchb-use-virtual-buffers t nil (recentf))
  '(make-backup-files nil)
+ '(mark-even-if-inactive t)
  '(mouse-avoidance-mode (quote animate) nil (avoid))
  '(org-mode-hook nil)
  '(package-archives (quote (("gnu" . "http://elpa.gnu.org/packages/") ("elpa" . "http://tromey.com/elpa/") ("marmalade" . "http://marmalade-repo.org/packages/"))))
  '(recentf-max-menu-items 32)
  '(recentf-mode t)
  '(require-final-newline t)
+ '(safe-local-variable-values (quote ((gdb-use-separate-io-buffer) (eval and (setq dir-local-dir (locate-dominating-file (buffer-file-name) ".dir-locals.el")) (setq gud-gdb-command-name (concat dir-local-dir "/debug.sh -i=mi")) (setq tags-table-list (list (concat dir-local-dir "QtCreator/TAGS")))))))
+ '(scroll-bar-mode (quote right))
  '(semantic-mode t)
  '(show-paren-delay 0.125)
  '(show-paren-mode t)
@@ -154,8 +157,8 @@ configuring, and also it will make emacs load faster."
  '(visible-bell t)
  '(x-select-enable-clipboard t))
 (custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ '(default ((t (:stipple nil :background "#080808" :foreground "#FFF" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 105 :width normal :foundry "unknown" :family "Droid Sans Mono")))))
