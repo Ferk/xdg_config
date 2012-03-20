@@ -14,14 +14,15 @@
 ! --------
 ! general
 
-*background:            #080808
-*foreground:            #FFF
+!*background:            #080808
+!*foreground:            #FFF
 *fading:                25
 *fadeColor:             #333
 *cursorColor:           #FF0
-*pointerColorBackground:#222
-*pointerColorForeground:#BBB
-
+! *pointerColorBackground:#222
+! *pointerColorForeground:#BBB
+*urgentOnBell:  true
+*bellIsUrgent:  true
 
 ! -------
 ! terminal emulators
@@ -30,8 +31,15 @@
 *.vt100.encodingMode: locale
 xterm*background:           black
 xterm*foreground:           white
+xterm*bellIsUrgent:  true
 urxvt*background:            black
 urxvt*foreground:            white
+urxvt*urgentOnBell:  true
+urxvt.shading: 10
+urxvt.scrollstyle: plain
+URxvt.perl-ext-common:  default,matcher
+URxvt.urlLauncher:      ~/bin/browser
+URxvt.matcher.button:   1
 
 !! black dark/light
 *color0:                #333
@@ -55,7 +63,7 @@ urxvt*foreground:            white
 *color6:                #0BB
 *color14:               #0FF
 !! white dark/light
-*color7:                #777
+*color7:                #BBB
 *color15:               #FFF
 
 ! ---------
