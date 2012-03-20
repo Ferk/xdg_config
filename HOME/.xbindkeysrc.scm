@@ -135,6 +135,9 @@
 (xbindkey '(control F4) "multihead || xrandr --output VGA1 -s 0  --primary --output LVDS1 --auto -s 0  --left-of VGA1")
 (xbindkey '(Shift F4) "xrand --auto")
 
+;; Unmount all the media devices
+(xbindkey '(Control mod4 u) "xumount")
+
 ;; (xbindkey '(control a)
 ;;                     "decho KeyStr Home | xmacroplay ")
 ;; (xbindkey '(control e)
