@@ -288,6 +288,7 @@ buffer."
  '(menu-bar-mode nil)
  '(midnight-delay 1800)
  '(midnight-mode t nil (midnight))
+ '(mark-even-if-inactive t)
  '(mouse-avoidance-mode (quote animate) nil (avoid))
  '(org-agenda-files (quote ("~/org/home.org" "~/org/work.org")))
  '(org-mode-hook nil t)
@@ -300,8 +301,8 @@ buffer."
  '(recentf-mode t)
  '(recentf-save-file "~/.cache/emacs/recentf")
  '(require-final-newline t)
- '(safe-local-variable-values (quote ((eval and (setq dir-local-dir (locate-dominating-file (buffer-file-name) ".dir-locals.el")) (setq compile-command (concat "cd " dir-local-dir " && ./compile")) (setq gud-gdb-command-name (concat "sh -c \"cd " dir-local-dir " && ./debug.sh -i=mi\"")) (setq tags-table-list (list (concat dir-local-dir "QtCreator/TAGS")))) (eval and (setq dir-local-dir (locate-dominating-file (buffer-file-name) ".dir-locals.el")) (setq gud-gdb-command-name (concat dir-local-dir "/debug.sh -i=mi")) (setq tags-table-list (list (concat dir-local-dir "QtCreator/TAGS")))) (tags-table-list "/home/ferk/Source/STM32F2x7_ETH_LwIP_V1.1.0/TAGS") (eval and (setq dir-local-dir (locate-dominating-file (buffer-file-name) ".dir-locals.el")) (setq gud-gdb-command-name (concat dir-local-dir "/debug.sh -i=mi")) (setq tags-table-list (concat dir-local-dir "/TAGS"))) (eval and (setq dir-local-dir (locate-dominating-file (buffer-file-name) ".dir-locals.el")) (setq gud-gdb-command-name (concat dir-local-dir "/debug.sh -i=mi")) (setq tags-table-list (concat dir-local-dir "/QtCreator/TAGS"))) (eval setq tags-table-list (concat dir-local-dir "/QtCreator/TAGS")) (eval setq dir-local-dir (locate-dominating-file (buffer-file-name) ".dir-locals.el")) (gud-gdb-command-name concat dir-local-dir "/debug.sh -i=mi") (tags-table-list concat dir-local-dir "/TAGS") (dir-local-dir locate-dominating-file (buffer-file-name) ".dir-locals.el") (tags-table-list "/home/ferk/eth_soundcard/stm32/QtCreator/TAGS") (tags-table-list "/home/ferk/Source/eth_soundcard/QtCreator/TAGS") (tags-table-list "/home/ferk/Source/STM32F107_ETH_LwIP_V1.0.0/TAGS") (setq outline-regexp ".*{") (gdb-use-separate-io-buffer) (gud-gdb-command-name . "~/Source/eth_soundcard/debug.sh -i=mi") (tags-table-list "/home/ferk/Source/eth_soundcard/TAGS") (gud-gdb-command-name . "~/Source/eth_soundcard_/gdb.sh main.elf -i=mi"))))
  '(savehist-mode t nil (savehist))
+ '(scroll-bar-mode (quote right))
  '(semantic-mode t)
  '(show-paren-delay 0.125)
  '(show-paren-mode t)
@@ -316,8 +317,8 @@ buffer."
  '(visible-bell t)
  '(x-select-enable-clipboard t))
 (custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ '(default ((t (:stipple nil :background "#080808" :foreground "#FFF" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 105 :width normal :foundry "unknown" :family "Droid Sans Mono")))))

@@ -1,6 +1,7 @@
 #!/bin/bash
 
-[ -z $XDG_CONFIG_HOME ] && XDG_CONFIG_HOME="$HOME/.cache"
+export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.cache}
+
 
 echo -e "\e[36m** Creating symlinks to HOME...\e[0m"
 ln -sv $@ ${XDG_CONFIG_HOME}/HOME/.??* $HOME
