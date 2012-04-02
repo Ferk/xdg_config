@@ -13,6 +13,9 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
+alias cd..='..'
+alias cd...='...'
+alias cd....='....'
 
 # md() { mkdir -p "$1" && eval cd "\"\$$#\""; }
 
@@ -61,7 +64,7 @@ alias unp='unp -U'
 alias e='$EDITOR'
 
 alias h=' history | tail '
-alias history.top="history | cut -c 8- | sort | uniq -c | sort -rn | head"
+alias history.top="cat $HISTFILE | sort | uniq -c | sort -rn | head"
 #alias hg=' history | gi '
 alias j=' jobs -l '
 
