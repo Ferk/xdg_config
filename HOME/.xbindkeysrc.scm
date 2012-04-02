@@ -133,7 +133,13 @@
 ;;; Multi Display management
 ;;(xbindkey '(control XF86SplitScreen) "multihead || xrandr --output VGA1 -s 0  --primary --output LVDS1 --auto -s 0  --left-of VGA1")
 (xbindkey '(control F4) "multihead || xrandr --output VGA1 -s 0  --primary --output LVDS1 --auto -s 0  --left-of VGA1")
-(xbindkey '(Shift F4) "xrand --auto")
+(xbindkey '(Shift F4) "xrandr --auto")
+
+;; Rotation
+(xbindkey '(Control Mod4 Left)  "xrandr --output LVDS1 --rotate left")
+(xbindkey '(Control Mod4 Right) "xrandr --output LVDS1 --rotate right")
+(xbindkey '(Control Mod4 Up)    "xrandr --output LVDS1 --rotate inverted")
+(xbindkey '(Control Mod4 Down)  "xrandr --output LVDS1 --rotate normal")
 
 ;; Unmount all the media devices
 (xbindkey '(Control mod4 u) "xumount")
