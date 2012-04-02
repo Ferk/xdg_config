@@ -50,8 +50,7 @@ shopt -s checkjobs # needs to double close if there are pending jobs
 
     # Different color according to error value
     PSCOLOR='eval [[ $? = 0 ]] && { [[ $EUID = 0  ]] && echo -ne "\e[1;36m" || echo -ne "\e[32m"; } || echo -ne "\e[31m";'
-    PS1='\[\e[33m\]\t \[$($PSCOLOR)\]\u\[\e[0m\]:\[\e[94m\]\w\[\e[0m\]\$ '
-
+    PS1='\[\e[33m\]\t \[$($PSCOLOR)\]\u\[\e[0m\]:\[\e[94m\]${sPWD:-$PWD}\[\e[0m\]\$ '
 
     [ "$DISPLAY" ] && {
 
@@ -73,8 +72,21 @@ shopt -s checkjobs # needs to double close if there are pending jobs
 	    
             # When the running program ended, show this title instead
 	    echo -ne "\e]2;${PWD/$HOME/~} - ${TERM}\a"
+
+	    # if the full path is too long, use shorter one
+	    if [ $(pwd | wc -m) -gt $((COLUMNS/2)) ]; then
+		sPWD="../${PWD##*/}"
+	    else
+		sPWD="${PWD/$HOME/~}"
+	    fi
+
 	}
 	PROMPT_COMMAND=__before_prompt_hook
+
+	# __on_resize() {
+	# }
+	# trap __on_resize SIGWINCH
+	# __on_resize
 
        # # set iconname
        # echo -ne "\e]1;gnome-terminal\a"
@@ -88,10 +100,11 @@ shopt -s checkjobs # needs to double close if there are pending jobs
 
 # Show Version Control status after cd'ing to a versioned directory
 cd() {
+    [ -z "$1" ] && builtin cd && return $?
     builtin cd "$1" "$2" && {
 	git rev-parse --git-dir 2>&- >&- && {
-	    git status -s --untracked-files="no" | column -c $COLUMNS
-	    git log -3 --pretty=format:'%an, %ar: %s'
+	    git status -bs --untracked-files="no" #| column -c $COLUMNS
+	    git log -3 --pretty=format:'%an, %ar: %s' | cut -c -$COLUMNS
 	}
     }
 }
