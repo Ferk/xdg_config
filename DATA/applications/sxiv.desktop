@@ -2,7 +2,8 @@
 Type=Application
 Name=sxiv
 Comment=Image Viewer (desktop file modified to open all the images in the directory)
-#Exec=sh -c "a() { sxiv $@ $(dirname \"$1\")/*.*;}; a %f " 
-Exec=sh -c "f=$(readlink -f \" %f \");dir=$(dirname \"$f\");for i in $dir/*.*;do n=$((n+1));[ \"$i\" = \"$f\" ] && { echo $n; break;}; done; sxiv -n $n $dir/*.*"
+#Exec=sxiv %F
+Exec=sh -c "a() { sxiv $@ $(dirname \"$1\")/*.*;}; a %f %F "
+#Exec=sh -c "f=$(readlink -f \"%f\");dir=${f\%/*};for i in ${dir:-.}/*.*;do n=$((n+1));[ \"$i\" = \"$f\" ] && { echo $n; break;}; done; sxiv -n $n \"$dir\"/*.*"
 MimeType=image/bmp;image/gif;image/jpeg;image/jpg;image/png;image/tiff;image/x-bmp;
 NoDisplay=true
