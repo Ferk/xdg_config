@@ -14,6 +14,8 @@
 
 # add personal executables directory to system PATH
 export PATH="$PATH:$HOME/bin/"
+# other executable folders wanted
+export PATH="$PATH:/root/.gem/ruby/1.9.1/bin"
 
 # search path for "cd", for faster directory switching
 export CDPATH=".:$HOME"
