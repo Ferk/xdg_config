@@ -9,7 +9,8 @@ enum {
 /* bar font:
  * (see X(7) section "FONT NAMES" for valid values)
  */
-static const char * const BAR_FONT = "fixed";
+/* static const char * const BAR_FONT = "fixed"; */
+static const char * const BAR_FONT = "proggytiny";
 
 /* colors:
  * (see X(7) section "COLOR NAMES" for valid values)
@@ -35,8 +36,8 @@ static const scalemode_t SCALE_MODE = SCALE_DOWN;
  * (first/last value is used as min/max zoom level)
  */
 static const float zoom_levels[] = {
-	 12.5,  25.0,  50.0,  75.0,
-	100.0, 150.0, 200.0, 400.0, 800.0
+  5.0, 7.0, 10.0, 12.5,  25.0,  50.0,  75.0,
+  100.0, 150.0, 200.0, 400.0, 800.0, 1600.0
 };
 
 /* default settings for multi-frame gif images: */
@@ -50,7 +51,7 @@ enum {
 #ifdef _THUMBS_CONFIG
 
 /* default dimension of thumbnails (width == height): */
-enum { THUMB_SIZE = 60 };
+enum { THUMB_SIZE = 200 };
 
 #endif
 #ifdef _MAPPINGS_CONFIG
@@ -121,7 +122,7 @@ static const keymap_t keys[] = {
 
 	/* run shell command line on current file ("$SXIV_IMG"): */
 	{ true,   XK_D,             it_shell_cmd,         (arg_t) \
-	                "mv \"$SXIV_IMG\" \"${XDG_DATA_HOME:-$HOME/.local/share}/Trash/\"" },
+	                "mv \"$SXIV_IMG\" \"${XDG_DATA_HOME:-$HOME/.local/share}/Trash/\" && beep" },
 	{ true,   XK_Left,          it_shell_cmd,         (arg_t) \
 			"mogrify -rotate -90 \"$SXIV_IMG\"" },
 	{ true,   XK_Right,       it_shell_cmd,         (arg_t) \
@@ -130,6 +131,10 @@ static const keymap_t keys[] = {
 			"jpegtran -rotate 270 -copy all -outfile \"$SXIV_IMG\" \"$SXIV_IMG\"" },
 	{ true,   XK_period,        it_shell_cmd,         (arg_t) \
 			"jpegtran -rotate  90 -copy all -outfile \"$SXIV_IMG\" \"$SXIV_IMG\"" },
+	{ true,   XK_f,             it_shell_cmd,         (arg_t) \
+	                "mkdir selected/; cp \"$SXIV_IMG\" selected/ && beep" },
+	{ true,   XK_F,             it_shell_cmd,         (arg_t) \
+	                "mkdir selected/; mv \"$SXIV_IMG\" selected/ && beep" },
 };
 
 /* mouse button mappings for image mode: */
