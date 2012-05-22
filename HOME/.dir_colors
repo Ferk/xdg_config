@@ -16,6 +16,7 @@
 ### Formatting escape codes
 # 00: none
 # 01: bold
+# 03: italic
 # 04: undeline
 # 05-6: blink (slow-fast)
 # 07: invert colors
@@ -57,7 +58,7 @@ EXEC 01;32   # files with execute permission:
 # to colorize below. Put the extension, a space, and the color init string.
 # (and any comments you want to add after a '#')
 
- # executables with no exec bit
+ # executables with no exec bit {
 .cmd 00;32
 .exe 00;32
 .com 00;32
@@ -65,7 +66,7 @@ EXEC 01;32   # files with execute permission:
 .bat 00;32
 .sh 00;32
 .py 00;32
- # libraries and compiled stuff
+ # } libraries and compiled stuff {
 .o 00;37
 .so 00;37
 .a 00;37
@@ -75,10 +76,36 @@ EXEC 01;32   # files with execute permission:
 .class 00;37
 .pyc 00;37
 .elc 00;37
-# backup files
+TAGS 00;37
+# } backups and temporary files {
 ~ 47;90
 \# 47;90
- # archives or compressed (red)
+.tmp 47;90
+.1 47;90
+.2 47;90
+.3 47;90
+.4 47;90
+.5 47;90
+.6 47;90
+.7 47;90
+.8 47;90
+.9 47;90
+.pacnew 47;90
+.pacold 47;90
+.DELETE 47;90
+# } info/debug {
+.log 03
+.out 03
+.txt 03
+.org 03
+.md  03
+.info 03
+# } other build stuff {
+.1p 03;37
+.3p 03;37
+.am 03;37
+.in 03;37
+ # } archives or compressed (red) {
 .tar 00;91
 .tgz 00;91
 .arj 00;91
@@ -89,7 +116,6 @@ EXEC 01;32   # files with execute permission:
 .txz 00;91
 .zip 00;91
 .z 00;91
-.Z 00;91
 .dz 00;91
 .gz 00;91
 .lz 00;91
@@ -109,11 +135,12 @@ EXEC 01;32   # files with execute permission:
 .ace 00;91
 .zoo 00;91
 .cpio 00;91
+.Z  00;91
 .7z 00;91
 .rz 00;91
 .cbr 00;91
 .cbz 00;91
- # image/video formats
+# image/video formats
 .jpg 00;35
 .JPG 00;35
 .jpeg 00;35
@@ -186,4 +213,3 @@ EXEC 01;32   # files with execute permission:
 .spx 00;36
 .xspf 00;36
 .pls 00;36
-
