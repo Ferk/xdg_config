@@ -16,12 +16,13 @@ _history() {
     history | awk "sub(\"^ *[0-9]* *$COMP_LINE\",\"\") {print \$0}"
 }
 complete -C _history \
-    browser chromium firefox t mount.iso pomodoro wicd-cli xmacroplay    
+    browser chromium firefox t mount.iso pomodoro wicd-cli xmacroplay
 
-# # Apply _history completion for every suitable command in history 
-# # that doesn't have a completion already.
-# for cmd in $(history | awk '! /[\[\](){}=]/ && $3 { print $2 }' | sort | uniq -d)
-# do
-#     complete | grep " $cmd\$" || complete -C _history "$cmd"
-# done > /dev/null
+# Apply _history completion for every suitable command in history
+# that doesn't have a completion already.
+for cmd in $(cat $HISTFILE | awk '! /[\[\](){}=]/ && $3 { print $2 }' | sort | uniq -d)
+do
+    hash $cmd 2>&- || continue
+    complete | grep " $cmd\$" || complete -C _history "$cmd"
+done > /dev/null
 
