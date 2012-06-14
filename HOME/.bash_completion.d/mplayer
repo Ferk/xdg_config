@@ -1,6 +1,6 @@
 # mplayer(1) completion
 
-have mplayer && {
+hash mplayer 2>$- && {
 
 _mplayer()
 {
