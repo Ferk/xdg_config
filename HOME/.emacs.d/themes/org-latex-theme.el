@@ -41,7 +41,10 @@
     ("" "wasysym" t)
     ("" "latexsym" t)
     ("" "amssymb" t)
-    ("" "hyperref" nil)
+    ("pdftex,colorlinks=true,plainpages=false" "hyperref" nil)
+    ;;
+    ("" "color" t)
+    ("mathletters" "ucs" t)
     "\\tolerance=1000"))
 
  '(org-export-latex-classes 

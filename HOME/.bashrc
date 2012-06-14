@@ -71,7 +71,7 @@ shopt -s checkjobs # needs to double close if there are pending jobs
 	    #tput bw && echo -ne "\b\n" # Only works in terminals with "bw" capability
 	    
             # When the running program ended, show this title instead
-	    echo -ne "\e]2;${PWD/$HOME/~} - ${TERM}\a"
+	    echo -ne "\e]2;${PWD/$HOME/~} - ${TERM}@${HOSTNAME}\a"
 
 	    # if the full path is too long, use shorter one
 	    if [ $(pwd | wc -m) -gt $((COLUMNS/2)) ]; then

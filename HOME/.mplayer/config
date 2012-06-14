@@ -7,7 +7,8 @@
 
 # Video and Audio default Outputs
 vo=gl,vx,xvmc,x11
-ao=pulse,alsa,oss,
+#ao=pulse,alsa,oss,
+ao=alsa,oss,
 
 # Video Filters
 vf=denoise3d

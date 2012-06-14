@@ -15,7 +15,8 @@
 # add personal executables directory to system PATH
 export PATH="$PATH:$HOME/bin/"
 # other executable folders wanted
-export PATH="$PATH:/root/.gem/ruby/1.9.1/bin"
+##export PATH="$PATH:/root/.gem/ruby/1.9.1/bin"
+export PATH="$PATH:$HOME/.gem/ruby/1.9.1/bin"
 
 # search path for "cd", for faster directory switching
 export CDPATH=".:$HOME"
@@ -61,6 +62,8 @@ export LESS="-Rq -XF -P ?c<- .?f%f:Standard input.  ?n:?eEND:?p%pj\%.. .?c%ccol 
 # make less more friendly for non-text input, see lesspipe(1)
 hash lesspipe.sh 2>&- && eval "$(lesspipe.sh)"
 
+# long running ssh/gpg session (don't ask passwords every time)
+hash keychain.sh 2>&- && eval $(keychain --eval --quiet)
 
 ##### More colors for Less ;)
 ### Formatting escape codes

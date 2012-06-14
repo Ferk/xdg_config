@@ -109,13 +109,22 @@
 (xbindkey '(Print) "scrot 'screenshot-%m%d-%H%M(%S).png'")
 
 ;;; Music player control
-(xbindkey '(XF86AudioPlay) "nyxmms2 toggle")
-(xbindkey '(XF86AudioStop) "nyxmms2 stop")
-(xbindkey '(XF86AudioPrev) "nyxmms2 prev")
-(xbindkey '(XF86AudioNext) "nyxmms2 next")
+;; (xbindkey '(XF86AudioPlay) "nyxmms2 toggle")
+;; (xbindkey '(XF86AudioStop) "nyxmms2 stop")
+;; (xbindkey '(XF86AudioPrev) "nyxmms2 prev")
+;; (xbindkey '(XF86AudioNext) "nyxmms2 next")
 
-(xbindkey '(Alt XF86AudioPlay) "dxmms2 coll")
-(xbindkey '(Alt XF86AudioPrev) "dxmms2 list")
+;; (xbindkey '(Alt XF86AudioPlay) "dxmms2 coll")
+;; (xbindkey '(Alt XF86AudioPrev) "dxmms2 list")
+
+(xbindkey '(XF86AudioPlay) "cmus-remote -u || ${XTERM:-xterm} -e cmus")
+(xbindkey '(XF86AudioStop) "cmus-remote -s")
+(xbindkey '(XF86AudioPrev) "cmus-remote --prev")
+(xbindkey '(XF86AudioNext) "cmus-remote --next")
+(xbindkey '(Alt XF86AudioPlay) "cplay --load-pl")
+(xbindkey '(Shift Alt XF86AudioPlay) "cplay --save-pl")
+
+
 
 ;;; Suspend key (requires visudo permisions)
 (xbindkey '(Shift mod4 XF86AudioStop) "sudo pm-suspend")
@@ -149,10 +158,18 @@
 ;; (xbindkey '(control e)
 ;;                     "echo KeyStr End | xmacroplay ")
 
-(xbindkey '(mod4 j)
-                   "echo KeyStr PagDown | xmacroplay")
+
+(define (keypress-cmd xkeysym)
+  (string-append "echo -e \"KeyStrRelease Control_L\nKeyStr " xkeysym "\nKeyStrPress Control_L\" | xmacroplay" ))
+
+(xbindkey '(Control mod4 j)
+	  (keypress-cmd "Page_Down"))
+(xbindkey '(Control mod4 k)
+	  (keypress-cmd "Page_Up"))
+
 (xbindkey '(mod4 k)
-                   "echo KeyStr PagUp | xmacroplay")
+	  "echo KeyStr End | xmacroplay ")
+;; "echo KeyStr Begin | xmacroplay ")
 
 
 				   

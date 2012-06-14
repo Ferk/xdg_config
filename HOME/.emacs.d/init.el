@@ -30,7 +30,9 @@
 	      (set (make-local-variable 'compile-command)
 		   (concat "make -k "
 			   (file-name-sans-extension buffer-file-name))))))
-
+;; highlighting for preprocessor
+(add-hook 'c-mode-hook
+	  (lambda () (cpp-highlight-buffer t)))
 ;; outline mode for folding code, will be used for every font-locked mode
 (add-hook 'c-mode-hook 'outline-minor-mode)
 (add-hook 'shell-script-mode-hook 'outline-minor-mode)
@@ -142,15 +144,16 @@ mark active) and deletes them."
 (defun create-tags (dir-name langs)
   "Create/update tags file and load it silently."
   (interactive "DDirectory: \nsLanguages to tag from (none for default): ")
-  (or langs (setq langs "Make,Java,Lua,Lisp,C,C++"))
+  (or langs (setq langs "Make,Java,Lua,Lisp,C,C++,PHP"))
   (setq langmap "c:.c.h")
-  (eshell-command
-   ;;(format "ctags -f %s/TAGS -e -R %s" dir-name (directory-file-name dir-name))
-   ;;(format "cd %s && ctags -eR --langmap=%s --languages=%s" dir-name langmap langs)
-   (format "cd %s && ctags -eR --languages=\"%s\"" dir-name langs)
+  (and
+   (shell-command
+    ;;(format "ctags -f %s/TAGS -e -R %s" dir-name (directory-file-name dir-name))
+    (concat "cd " dir-name " && ctags -eR --langmap=" langmap
+	    (and langs (concat " --languages=" langs))))
+   ;;(format "cd %s && ctags -eR --languages=\"%s\"" dir-name langs))
    (let ((tags-revert-without-query t))  ; don't query, revert silently
-     (visit-tags-table dir-name nil))
-   ))
+     (visit-tags-table dir-name nil))))
 
 (defadvice find-tag (around refresh-tags activate)
   "Rerun etags and reload tags if tag not found and redo find-tag.
@@ -189,12 +192,12 @@ configuring, and also it will make emacs load faster."
 
 
 ;;;;
-(defadvice barf-if-buffer-read-only (before ask-rooting-if-non-writable activate)
-  (and buffer-read-only
-       (not (file-writable-p (buffer-file-name)))
-       (y-or-n-p "No permissions, switch to root?")
-       (open-as-root)))
-;; (barf-if-buffer-read-only)
+;; (defadvice barf-if-buffer-read-only (before ask-rooting-if-non-writable activate)
+;;   (and buffer-read-only
+;;        (not (file-writable-p (buffer-file-name)))
+;;        (y-or-n-p "No permissions, switch to root?")
+;;        (open-as-root)))
+;;;; (barf-if-buffer-read-only)
 ;;;;;
 ;;(add-hook 'before-save-hook 'switch-to-root)
 (defun open-as-root ()
@@ -256,6 +259,10 @@ buffer."
  '(compilation-scroll-output (quote first-error))
  '(compilation-skip-threshold 2)
  '(compilation-window-height 6)
+ '(completion-ignored-extensions (quote (".o" ".elc" ".class" "java~" ".ps" ".abs" ".mx" ".~jv" ".elf" ".bin")))
+ '(cpp-edit-list (quote (("1" default font-lock-comment-face t) ("0" font-lock-comment-face default both))))
+ '(cpp-known-face (quote default))
+ '(cpp-unknown-face (quote default))
  '(custom-enabled-themes (quote (darkclean)))
  '(custom-safe-themes (quote ("1346451da65eb33475f56746e55feefd8f1bd29b5375e93ba869153140ec9ec5" "7dccd51c91b656df5726f71c2c04531546a48453cd9a349762acba993d6db83f" "f2bdbc41e575d67b0714de86f6b7105393bcd0198a941f719084171af6d9d67f" "5d3d4c3438b34957498b590cbacade51506c05d4f49aba6c0a79d202c9d06da9" "83656b96bbb718461906b39ba7c11e2beb9d268b" "d49ce0533a835b784afbda9d0c27445537dec93d" default)))
  '(custom-theme-directory "~/.emacs.d/themes/")
@@ -285,10 +292,10 @@ buffer."
  '(iswitchb-use-virtual-buffers t nil (recentf))
  '(kill-do-not-save-duplicates t)
  '(make-backup-files nil)
+ '(mark-even-if-inactive t)
  '(menu-bar-mode nil)
  '(midnight-delay 1800)
  '(midnight-mode t nil (midnight))
- '(mark-even-if-inactive t)
  '(mouse-avoidance-mode (quote animate) nil (avoid))
  '(org-agenda-files (quote ("~/org/home.org" "~/org/work.org")))
  '(org-mode-hook nil t)
@@ -309,6 +316,8 @@ buffer."
  '(show-paren-ring-bell-on-mismatch nil)
  '(show-paren-style (quote expression))
  '(size-indication-mode t)
+ '(speedbar-directory-button-trim-method (quote trim))
+ '(tags-case-fold-search nil)
  '(tags-revert-without-query t)
  '(tool-bar-mode nil)
  '(tooltip-delay 0.4)
@@ -317,8 +326,8 @@ buffer."
  '(visible-bell t)
  '(x-select-enable-clipboard t))
 (custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(default ((t (:stipple nil :background "#080808" :foreground "#FFF" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 105 :width normal :foundry "unknown" :family "Droid Sans Mono")))))
