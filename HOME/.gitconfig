@@ -1,3 +1,5 @@
+# -*- conf -*-
+
 [user]
 	email = ferkiwi@gmail.com
 	name = Fernando C.V.
@@ -19,3 +21,11 @@
   added = yellow
   changed = green
   untracked = cyan
+
+[filter "encrypt"]
+clean = gpg -q --batch --no-tty -e -r ferk 
+smudge = gpg -q --batch --no-tty -d
+
+[diff "encrypt"]
+textconv = decrypt
+
