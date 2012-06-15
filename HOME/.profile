@@ -63,7 +63,7 @@ export LESS="-Rq -XF -P ?c<- .?f%f:Standard input.  ?n:?eEND:?p%pj\%.. .?c%ccol 
 hash lesspipe.sh 2>&- && eval "$(lesspipe.sh)"
 
 # long running ssh/gpg session (don't ask passwords every time)
-hash keychain.sh 2>&- && eval $(keychain --eval --quiet)
+hash keychain 2>&- && eval $(keychain --eval --quiet)
 
 ##### More colors for Less ;)
 ### Formatting escape codes
