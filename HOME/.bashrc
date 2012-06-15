@@ -79,7 +79,6 @@ shopt -s checkjobs # needs to double close if there are pending jobs
 	    else
 		sPWD="${PWD/$HOME/~}"
 	    fi
-
 	}
 	PROMPT_COMMAND=__before_prompt_hook
 
@@ -91,12 +90,16 @@ shopt -s checkjobs # needs to double close if there are pending jobs
        # # set iconname
        # echo -ne "\e]1;gnome-terminal\a"
     }
+
+    # If unknown terminal, set XTERM as default
+    tset <&- 2>&- || export TERM=xterm
 }
 
 # Source additional custom completion and aliases files
 [[ -f ~/.bash_completion ]] && . ~/.bash_completion
 [[ -d ~/.bash_completion.d ]] && . ~/.bash_completion.d/*
 [[ -f ~/.sh_aliases ]] && . ~/.sh_aliases
+[[ -f ~/.bash_aliases ]] && . ~/.bash_aliases
 
 # Show Version Control status after cd'ing to a versioned directory
 cd() {
@@ -109,16 +112,13 @@ cd() {
     }
 }
 
-#############################
-# display login messages
-echo -e "\e[36m $(uptime)"
-#last -3 | head -n $(expr $(last -3 | wc -l) - 2)
-echo -e '\e[33m'
-fortune -cs
-echo -e '\e[00m'
-
-# mkdir -m 0700 /sys/fs/cgroup/cpu/user/$$
-# echo $$ > /sys/fs/cgroup/cpu/user/$$/tasks
-
-source /home/ferk/Source/ToolChain_STM32/ToolChain/scripts/SourceMe.sh
+###
+# display login messages (if it's a real terminal)
+[ "$TERM" != "dumb" ] && {
+    echo -e "\e[36m $(uptime)"
+    last -3 | head -n -2
+    echo -e '\e[33m'
+    hash fortune 2>&- && fortune -cs
+    echo -e '\e[00m'
+}
 
