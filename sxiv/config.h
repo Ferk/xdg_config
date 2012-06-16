@@ -131,10 +131,9 @@ static const keymap_t keys[] = {
 			"jpegtran -rotate 270 -copy all -outfile \"$SXIV_IMG\" \"$SXIV_IMG\"" },
 	{ true,   XK_period,        it_shell_cmd,         (arg_t) \
 			"jpegtran -rotate  90 -copy all -outfile \"$SXIV_IMG\" \"$SXIV_IMG\"" },
-	{ true,   XK_f,             it_shell_cmd,         (arg_t) \
-	                "mkdir selected/; cp \"$SXIV_IMG\" selected/ && beep" },
-	{ true,   XK_F,             it_shell_cmd,         (arg_t) \
-	                "mkdir selected/; mv \"$SXIV_IMG\" selected/ && beep" },
+	/* Menu to select from multiple (editable) commands on the file */
+	{ true,   XK_x,             it_shell_cmd,         (arg_t) \
+	                "eval $(cat \"${XDG_CONFIG_HOME:-$HOME/.config}/sxiv/cmds\" | dmenu -l 5)" },
 };
 
 /* mouse button mappings for image mode: */
