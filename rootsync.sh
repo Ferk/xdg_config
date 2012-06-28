@@ -1,5 +1,13 @@
 #!/bin/sh
-
+#
+# Syncs the backups stored in the specified directory
+# with the system-wide files in /
+#
+# It will ask confirmation for every file to apply the changes or
+# discard them entirely.
+#
+# Fernando Carmona Varo
+#
 
 BAKDIR="${XDG_USER_CONFIG:-$HOME/.config}"/ROOT
 
