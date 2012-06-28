@@ -1,0 +1,15 @@
+#!/bin/bash
+#
+# /etc/rc.local: Local multi-user startup script.
+#
+
+
+for i in 0 1
+do cpufreq-set -c $i -g conservative
+done
+
+# Makes sure the scheduler keeps idle as many cores as possible.
+echo 1 > /sys/devices/system/cpu/sched_smt_power_savings
+
+/home/ferk/bin/idlescript.sh > /var/log/idlescript.log &
+

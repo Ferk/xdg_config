@@ -1,0 +1,19 @@
+#!/bin/sh
+
+
+# Use a specific MAC address
+#IWCONFIG="ap 14:15:92:65:90:12"
+
+# netcfg can enable/disable radio for wireless cards equipped with software control of radio.
+# For wireless cards with hardware switches, netcfg can detect disabled hardware switches and fail accordingly. 
+RFKILL=soft
+RFKILL_NAME=$(cat /sys/class/rfkill/rfkill*/name | head -n 1 2> /dev/null || echo "")
+
+# After a successful connection, do this
+POST_UP="rc.d start dnsmasq"
+
+# After a successful disconnection, do this
+POST_UP="rc.d stop dnsmasq"
+
+
+
