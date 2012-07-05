@@ -13,8 +13,8 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
-# List of commands to ignore (& means ignore duplicates)
-export HISTIGNORE="&:??:exit:history"
+# List of commands to ignore ("&" means ignore duplicates)
+export HISTIGNORE="&:?:??:exit:history"
 
 # Add timestamps to history file
 export HISTTIMEFORMAT="%F %T "
@@ -50,7 +50,7 @@ shopt -s checkjobs # needs to double close if there are pending jobs
 
     # Different color according to error value
     PSCOLOR='eval [[ $? = 0 ]] && { [[ $EUID = 0  ]] && echo -ne "\e[1;36m" || echo -ne "\e[32m"; } || echo -ne "\e[31m";'
-    PS1='\[\e[33m\]\t \[$($PSCOLOR)\]\u\[\e[0m\]:\[\e[94m\]${sPWD:-$PWD}\[\e[0m\]\$ '
+    PS1='\[\e[33m\]\t \[$($PSCOLOR)\]\u\[\e[0m\]:\[\e[94m\]${sPWD:-${PWD/$HOME/~}}\[\e[0m\]\$ '
 
     [ "$DISPLAY" ] && {
 
@@ -91,8 +91,8 @@ shopt -s checkjobs # needs to double close if there are pending jobs
        # echo -ne "\e]1;gnome-terminal\a"
     }
 
-    # If unknown terminal, set XTERM as default
-    tset <&- 2>&- || export TERM=xterm
+    # If unknown terminal, set as linux console
+    tset 2>&1 >/dev/null || export TERM=linux
 }
 
 # Source additional custom completion and aliases files
@@ -112,6 +112,10 @@ cd() {
     }
 }
 
+
+hash fasd 2>&- && eval "$(fasd --init auto)"
+
+
 ###
 # display login messages (if it's a real terminal)
 [ "$TERM" != "dumb" ] && {
@@ -122,3 +126,6 @@ cd() {
     echo -e '\e[00m'
 }
 
+[ -d /home/ferk/Source/ToolChain_STM32/ToolChain ] && {
+    source /home/ferk/Source/ToolChain_STM32/ToolChain/scripts/SourceMe.sh
+}
