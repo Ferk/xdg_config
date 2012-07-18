@@ -48,9 +48,11 @@ static const Rule rules[] = {
   { "Firefox",      NULL,    NULL,     1<< 1,    False,       -1,      -1,      False, False },
   { "Midori",       NULL,    NULL,     1<< 1,    False,       -1,      -1,      False, False },
   { "Chromium",     NULL,    NULL,     1<< 1,    False,       -1,      -1,      False, False },
+  { "Google Chrome",     NULL,    NULL,     1<< 1,    False,       -1,      -1,      False, False },
   
   { "Pidgin",       NULL,    NULL,     1<< 2,    False,       -1,      -1,      False, False },
-  
+ 
+  { NULL,           NULL,    "cmus",   1<< 6,    False,       -1,      -1,      False, False },
   { "Transmission", NULL,    NULL,     1<< 7,    False,       -1,      -1,      False, False },
   { "Downloader",   NULL,    NULL,     1<< 7,    False,       -1,      -1,      False, False },
 
@@ -117,6 +119,7 @@ static const Tag tags[] = {
 #include "other/push.c"
 #include "other/shiftview.c"
 #include "other/showurgent.c"
+#include "other/switchmon.c"
 
 /* key definitions */
 #define ALTKEY Mod1Mask
@@ -231,6 +234,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
+	{ MODKEY|ControlMask,           XK_period, switchmon,         {.i = +1 } },
 	/* -- COM,PER; S-COM,PER*/
 };
 
