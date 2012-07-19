@@ -32,18 +32,27 @@ do
 
     DIFF=$(sudo diff -u "$old" "$new")
     [ -z "$DIFF" ] && continue
-    
-    dialog --title "Sync changes to $old" --scrollbar --menu "$(echo "$DIFF")" 0 0 0 \
-	Apply "Apply Changes to the file, overwritting the current one" \
-	Revert "Revert all changes from the newer file, losing them" 2>/tmp/dialog.tmp
 
-    action=$(cat /tmp/dialog.tmp; rm /tmp/dialog.tmp)
+    action=$(dialog --title "Sync changes to $old" --scrollbar --menu "$(echo "$DIFF")" 0 0 0 \
+	Apply "Apply Changes to the file, overwritting the current one" \
+	Revert "Revert all changes from the newer file, losing them" 2>&1 >/dev/tty )
+    
     echo $action
     if [ "$?" = "0" ]; then
-	if [ "$action" = "Revert" ]
- 	then sudo cp -vi  "$old" "$new" 
-	else sudo cp -vi  "$new" "$old"
-	fi 
+	if [ "$action" = "Revert" ]; then
+	    bak="$old" # exchange old and new
+	    old="$new"
+	    new="$bak"
+	fi
+	sudo cp -vi  "$new" "$old"
+	# case "$old":
+	#     "/etc/sudoers")
+	#     chmod 660 "$old"
+	#     ;;
+	#     *)
+	# 	;;
+	# esac
+	
     fi
 done
 
