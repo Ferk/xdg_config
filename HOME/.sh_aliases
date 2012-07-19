@@ -55,7 +55,7 @@ alias gi='g -i '
 
 alias grexp='grep --exclude=*[~#] --exclude-dir=.svn -nIHr . -e '
 
-alias ls='ls --color=always -F '
+alias ls='ls --color=always --group-directories-first --classify'
 alias ll='ls -hl'
 alias la='ls -A'
 
@@ -90,6 +90,11 @@ alias lsnew="ls -alh --time-style=+%D | /bin/grep `date +%D`"
 
 # tail the latest modofied file on the current directory
 alias taill='tail -f `ls -t1 | head -n1`' 
+
+# youtube-dl
+alias youtube-dl='youtube-dl -t'
+alias youtube-dl-low='youtube-dl -f 17'
+alias youtube-dl-mp3='youtube-dl --extract-audio --audio-format mp3'
 
 alias update-usplash='sudo update-alternatives --config usplash-artwork.so'
 
