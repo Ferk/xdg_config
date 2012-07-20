@@ -3,7 +3,7 @@ unbind common ^T
 unbind common ^V
 unbind common u
 unbind common U
-bind common ^T run exfalso {} &
+bind common ^T run nohup exfalso {}
 bind common ^V win-page-down
 #bind common Alt+V win-page-up
 bind common u update-cache
@@ -30,6 +30,7 @@ fset 90s=date>=1990&date<2000
 fset classical=genre="Classical"
 fset Ferk=artist="Ferk"
 fset sound-effects=genre="Sound Effect"
+fset Deutsch=language="deu"
 fset missing-tag=!stream&(artist=""|album=""|title=""|tracknumber=-1|date=-1)
 fset mp3=filename="*.mp3"
 fset ogg=filename="*.ogg"
