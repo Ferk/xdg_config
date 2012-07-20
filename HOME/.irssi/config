@@ -296,7 +296,7 @@ settings = {
     beep_when_window_active = "yes";
     bell_beeps = "yes";
     autolog = "yes";
-    autolog_path = "~/.irssi/$tag/$0.log";
+    autolog_path = "~/.irssi/logs/$tag_$0.log";
     window_history = "no";
     autoclose_query = "86400";
   };
