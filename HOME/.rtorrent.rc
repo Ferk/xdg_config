@@ -1,6 +1,9 @@
-# This is an example resource file for rTorrent. Copy to
-# ~/.rtorrent.rc and enable/modify the options as needed. Remember to
-# uncomment the options you wish to enable.
+# -*- conf -*-
+#
+# Resource file for rTorrent.
+#
+# Fernando Carmona Varo
+#
 
 # Maximum and minimum number of peers to connect to per torrent.
 min_peers = 40
@@ -27,7 +30,7 @@ session = ~/.cache/rtorrent
 
 # Watch a directory for new torrents, and stop those that have been
 # deleted.
-schedule = watch_directory,5,5,load_start=~/Desktop/*.torrent
+schedule = watch_directory,5,5,load_start=~/.local/share/torrents/*.torrent
 schedule = untied_directory,5,5,stop_untied=
 schedule = tied_directory,5,5,start_tied=
 

@@ -20,6 +20,7 @@ msglevel=all=2:demux=4:statusline=5
 # It allows volume to go higher than 100%
 softvol=true
 softvol-max= 1000
+#volume=100
 
 # Drop frames for better audio-video sync
 framedrop=true

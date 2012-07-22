@@ -1,3 +1,5 @@
+/ede-projects.el
+*.elc
 auto-save-list/
 backups/
 semanticdb/

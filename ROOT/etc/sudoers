@@ -81,7 +81,7 @@ root ALL=(ALL) ALL
 
 ## Same thing without a password
 ferk  ALL=(root) NOPASSWD: POWER 
-ferk  ALL=(root) NOPASSWD: /usr/bin/sakis3g, /home/ferk/bin/sakis3g, /usr/bin/wireshark
+ferk  ALL=(root) NOPASSWD: /usr/bin/sakis3g, /home/ferk/bin/sakis3g, /usr/bin/wireshark, /usr/sbin/pm-suspend, /usr/bin/updatedb
 ferk ALL=(root) NOPASSWD: INSTALL 
 
 

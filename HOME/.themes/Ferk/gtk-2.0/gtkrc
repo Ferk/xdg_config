@@ -8,11 +8,9 @@
 
 gtk_color_scheme = "fg_color:#101010\n bg_color:#DFDFDF"
 gtk_color_scheme = "base_color:#FFF\n text_color:#1A1A1A"
-gtk_color_scheme = "selected_bg_color:#666666\n selected_fg_color:#FFFFFF"
+gtk_color_scheme = "selected_bg_color:#666666\n selected_fg_color:#FFFFFF\n"
 gtk_color_scheme = "tooltip_bg_color:#EBEBEB\n tooltip_fg_color:#000"
-
-
-gtk_color_scheme	= "link_color:#08c"   # Hyperlinks
+gtk_color_scheme = "link_color:#08c"   # Hyperlinks
 
 # Disable bell
 gtk-error-bell = 0
@@ -25,6 +23,17 @@ gtk-auto-mnemonics	= 1
 
 
 gtk-icon-sizes = "panel-menu=16,16 : gtk-menu=16,16 : gtk-button=16,16 : gtk-small-toolbar=16,16 : gtk-large-toolbar=16,16 : gtk-dialog=32,32 : gtk-dnd=32,32"
+
+
+fg_color = "#101010"
+bg_color = "#DFDFDF"
+base_color = "#FFF"
+text_color = "#1A1A1A"
+selected_bg_color = "#666666"
+selected_fg_color = "#FFFFFF"
+tooltip_bg_color = "#EBEBEB"
+tooltip_fg_color = "#000"
+
 
 style "theme-default"
 {

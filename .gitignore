@@ -1,10 +1,10 @@
 /*
 *[~#]
 !HOME/
-!DATA/
+#!DATA/
 !ROOT/
 
-DATA/applications/
-DATA/mime/packages/x-wine-*
-DATA/mime/mime.cache
+#DATA/applications/
+#DATA/mime/packages/x-wine-*
+#DATA/mime/mime.cache
 

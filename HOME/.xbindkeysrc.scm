@@ -85,11 +85,13 @@
 ;; 	(run-command "echo \"e\" | xmacroplay "))
  
 
-(xbindkey '(Alt F1) "urxvt")
-(xbindkey '(Alt Help)        "urxvt")
+(xbindkey '(Alt F1)   "$XTERM")
+(xbindkey '(Alt Help) "$XTERM")
+
+(xbindkey '(Help) "$XTERM -e dtach -A /tmp/dt-scratch -r winch dvtm")
 
 ;;; Agenda/TODO
-(xbindkey '(Help) "urxvt -e emacsclient -nw -e \"(org-agenda)\"")
+;;(xbindkey '(Shift Help) "urxvt -e emacsclient -nw -e \"(org-agenda)\"")
 (xbindkey '(mod4 o) "urxvt -e emacsclient -nw ~/org/")
 
 ;;; Run dialog
@@ -117,17 +119,16 @@
 ;; (xbindkey '(Alt XF86AudioPlay) "dxmms2 coll")
 ;; (xbindkey '(Alt XF86AudioPrev) "dxmms2 list")
 
-(xbindkey '(XF86AudioPlay) "cmus-remote -u || ${XTERM:-xterm} -e cmus")
-(xbindkey '(XF86AudioStop) "cmus-remote -s")
-(xbindkey '(XF86AudioPrev) "cmus-remote --prev")
-(xbindkey '(XF86AudioNext) "cmus-remote --next")
-(xbindkey '(Alt XF86AudioPlay) "cplay --load-pl")
-(xbindkey '(Shift Alt XF86AudioPlay) "cplay --save-pl")
-
+(xbindkey '(XF86AudioPlay)           "cplay"    )
+(xbindkey '(XF86AudioStop)           "cplay -s" )
+(xbindkey '(XF86AudioPrev)           "cplay --prev" )
+(xbindkey '(XF86AudioNext)           "cplay --next" )
+(xbindkey '(Alt XF86AudioPlay)       "cplay --load-pl" )
+(xbindkey '(Shift Alt XF86AudioPlay) "cplay --save-pl" )
 
 
 ;;; Suspend key (requires visudo permisions)
-(xbindkey '(Shift mod4 XF86AudioStop) "sudo pm-suspend")
+(xbindkey '(Shift mod4 XF86AudioStop) "gksudo pm-suspend")
 
 ;;; ASCII-art insertion
 (xbindkey '(Shift mod4 i) "dmenu_ascii")

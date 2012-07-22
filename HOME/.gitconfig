@@ -26,6 +26,6 @@
 clean = gpg -q --batch --no-tty -e -r ferk 
 smudge = gpg -q --batch --no-tty -d
 
-[diff "encrypt"]
-textconv = decrypt
+[diff "gpg"]
+textconv = gpg -q --batch --no-tty -d
 

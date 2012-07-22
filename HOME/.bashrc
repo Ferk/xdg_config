@@ -92,12 +92,12 @@ shopt -s checkjobs # needs to double close if there are pending jobs
     }
 
     # If unknown terminal, set as linux console
-    tset 2>&1 >/dev/null || export TERM=linux
+    tset 2>&1 >/dev/null || export TERM=linux 
 }
 
 # Source additional custom completion and aliases files
-[[ -f ~/.bash_completion ]] && . ~/.bash_completion
-[[ -d ~/.bash_completion.d ]] && . ~/.bash_completion.d/*
+#[[ -f ~/.bash_completion ]] && . ~/.bash_completion
+#[[ -d ~/.bash_completion.d ]] && . ~/.bash_completion.d/*
 [[ -f ~/.sh_aliases ]] && . ~/.sh_aliases
 [[ -f ~/.bash_aliases ]] && . ~/.bash_aliases
 

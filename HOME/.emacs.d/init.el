@@ -10,7 +10,11 @@
 ;; Disable over-write mode! Never good! Pain in the posterior!
 (put 'overwrite-mode 'disabled t)
 
-;;;;; Hooks!
+;;(require 'semantic-ia)
+;;(require 'semantic-gcc)
+
+
+;;;; Hooks!
 ;; Visual lines
 (add-hook 'text-mode-hook 'visual-line-mode)
 (add-hook 'org-mode-hook 'visual-line-mode)
@@ -22,17 +26,31 @@
 ;; Add all org files from desired dir as agendas
 (add-hook 'org-load-hook 
 	  (lambda () (setq org-agenda-files (file-expand-wildcards "~/org/*.org"))))
-;; When no makefile, just compile it with "make -k $file"
+
+
+;;; C-mode Hooks
 (add-hook 'c-mode-hook
-          (lambda ()
+	  (lambda ()
+	    
+	    ;; When no makefile, just compile it with "make -k $file"
 	    (unless (or (file-exists-p "makefile")
 			(file-exists-p "Makefile"))
 	      (set (make-local-variable 'compile-command)
 		   (concat "make -k "
-			   (file-name-sans-extension buffer-file-name))))))
-;; highlighting for preprocessor
-(add-hook 'c-mode-hook
-	  (lambda () (cpp-highlight-buffer t)))
+			   (file-name-sans-extension buffer-file-name)))
+	      ;;(flymake-mode)
+	      )
+	    
+	    ;; highlighting for preprocessor	  
+	    (cpp-highlight-buffer t)
+
+	    ;; activate semantic code helpers
+	    ;;(semantic-load-enable-excessive-code-helpers)
+	    (semantic-load-enable-all-exuberent-ctags-support)
+	    
+	    ));; end of C-mode Hooks
+
+
 ;; outline mode for folding code, will be used for every font-locked mode
 (add-hook 'c-mode-hook 'outline-minor-mode)
 (add-hook 'shell-script-mode-hook 'outline-minor-mode)
@@ -42,7 +60,7 @@
 
 ;;;;Completion ignores filenames ending in any string in this list.
 (setq completion-ignored-extensions
-      '(".o" ".elc" ".class" "java~" ".ps" ".abs" ".mx" ".~jv" ))
+      '(".o" ".elc" ".class" "~" "#" ".ps" ".abs" ".mx" ".~jv" ))
 
 ;;; Set up which modes to use for which file extensions
 (setq auto-mode-alist
@@ -59,6 +77,7 @@
          ("\\.php$"           . php-mode)
          ("\\.clp$"           . clips-mode)
          ("\\.jl$"            . sawfish-mode)
+         ("\\.md$"            . markdown-mode)
          ("\\.po$\\|\\.po\\." . po-mode)
          ("/[Mm]akefile\\." . makefile-mode)
          ("/crontab" . crontab-mode)
@@ -66,6 +85,10 @@
 (modify-coding-system-alist 'file "\\.po$\\|\\.po\\."
                             'po-find-file-coding-system)
 
+(load-file "~/.emacs.d/cedet-1.1/common/cedet.elc")
+
+
+;;;; Functions
 
 (defun show-sublevel ()
   "Progressivelly unfolds the current level. First showing the childs and then the whole subtree if the command is issued a second time."
@@ -241,6 +264,7 @@ buffer."
 ;; (require 'evil)
 ;; (evil-mode 1)
 
+
 ;; -------------------
 ;;;;;;;;;;;;;;;;;;;;;;
 ;;; Customize
@@ -270,13 +294,11 @@ buffer."
  '(dired-guess-shell-alist-user (quote (("\\.\\(gz\\|bz2\\|lzma\\|\\tar\\|zip\\|rar\\)" "unp -U" "xdg-open") ("." "xdg-open"))))
  '(dired-isearch-filenames (quote dwim))
  '(dired-listing-switches "-alhG --time-style=iso")
+ '(ede-project-directories (quote ("/home/ferk/eth_soundcard/example_lwip")))
  '(eshell-visual-commands (quote ("vi" "screen" "top" "less" "more" "lynx" "ncftp" "pine" "tin" "trn" "elm" "alsamixer" "wicd-curses")))
+ '(flymake-gui-warnings-enabled nil)
  '(gdb-show-main t)
  '(global-hl-line-mode t)
- '(global-semantic-idle-completions-mode t nil (semantic/idle))
- '(global-semantic-idle-scheduler-mode t nil (semantic/idle))
- '(global-semantic-idle-summary-mode t)
- '(global-semanticdb-minor-mode t)
  '(grep-command "grep . -nHIr -e ")
  '(grep-scroll-output t)
  '(ido-enable-flex-matching t)
@@ -293,7 +315,6 @@ buffer."
  '(kill-do-not-save-duplicates t)
  '(make-backup-files nil)
  '(mark-even-if-inactive t)
- '(menu-bar-mode nil)
  '(midnight-delay 1800)
  '(midnight-mode t nil (midnight))
  '(mouse-avoidance-mode (quote animate) nil (avoid))
@@ -308,9 +329,9 @@ buffer."
  '(recentf-mode t)
  '(recentf-save-file "~/.cache/emacs/recentf")
  '(require-final-newline t)
+ '(safe-local-variable-values (quote ((eval and (setq dir-local-dir (locate-dominating-file (buffer-file-name) ".dir-locals.el")) (setq compile-command (concat "cd " dir-local-dir " && ./compile.sh")) (setq gud-gdb-command-name (concat dir-local-dir "_/debug.sh -i=mi")) (setq grep-command (concat dir-local-dir "_/findInSource.sh . ")) (setq tags-table-list (list (concat dir-local-dir "TAGS"))) (setq semanticdb-project-roots (list "~/Source/ToolChain_STM32/CommonLibraries/" "~/Source/ToolChain_STM32/ToolChain/**/*" dir-local-dir)) (ede-cpp-root-project "ttc_project" :file (concat dir-local-dir "required_version"))) (eval and (setq dir-local-dir (locate-dominating-file (buffer-file-name) ".dir-locals.el")) (setq compile-command (concat "cd " dir-local-dir " && ./compile.sh")) (setq gud-gdb-command-name (concat dir-local-dir "_/debug.sh -i=mi")) (setq grep-command (concat dir-local-dir "_/findInSource.sh . ")) (setq tags-table-list (list (concat dir-local-dir "TAGS"))) (setq semanticdb-project-roots (list dir-local-dir (concat dir-local-dir "additionals/examples"))) (ede-cpp-root-project "ttc_project" :file (concat dir-local-dir "required_version"))) (eval and (setq dir-local-dir (locate-dominating-file (buffer-file-name) ".dir-locals.el")) (setq compile-command (concat "cd " dir-local-dir " && ./compile.sh")) (setq gud-gdb-command-name (concat dir-local-dir "_/debug.sh -i=mi")) (setq grep-command (concat dir-local-dir "_/findInSource.sh . ")) (setq tags-table-list (list (concat dir-local-dir "TAGS"))) (setq semanticdb-project-roots (list dir-local-dir (concat dir-local-dir "additionals/examples"))) (ede-cpp-root-project dir-local-dir :file (concat dir-local-dir "required_version")) (semantic-add-system-include dir-local-dir (quote c-mode))) (eval and (setq dir-local-dir (locate-dominating-file (buffer-file-name) ".dir-locals.el")) (setq compile-command (concat "cd " dir-local-dir " && ./compile.sh")) (setq gud-gdb-command-name (concat dir-local-dir "_/debug.sh -i=mi")) (setq grep-command (concat dir-local-dir "_/findInSource.sh . ")) (setq tags-table-list (list (concat dir-local-dir "TAGS"))) (setq semanticdb-project-roots (list dir-local-dir (concat dir-local-dir "additionals/examples"))) (ede-cpp-root-project dir-local-dir :file (concat dir-local-dir "required_version"))) (eval and (setq dir-local-dir (locate-dominating-file (buffer-file-name) ".dir-locals.el")) (setq compile-command (concat "cd " dir-local-dir " && ./compile.sh")) (setq gud-gdb-command-name (concat dir-local-dir "_/debug.sh -i=mi")) (setq grep-command (concat dir-local-dir "_/findInSource.sh . ")) (setq tags-table-list (list (concat dir-local-dir "TAGS"))) (setq semanticdb-project-roots (list dir-local-dir (concat dir-local-dir "additionals/examples")))) (eval and (setq dir-local-dir (locate-dominating-file (buffer-file-name) ".dir-locals.el")) (setq compile-command (concat "cd " dir-local-dir " && ./compile.sh")) (setq gud-gdb-command-name (concat dir-local-dir "_/debug.sh -i=mi")) (setq grep-command (concat dir-local-dir "_/findInSource.sh . ")) (setq tags-table-list (list (concat dir-local-dir "TAGS"))) (setq semanticdb-project-roots (list dir-local-dir))) (gdb-use-separate-io-buffer))))
  '(savehist-mode t nil (savehist))
  '(scroll-bar-mode (quote right))
- '(semantic-mode t)
  '(show-paren-delay 0.125)
  '(show-paren-mode t)
  '(show-paren-ring-bell-on-mismatch nil)
@@ -330,4 +351,4 @@ buffer."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:stipple nil :background "#080808" :foreground "#FFF" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 105 :width normal :foundry "unknown" :family "Droid Sans Mono")))))
+ '(default ((t (:stipple nil :background "#080808" :foreground "#FFF" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 117 :width normal :foundry "unknown" :family "ProggyCleanTTSZBP")))))
