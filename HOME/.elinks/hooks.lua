@@ -116,13 +116,28 @@ table.insert(goto_url_hooks, expand_localhost)
 
 
 ----------------------------------------------------------------------
---  pre_format_html_hook
+--  follow_url_hook
 ----------------------------------------------------------------------
 
 -- Plain string.find (no metacharacters).
 function sstrfind (s, pattern)
     return string.find (s, pattern, 1, 1)
 end
+
+-- open youtube videos in mplayer (using youtube-dl) instead
+function open_youtube_dl (url)
+    if not sstrfind(url, "youtube.com/watch") then return url end
+    
+    --execute( string.gsub( get_option("document.uri_passing.youtube-dl"), '%c', "'"..url.."'" ) )
+    execute(' mplayer -cache 512 $(youtube-dl --max-quality 5 -g "'..url..'") >/dev/null 2>&1 ')
+    return nil
+end
+table.insert(follow_url_hooks, open_youtube_dl)
+
+
+----------------------------------------------------------------------
+--  pre_format_html_hook
+----------------------------------------------------------------------
 
 -- Mangle ALT="" in IMG tags.
 function mangle_blank_alt (url, html)
