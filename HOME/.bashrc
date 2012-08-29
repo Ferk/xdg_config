@@ -126,6 +126,12 @@ hash fasd 2>&- && eval "$(fasd --init auto)"
     echo -e '\e[00m'
 }
 
-[ -d /home/ferk/Source/ToolChain_STM32/ToolChain ] && {
-    source /home/ferk/Source/ToolChain_STM32/ToolChain/scripts/SourceMe.sh
+[ -d $HOME/Source/ToolChain_STM32/ToolChain ] && {
+    source $HOME/Source/ToolChain_STM32/ToolChain/scripts/SourceMe.sh
 }
+
+export PERL_LOCAL_LIB_ROOT="$HOME/perl5";
+export PERL_MB_OPT="--install_base $HOME/perl5";
+export PERL_MM_OPT="INSTALL_BASE=$HOME/perl5";
+export PERL5LIB="$HOME/perl5/lib/perl5/i686-linux-thread-multi:$HOME/perl5/lib/perl5";
+export PATH="$HOME/perl5/bin:$PATH";
