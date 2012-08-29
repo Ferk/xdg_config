@@ -87,6 +87,7 @@
 
 (xbindkey '(Alt F1)   "$XTERM")
 (xbindkey '(Alt Help) "$XTERM")
+(xbindkey '(Alt Mod4 F1) "$XTERM")
 
 (xbindkey '(Help) "$XTERM -e dtach -A /tmp/dt-scratch -r winch dvtm")
 
@@ -109,6 +110,9 @@
 
 ;;; Screenshotting
 (xbindkey '(Print) "scrot 'screenshot-%m%d-%H%M(%S).png'")
+(xbindkey '(Shift Print) "scrot -s 'screenshot-%m%d-%H%M(%S).png'")
+(xbindkey '(mod4 Print) "tmp=$(mktemp --suffix=.png) && scrot $tmp && gimp $tmp")
+(xbindkey '(Shift mod4 Print) "tmp=$(mktemp --suffix=.png) && scrot -s $tmp && gimp $tmp")
 
 ;;; Music player control
 ;; (xbindkey '(XF86AudioPlay) "nyxmms2 toggle")
