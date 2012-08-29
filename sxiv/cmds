@@ -6,3 +6,5 @@ convert -crop 1024x600+0+0 "$SXIV_IMG" "$SXIV_IMG"
 cwebp -m 6 "$SXIV_IMG" -o "${SXIV_IMG%.*}.webp"
 jpegoptim -pm85 "$SXIV_IMG"
 d=5; while true; do sleep $d; echo "KeyStr space" | xmacroplay; [ $(xprintidle) -lt $((d*1000)) ] && break; done # slideshow
+gimp "$SXIV_IMG" &
+display "$SXIV_IMG" &
