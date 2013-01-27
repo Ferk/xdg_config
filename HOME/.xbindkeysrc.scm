@@ -131,6 +131,10 @@
 (xbindkey '(Shift Alt XF86AudioPlay) "cplay --save-pl" )
 
 
+;;; Run
+(xbindkey '(mod4 R) "dmenu_run")
+
+
 ;;; Suspend key (requires visudo permisions)
 (xbindkey '(Shift mod4 XF86AudioStop) "gksudo pm-suspend")
 
