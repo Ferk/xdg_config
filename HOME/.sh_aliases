@@ -61,7 +61,7 @@ alias la='ls -A'
 
 alias unp='unp -U'
 
-alias e='$EDITOR'
+alias e='${EDITOR:=nano}'
 
 alias h=' history | tail '
 alias history.top="cat $HISTFILE | sort | uniq -c | sort -rn | head"
@@ -102,6 +102,7 @@ alias nm-start='sudo  /etc/rc.d/networkmanager start; sudo nm-applet'
 
 # source /usr/share/doc/cdargs/examples/cdargs-bash.sh > /dev/null
 
+alias unp=aunpack
 
 # async () { nohup $@  > /tmp/nohup-$(date +%H%M%S).out  }
 
