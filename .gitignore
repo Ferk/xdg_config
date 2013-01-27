@@ -3,6 +3,7 @@
 !HOME/
 #!DATA/
 !ROOT/
+!*/
 
 #DATA/applications/
 #DATA/mime/packages/x-wine-*

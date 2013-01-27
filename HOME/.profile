@@ -22,7 +22,7 @@ export PATH="$PATH:$HOME/.gem/ruby/1.9.1/bin"
 export CDPATH=".:$HOME"
 
 #export LANG="es_ES.utf8"
-export LANG="de_DE.utf8"
+export LANG="C"
 export LC_ALL=
 export LC_COLLATE="C"
 

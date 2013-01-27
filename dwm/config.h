@@ -76,7 +76,11 @@ static Key keys[] = {
 	{ MODKEY,                       XK_d,       shiftview,     {.i = +1 } },
 	{ MODKEY,                       XK_q,       setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_e,       setmfact,       {.f = +0.05} },
+	/* custom dmenu_run key */
+	{ MODKEY,                       XK_r,      spawn,          {.v = dmenucmd } },
 
+	/********/
+	/* Leaving default keybindings here, it's always nice to try to remain somewhat standard */
 
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
