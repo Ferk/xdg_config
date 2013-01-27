@@ -29,3 +29,5 @@ smudge = gpg -q --batch --no-tty -d
 [diff "gpg"]
 textconv = gpg -q --batch --no-tty -d
 
+[push]
+	default = simple

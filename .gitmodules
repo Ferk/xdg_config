@@ -1,3 +1,6 @@
 [submodule "dwm"]
 	path = dwm
 	url = http://git.suckless.org/dwm
+[submodule "HOME/.emacs.d"]
+	path = HOME/.emacs.d
+	url = https://github.com/Ferk/emacs.d.git
