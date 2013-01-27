@@ -46,7 +46,7 @@
 
 	    ;; activate semantic code helpers
 	    ;;(semantic-load-enable-excessive-code-helpers)
-	    (semantic-load-enable-all-exuberent-ctags-support)
+	    ;;(semantic-load-enable-all-exuberent-ctags-support)
 	    
 	    ));; end of C-mode Hooks
 
@@ -85,7 +85,7 @@
 (modify-coding-system-alist 'file "\\.po$\\|\\.po\\."
                             'po-find-file-coding-system)
 
-(load-file "~/.emacs.d/cedet-1.1/common/cedet.elc")
+;;(load-file "~/.emacs.d/cedet-1.1/common/cedet.elc")
 
 
 ;;;; Functions
@@ -168,11 +168,11 @@ mark active) and deletes them."
   "Create/update tags file and load it silently."
   (interactive "DDirectory: \nsLanguages to tag from (none for default): ")
   (or langs (setq langs "Make,Java,Lua,Lisp,C,C++,PHP"))
-  (setq langmap "c:.c.h")
+  ;;(setq langmap "c:.c.h")
   (and
    (shell-command
     ;;(format "ctags -f %s/TAGS -e -R %s" dir-name (directory-file-name dir-name))
-    (concat "cd " dir-name " && ctags -eR --langmap=" langmap
+    (concat "cd " dir-name " && ctags -eR " ;;--langmap=" langmap
 	    (and langs (concat " --languages=" langs))))
    ;;(format "cd %s && ctags -eR --languages=\"%s\"" dir-name langs))
    (let ((tags-revert-without-query t))  ; don't query, revert silently
@@ -232,28 +232,28 @@ configuring, and also it will make emacs load faster."
 	 (setq buffer-read-only nil));)
 
 
-(defun smart-comint-up ()
-   "Implement the behaviour of the up arrow key in comint mode.  At
-the end of buffer, do comint-previous-input, otherwise just move in
-the buffer."
-   (interactive)
-   (if (= (point) (point-max))
-       (comint-previous-input 1)
-     (previous-line 1)))
+;; (defun smart-comint-up ()
+;;    "Implement the behaviour of the up arrow key in comint mode.  At
+;; the end of buffer, do comint-previous-input, otherwise just move in
+;; the buffer."
+;;    (interactive)
+;;    (if (= (point) (point-max))
+;;        (comint-previous-input 1)
+;;      (previous-line 1)))
 
-(defun smart-comint-down ()
-   "Implement the behaviour of the down arrow key in comint mode.  At
-the end of buffer, do comint-next-input, otherwise just move in the
-buffer."
-   (interactive)
-     (if (= (point) (point-max))
-	(comint-next-input 1)
-       (forward-line 1)))
+;; (defun smart-comint-down ()
+;;    "Implement the behaviour of the down arrow key in comint mode.  At
+;; the end of buffer, do comint-next-input, otherwise just move in the
+;; buffer."
+;;    (interactive)
+;;      (if (= (point) (point-max))
+;; 	(comint-next-input 1)
+;;        (forward-line 1)))
 
-(eval-after-load "gud"
-  '(progn 
-     (define-key gud-mode-map (kbd "<up>") 'smart-comint-up)
-     (define-key gud-mode-map (kbd "<down>") 'smart-comint-down)))
+;; (eval-after-load "gud"
+;;   '(progn 
+;;      (define-key gud-mode-map (kbd "<up>") 'smart-comint-up)
+;;      (define-key gud-mode-map (kbd "<down>") 'smart-comint-down)))
 
 ;;;;;;;;;;;
 (global-set-key (kbd "<M-gr>") (quote rgrep))
