@@ -1,0 +1,11 @@
+
+
+# Keep proxy configuration
+Defaults env_keep += "http_proxy https_proxy ftp_proxy no_proxy"
+
+# Keep default editor / pager
+Defaults env_keep += "EDITOR PAGER"
+
+# Keep nodejs variables
+Defaults env_keep += "NODE_PATH"
+

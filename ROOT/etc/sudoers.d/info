@@ -1,0 +1,10 @@
+
+# Don't hide information
+Defaults path_info
+
+# Silly stuff to show
+Defaults insults, lecture=always
+
+# Custom prompt
+Defaults passprompt="%u@%H wants %U - Enter %p's password:"
+

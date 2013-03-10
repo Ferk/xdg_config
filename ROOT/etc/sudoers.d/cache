@@ -1,0 +1,10 @@
+
+# Timeout (in minutes)
+Defaults timestamp_timeout=120
+
+# Don't request password again wen using a different tty
+Defaults !tty_tickets
+
+# Preserve the user umask
+Defaults !umask
+
