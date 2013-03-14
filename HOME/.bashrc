@@ -25,7 +25,8 @@ OS=$(uname -s)
 
 if [ "$OS" = "Darwin" ]
 then
-    echo "Running MacOS"
+    # Load completion from brew
+    . "$(brew --prefix)/etc/bash_completion"
 else
    shopt -s checkjobs # needs to double close if there are pending jobs
    shopt -s globstar # recursive globbing with **
