@@ -21,11 +21,19 @@ export HISTTIMEFORMAT="%F %T "
 
 export HISTSIZE=100000
 
+OS=$(uname -s)
+
+if [ "$OS" = "Darwin" ]
+then
+    echo "Running MacOS"
+else
+   shopt -s checkjobs # needs to double close if there are pending jobs
+   shopt -s globstar # recursive globbing with **
+   shopt -s cdspell dirspell # spelling corrections when cd'ing and globbing
+fi
+
 shopt -s checkwinsize # refresh LINES and COLUMNS when window size changes
-shopt -s cdspell dirspell # spelling corrections when cd'ing and globbing
-shopt -s globstar # recursive globbing with **
 shopt -s no_empty_cmd_completion # dont autocomplete on empty lines
-shopt -s checkjobs # needs to double close if there are pending jobs
 
 # Color! ...if the terminal where this subshell is running supports it
 [ "$TERM" != "dumb" ] && {
@@ -49,8 +57,8 @@ shopt -s checkjobs # needs to double close if there are pending jobs
     # Fancy Prompt
 
     # Different color according to error value
-    PSCOLOR='eval [[ $? = 0 ]] && { [[ $EUID = 0  ]] && echo -ne "\e[1;36m" || echo -ne "\e[32m"; } || echo -ne "\e[31m";'
-    PS1='\[\e[33m\]\t \[$($PSCOLOR)\]\u\[\e[0m\]:\[\e[94m\]${sPWD:-${PWD/$HOME/~}}\[\e[0m\]\$ '
+    PSCOLOR='eval [[ $? = 0 ]] && { [[ $EUID = 0  ]] && echo -ne "\033[1;36m" || echo -ne "\033[32m"; } || echo -ne "\033[31m";'
+    PS1='\[\033[33m\]\t \[$($PSCOLOR)\]\u\[\033[0m\]:\[\033[94m\]${sPWD:-${PWD/$HOME/~}}\[\033[0m\]\$ '
 
     [ "$DISPLAY" ] && {
 
@@ -119,11 +127,11 @@ hash fasd 2>&- && eval "$(fasd --init auto)"
 ###
 # display login messages (if it's a real terminal)
 [ "$TERM" != "dumb" ] && {
-    echo -e "\e[36m $(uptime)"
+    echo -e "\033[36m $(uptime)"
     last -3 | head -n -2
-    echo -e '\e[33m'
+    echo -e '\033[33m'
     hash fortune 2>&- && fortune -cs
-    echo -e '\e[00m'
+    echo -e '\033[00m'
 }
 
 [ -d $HOME/Source/ToolChain_STM32/ToolChain ] && {

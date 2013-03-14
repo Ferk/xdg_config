@@ -18,6 +18,14 @@ export PATH="$PATH:$HOME/bin/"
 ##export PATH="$PATH:/root/.gem/ruby/1.9.1/bin"
 export PATH="$PATH:$HOME/.gem/ruby/1.9.1/bin"
 
+# In a mac, use coreutils
+if [ "$(uname -s)" = "Darwin" ]
+then
+    export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+    export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
+fi
+
+
 # search path for "cd", for faster directory switching
 export CDPATH=".:$HOME"
 
