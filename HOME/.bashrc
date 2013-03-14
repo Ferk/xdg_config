@@ -89,7 +89,11 @@ shopt -s no_empty_cmd_completion # dont autocomplete on empty lines
 		sPWD="${PWD/$HOME/~}"
 	    fi
 	}
-	PROMPT_COMMAND=__before_prompt_hook
+
+	if  ! (( "${BASH_VERSION%%.*}" < "4" ))
+	then
+	    PROMPT_COMMAND=__before_prompt_hook
+	fi
 
 	# __on_resize() {
 	# }

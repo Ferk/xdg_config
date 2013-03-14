@@ -35,7 +35,7 @@ export LC_ALL=
 export LC_COLLATE="C"
 
 # Find the preferred basic tools and hash them for faster access
-for cmd in "emacsclient --alternate-editor= -c" "emacs" "nano" "vi"; do
+for cmd in "emacsclient --alternate-editor=emacs " "emacs" "nano" "vi"; do
     EDITOR="$cmd"
     hash ${EDITOR%% *} 2>&- && break
 done
@@ -55,9 +55,9 @@ done
 export EDITOR PAGER BROWSER XTERM
 
 # Freedesktop.org variables
-export XDG_CONFIG_HOME=~/.config/
-export XDG_DATA_HOME=~/.local/share/
-export XDG_CACHE_HOME=~/.cache/
+export XDG_CONFIG_HOME=$HOME/.config/
+export XDG_DATA_HOME=$HOME/.local/share/
+export XDG_CACHE_HOME=$HOME/.cache/
 
 # Load separate file with some aliases
 [ -f $HOME/.sh_aliases ] && . $HOME/.sh_aliases
