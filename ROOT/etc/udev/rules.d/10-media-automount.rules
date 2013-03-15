@@ -1,0 +1,31 @@
+# /etc/udev/rules.d/10-media-automount.rules
+
+# start at sdb to ignore the system hard drive
+KERNEL!="sd[b-z]*", GOTO="media_automount_end"
+ACTION=="add", PROGRAM!="/sbin/blkid %N", GOTO="media_automount_end"
+
+# import some useful filesystem info as variables
+IMPORT{program}="/sbin/blkid -o udev -p %N"
+
+# get the label if present, otherwise assign one based on device/partition
+ENV{ID_FS_LABEL}!="", ENV{dir_name}="%E{ID_FS_LABEL}"
+ENV{ID_FS_LABEL}=="", ENV{dir_name}="usbhd-%k"
+
+# create the mount dir
+ACTION=="add", RUN+="/bin/mkdir -p '/mnt/%E{dir_name}'"
+
+# global mount options (flush is a compromise between async and sync, in case of accidental unplug)
+ACTION=="add", ENV{mount_options}="relatime,flush"
+# filesystem-specific mount options (777/666 dir/file perms for ntfs/vfat)
+ACTION=="add", ENV{ID_FS_TYPE}=="vfat|ntfs", ENV{mount_options}="$env{mount_options},gid=100,dmask=000,fmask=111,utf8"
+
+# automount ntfs filesystems using ntfs-3g driver
+ACTION=="add", ENV{ID_FS_TYPE}=="ntfs", RUN+="/bin/mount -t ntfs-3g -o %E{mount_options} /dev/%k '/media/%E{dir_name}'"
+# automount all other filesystems
+ACTION=="add", ENV{ID_FS_TYPE}!="ntfs", RUN+="/bin/mount -t auto -o %E{mount_options} /dev/%k '/media/%E{dir_name}'"
+
+# clean up after device removal
+ACTION=="remove", ENV{dir_name}!="", RUN+="/bin/umount -l '/media/%E{dir_name}'", RUN+="/bin/rmdir '/media/%E{dir_name}'"
+
+# exit
+LABEL="media_automount_end"
