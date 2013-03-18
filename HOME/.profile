@@ -35,7 +35,7 @@ export LC_ALL=
 export LC_COLLATE="C"
 
 # Find the preferred basic tools and hash them for faster access
-for cmd in "emacsclient --alternate-editor=emacs " "emacs" "nano" "vi"; do
+for cmd in "emacsclient --alternate-editor= -c " "emacs" "nano" "vi"; do
     EDITOR="$cmd"
     hash ${EDITOR%% *} 2>&- && break
 done
