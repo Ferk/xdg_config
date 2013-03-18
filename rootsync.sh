@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash -e
 #
 # Syncs the backups stored in the specified directory
 # with the system-wide files in /
@@ -9,52 +9,123 @@
 # Fernando Carmona Varo
 #
 
-BAKDIR="${XDG_USER_CONFIG:-$HOME/.config}"/ROOT
+# Source directory to be synced with the root directory tree
+SRCDIR="${XDG_USER_CONFIG:-$HOME/.config}"/ROOT
 
-for bak in $(find "$BAKDIR/" -type f )
+if [ $(id -u) -ne 0 ]
+then
+    sudo -Ep "This tool must be run as root. Enter password:" "$0" "$@"
+    exit $?
+fi
+
+cd "$(dirname "$0")"
+[ -d "$SRCDIR" ] || { echo "Source directory '$SRCDIR' not found."; exit 1; } 
+
+seloption() {
+
+    # If set to accept all changes, don't ask
+    [ -z "$acceptall" ] || return 0;
+
+    echo -e "+ \e[36mThere are changes to apply to \"$old\""
+    local ret
+    select action in  "Apply Changes to the file, overwritting the current one (can also press Control+D)" \
+	"Revert all changes from the newer file, losing them" \
+	"Ignore this file" \
+	"Show diff" \
+	"Edit $new and apply the changes" \
+	"Ignore all files and cancel update" \
+	"Accept ALL changes and perform update without asking again"
+    do
+    
+    case "$action" in
+	Apply*)
+	    echo apply
+	    ret=0
+	    break
+	    ;;
+	Revert*)
+	    local tmp="$old" # exchange old and new
+	    old="$new"
+	    new="$tmp"
+	    ret=0
+	    break
+	    ;;
+	Ignore*)
+	    ret=1
+	    break
+	    ;;
+	Show*)
+	    diff -u "$old" "$new" | ${PAGER:-less}
+	    continue
+	    ;;
+	Edit*)
+	    ${EDITOR:-nano} "$new" 
+	    ret=0
+	    break
+	    ;;
+	Accept*)
+	    acceptall="true"
+	    ret=0
+	    break
+	    ;;
+	Exit*)
+	    exit 1
+	    ;;
+	*)
+	    echo none
+	    break
+	    ;;
+    esac
+    done
+    echo -ne "\e[0m"
+    return $ret
+}
+
+for sfile in $(find "$SRCDIR" -type f \( ! -path '*/.svn/*'  \) \( ! -path "*/.git*"  \) )
 do
-    dest=${bak#$BAKDIR}
+    # obtain root file path from source file path
+    rfile="${sfile#$SRCDIR}"
 
-    [ -f "$dest" ] || {
-	echo "$dest : file doesn't exist, copying it"
-	sudo mkdir -p $(dirname $dest)
-	sudo cp -vi "$bak" "$dest"
+    [ -f "$rfile" ] || {
+	echo "$rfile : file doesn't exist, copying it"
+	sudo mkdir -p "$(dirname $rfile)"
+	sudo cp -vi "$sfile" "$rfile"
 	continue
     }
     
-    [ "$dest" -nt "$bak" ] && {
-	new=$dest
-	old=$bak
-    } || {
-	new=$bak
-	old=$dest
-    }
-
-    DIFF=$(sudo diff -u "$old" "$new")
-    [ -z "$DIFF" ] && continue
-
-    action=$(dialog --title "Sync changes to $old" --scrollbar --menu "$(echo "$DIFF")" 0 0 0 \
-	Apply "Apply Changes to the file, overwritting the current one" \
-	Revert "Revert all changes from the newer file, losing them" 2>&1 >/dev/tty )
-    
-    echo $action
-    if [ "$?" = "0" ]; then
-	if [ "$action" = "Revert" ]; then
-	    bak="$old" # exchange old and new
-	    old="$new"
-	    new="$bak"
-	fi
-	sudo cp -vi  "$new" "$old"
-	# case "$old":
-	#     "/etc/sudoers")
-	#     chmod 660 "$old"
-	#     ;;
-	#     *)
-	# 	;;
-	# esac
-	
+    if [ "$rfile" -nt "$sfile" ]
+    then
+	new=$rfile
+	old=$sfile
+    else
+	new=$sfile
+	old=$rfile
     fi
+    
+    if diff -u "$old" "$new"
+    then
+	unchanged+="\n $new"
+	continue
+    fi
+    seloption || continue
+
+    sudo cp -vf "$new" "$old"
+    change=yes;
 done
 
+#echo -e "Unchanged: ${unchanged}"
+
+if [ "$change" ]
+then
+    echo "Setting permissions..."
+
+    # Make sure the relevant files have the right permissions
+    chmod 440 /etc/sudoers.d/*
+    #chmod g+rw -R /var/www/
+
+#    echo "Syncing filesystem..."
+#    # Force a filesystem sync so that changes are saved to disk
+#    sync
+fi
 
 

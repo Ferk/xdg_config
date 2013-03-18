@@ -11,7 +11,7 @@
 #
 
 # If not running interactively, don't do anything
-[ -z "$PS1" ] && return
+[[ "$-" =~ "i" ]] || return
 
 # List of commands to ignore ("&" means ignore duplicates)
 export HISTIGNORE="&:?:??:exit:history"

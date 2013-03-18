@@ -103,5 +103,5 @@ export LESS_TERMCAP_ue=$'\e[0m'           # underline end
 
 
 # If bash, load the subshell configuration for it to be used in login shells too.
-test $BASH && test -f ~/.bashrc && . ~/.bashrc
+test $BASH && test -f $HOME/.bashrc && . $HOME/.bashrc
 
