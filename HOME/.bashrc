@@ -13,6 +13,14 @@
 # If not running interactively, don't do anything
 [[ "$-" =~ "i" ]] || return
 
+# If .profile is newer, load it and exit (since it already loads bash)
+[ ~/.profile -nt $0 ] && {
+    echo " ~/.profile was changed, reloading"
+    touch $0
+    . ~/.profile
+    return
+}
+
 # List of commands to ignore ("&" means ignore duplicates)
 export HISTIGNORE="&:?:??:exit:history"
 
