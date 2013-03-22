@@ -21,7 +21,7 @@ export PATH="$PATH:$HOME/.gem/ruby/1.9.1/bin"
 # In a mac, use coreutils
 if [ "$(uname -s)" = "Darwin" ]
 then
-    export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+    export PATH="/usr/local/opt/coreutils/libexec/gnubin:/usr/local/sbin:$PATH"
     export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
 fi
 
