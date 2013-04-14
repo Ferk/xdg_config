@@ -13,15 +13,16 @@
 #
 
 # add personal executables directory to system PATH
-export PATH="$PATH:$HOME/bin/"
+export PATH="$PATH:$HOME/bin"
 # other executable folders wanted
 ##export PATH="$PATH:/root/.gem/ruby/1.9.1/bin"
 export PATH="$PATH:$HOME/.gem/ruby/1.9.1/bin"
+export PATH="$PATH:/usr/local/share/npm/bin"
 
 # In a mac, use coreutils
 if [ "$(uname -s)" = "Darwin" ]
 then
-    export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+    export PATH="/usr/local/opt/coreutils/libexec/gnubin:/usr/local/sbin:/usr/local/bin:$PATH"
     export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
 fi
 
@@ -35,7 +36,7 @@ export LC_ALL=
 export LC_COLLATE="C"
 
 # Find the preferred basic tools and hash them for faster access
-for cmd in "emacsclient --alternate-editor=emacs " "emacs" "nano" "vi"; do
+for cmd in "emacsclient --alternate-editor= -c " "emacs" "nano" "vi"; do
     EDITOR="$cmd"
     hash ${EDITOR%% *} 2>&- && break
 done
