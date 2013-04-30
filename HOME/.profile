@@ -31,12 +31,12 @@ fi
 export CDPATH=".:$HOME"
 
 #export LANG="es_ES.utf8"
-export LANG="C"
+export LANG="en_US.UTF-8"
 export LC_ALL=
 export LC_COLLATE="C"
 
 # Find the preferred basic tools and hash them for faster access
-for cmd in "emacsclient --alternate-editor= -c " "emacs" "nano" "vi"; do
+for cmd in 'emacsclient --alternate-editor= -c ' 'emacs' 'nano' 'vi'; do
     EDITOR="$cmd"
     hash ${EDITOR%% *} 2>&- && break
 done
