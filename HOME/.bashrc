@@ -59,6 +59,7 @@ shopt -s no_empty_cmd_completion # dont autocomplete on empty lines
 
     # Different color according to error value
     PSCOLOR='eval [[ $? = 0 ]] && { [[ $EUID = 0  ]] && echo -ne "\033[1;36m" || echo -ne "\033[32m"; } || echo -ne "\033[31m";'
+    #PS1='\[\033[33m\]\t \[$($PSCOLOR)\]\u\[\033[0m\]:\[\033[94m\]${sPWD:-${PWD/$HOME/~}}\[\033[0m\]\$ '
     PS1='\[\033[33m\]\t \[$($PSCOLOR)\]\u\[\033[0m\]:\[\033[94m\]${sPWD:-${PWD/$HOME/~}}\[\033[0m\]\$ '
 
     [ "$DISPLAY" ] && {
@@ -67,12 +68,16 @@ shopt -s no_empty_cmd_completion # dont autocomplete on empty lines
             # Show current running command in window title (only printf allows proper sanitization)
 	    printf "\e]2;%s\a" "${BASH_COMMAND/\\/\\\\}"; 
 
-	    # Update history after each command (good in case of a crash)
+	    # Updates history right before running the command (good in case of a crash)
 	    history -a # ; history -n
 	}
 	trap __on_debug DEBUG
 
 	__before_prompt_hook() {
+
+	    # Store return code from last command (must be the first thing here)
+	    local retcode=$?
+
 	    # # Print a newline if not in the first column
 	    # firstcolumn
 	    # Do a backspace followed by a newline, this way we can
@@ -83,11 +88,18 @@ shopt -s no_empty_cmd_completion # dont autocomplete on empty lines
 	    echo -ne "\e]2;${PWD/$HOME/~} - ${TERM}@${HOSTNAME}\a"
 
 	    # if the full path is too long, use shorter one
-	    if [ $(pwd | wc -m) -gt $((COLUMNS/2)) ]; then
+	    if (( ${#PWD} > $((COLUMNS/2)) ))
+	    then
 		sPWD="../${PWD##*/}"
 	    else
 		sPWD="${PWD/$HOME/~}"
 	    fi
+
+	    # Prompt to show on the right side
+	    local PSR="@$(hostname) $(date +'%a %Y-%m-%d')"
+	    [ "$retcode" = "0" ] || PSR="[ err: $retcode ] $PSR"
+ 
+	    echo -ne "\e[s\e[$LINES;$((COLUMNS-${#PSR}))f\e[37m${PSR}\e[0m\e[u"
 	}
 
 	if  ! (( "${BASH_VERSION%%.*}" < "4" ))

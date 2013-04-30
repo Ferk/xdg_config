@@ -29,11 +29,11 @@
 
 *.vt100.font: -*-proggycleanszbp-*-*-*-*-*-*-*-*-*-*-*-*
 *.vt100.encodingMode: locale
-xterm*background:           black
-xterm*foreground:           white
-xterm*bellIsUrgent:  true
-urxvt*background:            black
-urxvt*foreground:            white
+*.vt100.background:           #080808
+*.vt100.foreground:           #f0f0f0
+xterm*.bellIsUrgent:  true
+urxvt*.background:           #080808
+urxvt*.foreground:           #f0f0f0
 urxvt*urgentOnBell:  true
 urxvt.shading: 10
 urxvt.scrollstyle: plain
