@@ -67,6 +67,7 @@ shopt -s no_empty_cmd_completion # dont autocomplete on empty lines
 
     # Different color according to error value
     PSCOLOR='eval [[ $? = 0 ]] && { [[ $EUID = 0  ]] && echo -ne "\033[1;36m" || echo -ne "\033[32m"; } || echo -ne "\033[31m";'
+    #PS1='\[\033[33m\]\t \[$($PSCOLOR)\]\u\[\033[0m\]:\[\033[94m\]${sPWD:-${PWD/$HOME/~}}\[\033[0m\]\$ '
     PS1='\[\033[33m\]\t \[$($PSCOLOR)\]\u\[\033[0m\]:\[\033[94m\]${sPWD:-${PWD/$HOME/~}}\[\033[0m\]\$ '
 
     [ "$DISPLAY" ] && {
@@ -75,12 +76,16 @@ shopt -s no_empty_cmd_completion # dont autocomplete on empty lines
             # Show current running command in window title (only printf allows proper sanitization)
 	    printf "\e]2;%s\a" "${BASH_COMMAND/\\/\\\\}"; 
 
-	    # Update history after each command (good in case of a crash)
+	    # Updates history right before running the command (good in case of a crash)
 	    history -a # ; history -n
 	}
 	trap __on_debug DEBUG
 
 	__before_prompt_hook() {
+
+	    # Store return code from last command (must be the first thing here)
+	    local retcode=$?
+
 	    # # Print a newline if not in the first column
 	    # firstcolumn
 	    # Do a backspace followed by a newline, this way we can
@@ -91,11 +96,18 @@ shopt -s no_empty_cmd_completion # dont autocomplete on empty lines
 	    echo -ne "\e]2;${PWD/$HOME/~} - ${TERM}@${HOSTNAME}\a"
 
 	    # if the full path is too long, use shorter one
-	    if [ $(pwd | wc -m) -gt $((COLUMNS/2)) ]; then
+	    if (( ${#PWD} > $((COLUMNS/2)) ))
+	    then
 		sPWD="../${PWD##*/}"
 	    else
 		sPWD="${PWD/$HOME/~}"
 	    fi
+
+	    # Prompt to show on the right side
+	    local PSR="@$(hostname) $(date +'%a %Y-%m-%d')"
+	    [ "$retcode" = "0" ] || PSR="[ err: $retcode ] $PSR"
+ 
+	    echo -ne "\e[s\e[$LINES;$((COLUMNS-${#PSR}))f\e[37m${PSR}\e[0m\e[u"
 	}
 
 	if  ! (( "${BASH_VERSION%%.*}" < "4" ))
@@ -114,32 +126,9 @@ shopt -s no_empty_cmd_completion # dont autocomplete on empty lines
 
     # If unknown terminal, set as linux console
     tset 2>&1 >/dev/null || export TERM=linux 
-}
 
-# Source additional custom completion and aliases files
-#[[ -f ~/.bash_completion ]] && . ~/.bash_completion
-#[[ -d ~/.bash_completion.d ]] && . ~/.bash_completion.d/*
-[[ -f ~/.sh_aliases ]] && . ~/.sh_aliases
-[[ -f ~/.bash_aliases ]] && . ~/.bash_aliases
-
-# Show Version Control status after cd'ing to a versioned directory
-cd() {
-    [ -z "$1" ] && builtin cd && return $?
-    builtin cd "$1" "$2" && {
-	git rev-parse --git-dir 2>&- >&- && {
-	    git status -bs --untracked-files="no" #| column -c $COLUMNS
-	    git log -3 --pretty=format:'%an, %ar: %s' | cut -c -$COLUMNS
-	}
-    }
-}
-
-
-hash fasd 2>&- && eval "$(fasd --init auto)"
-
-
-###
-# display login messages (if it's a real terminal)
-[ "$TERM" != "dumb" ] && {
+    ###
+    # Since it's not a dumb terminal, display initial messages
     echo -e "\033[36m $(uptime)"
     last -3 | head -n -2
     echo -e '\033[33m'
@@ -147,12 +136,12 @@ hash fasd 2>&- && eval "$(fasd --init auto)"
     echo -e '\033[00m'
 }
 
-[ -d $HOME/Source/ToolChain_STM32/ToolChain ] && {
-    source $HOME/Source/ToolChain_STM32/ToolChain/scripts/SourceMe.sh
-}
+# Source additional config files from custom directory (aliases, completions, etc)
+for src in ~/.config/sh/*.sh
+do
+    [[ -f "$src" ]] && . "$src"
+done
 
-export PERL_LOCAL_LIB_ROOT="$HOME/perl5";
-export PERL_MB_OPT="--install_base $HOME/perl5";
-export PERL_MM_OPT="INSTALL_BASE=$HOME/perl5";
-export PERL5LIB="$HOME/perl5/lib/perl5/i686-linux-thread-multi:$HOME/perl5/lib/perl5";
-export PATH="$HOME/perl5/bin:$PATH";
+hash fasd 2>&- && eval "$(fasd --init auto)"
+
+

@@ -13,18 +13,26 @@
 #
 
 # add personal executables directory to system PATH
-export PATH="$PATH:$HOME/bin/"
+export PATH="$PATH:$HOME/bin"
 # other executable folders wanted
 ##export PATH="$PATH:/root/.gem/ruby/1.9.1/bin"
 export PATH="$PATH:$HOME/.gem/ruby/1.9.1/bin"
+export PATH="$PATH:/usr/local/share/npm/bin"
 
 # In a mac, use coreutils
 if [ "$(uname -s)" = "Darwin" ]
 then
-    export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+    export PATH="/usr/local/opt/coreutils/libexec/gnubin:/usr/local/sbin:/usr/local/bin:$PATH"
     export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
 fi
 
+[ -d "$HOME/perl5" ] && {
+    export PERL_LOCAL_LIB_ROOT="$HOME/perl5";
+    export PERL_MB_OPT="--install_base $HOME/perl5";
+    export PERL_MM_OPT="INSTALL_BASE=$HOME/perl5";
+    export PERL5LIB="$HOME/perl5/lib/perl5/i686-linux-thread-multi:$HOME/perl5/lib/perl5";
+    export PATH="$HOME/perl5/bin:$PATH";
+}
 
 # search path for "cd", for faster directory switching
 export CDPATH=".:$HOME"
