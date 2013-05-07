@@ -14,9 +14,9 @@
 [[ "$-" =~ "i" ]] || return
 
 # If .profile is newer, load it and exit (since it already loads bash)
-[ ~/.profile -nt $0 ] && {
+[ ~/.profile -nt ~/.bashrc ] && {
     echo " ~/.profile was changed, reloading"
-    touch $0
+    touch ~/.bashrc
     . ~/.profile
     return
 }
