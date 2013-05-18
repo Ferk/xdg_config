@@ -34,8 +34,7 @@ set output-meta on
 set show-all-if-ambiguous on
 set show-all-if-unmodified on
 set page-completions Off
-set completion-query-items 2000
-set completion-query-items -1
+set completion-query-items 5000
 
 "\C-p": history-search-backward
 "\C-n": history-search-forward
