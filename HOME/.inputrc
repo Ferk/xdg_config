@@ -11,12 +11,7 @@ set mark-symlinked-directories on
 # use ls -F style highlights for completion
 set visible-stats on
 
-# go right to showing multiple options
-set show-all-if-ambiguous on
-
 set expand-tilde on
-
-set show-all-if-ambiguous on
 
 # use a visible bell if one is available
 set bell-style visible
