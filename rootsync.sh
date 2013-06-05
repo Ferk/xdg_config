@@ -96,7 +96,7 @@ do
     [ -f "$rfile" ] || {
 	echo "$rfile : file doesn't exist, copying it"
 	sudo mkdir -p "$(dirname $rfile)"
-	sudo cp -vi "$sfile" "$rfile"
+	install -v "$1" "$2"
 	continue
     }
     
