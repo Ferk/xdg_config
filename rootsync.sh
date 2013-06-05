@@ -81,7 +81,14 @@ seloption() {
     return $ret
 }
 
-for sfile in $(find "$SRCDIR" -type f \( ! -path '*/.svn/*'  \) \( ! -path "*/.git*"  \) )
+# Replace $2 with the data in $1 without altering $2's owner
+owninstall() {
+    # Replace
+    local owner=$(stat -c%U "$2")
+    install -o "$owner" -v "$1" "$2"
+}
+
+for sfile in $(find "$SRCDIR" -type f \( ! -path '*/.svn/*'  \) \( ! -path "*/.git*"  \) \( ! -path "*[#~]"  \) )
 do
     # obtain root file path from source file path
     rfile="${sfile#$SRCDIR}"
@@ -104,20 +111,20 @@ do
     
     if diff -u "$old" "$new"
     then
-	unchanged+="\n $new"
+	unchanged+="\n$new"
 	continue
     fi
     seloption || continue
 
-    sudo cp -vf "$new" "$old"
+    owninstall "$new" "$old"
     change=yes;
 done
 
-#echo -e "Unchanged: ${unchanged}"
+echo -e "Unresolved files: ${unchanged}"
 
 if [ "$change" ]
 then
-    echo "Setting permissions..."
+    echo "Assuring permissions..."
 
     # Make sure the relevant files have the right permissions
     chmod 440 /etc/sudoers.d/*
