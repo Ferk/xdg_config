@@ -1,17 +1,21 @@
 
-# Allow wheelers to use sudo for every command
+## User specification:
+# WHO  WHERE=(AS_WHO) WHAT
+
+# Allow wheelers to run any command as any user
 %wheel ALL=(ALL) ALL
 
 ##
-# Specific commands to not require password
+# Commands that won't require password to run as root
 
 Cmnd_Alias WHEELER   = /usr/sbin/lsof, /bin/nice, /bin/ps, /usr/bin/top, /usr/sbin/ss, /usr/bin/locate, /usr/bin/find
 Cmnd_Alias PROCESSES = /bin/nice, /bin/kill, /usr/bin/nice, /usr/bin/ionice, /usr/bin/top, /usr/bin/kill, /usr/bin/killall, /usr/bin/ps, /usr/bin/pkill
 Cmnd_Alias EDITS     = /usr/bin/vi, /usr/bin/nano, /usr/bin/less, /usr/bin/emacs
-#Cmnd_Alias POWER     = /sbin/poweroff, /sbin/reboot, /usr/bin/pm-suspend, /usr/bin/shutdown
+Cmnd_Alias POWER     = /sbin/poweroff, /sbin/reboot, /usr/bin/pm-suspend, /usr/bin/shutdown
+Cmnd_Alias NETWORK   = /usr/sbin/wpa_supplicant, /usr/bin/netctl, /usr/bin/wifi-menu
 Cmnd_Alias SYSADMIN  = /sbin/fsck, /usr/sbin/parted, /usr/sbin/gparted, /usr/bin/systemctl
 
-%wheel ALL = (ALL) ALL, NOPASSWD: WHEELER, NOPASSWD: PROCESSES, NOPASSWD: EDITS, NOPASSWD: POWER, NOPASSWD: SYSADMIN
+%wheel ALL = (root) NOPASSWD: WHEELER, NOPASSWD: PROCESSES, NOPASSWD: EDITS, NOPASSWD: POWER, NOPASSWD: SYSADMIN, NOPASSWD: NETWORK
 
 ##
 # Distribution-specific commands
@@ -19,8 +23,8 @@ Cmnd_Alias SYSADMIN  = /sbin/fsck, /usr/sbin/parted, /usr/sbin/gparted, /usr/bin
 Cmnd_Alias ARCHLINUX =  /usr/bin/pacman, /usr/bin/pacman-color
 Cmnd_Alias DEBIAN    =  /usr/bin/apt-get, /usr/bin/dpkg, /usr/bin/aptitude
 
-%wheel ALL = (ALL) ALL, NOPASSWD: ARCHLINUX
-%wheel ALL = (ALL) ALL, NOPASSWD: DEBIAN
+%wheel ALL=(root) NOPASSWD: ARCHLINUX
+%wheel ALL=(root) NOPASSWD: DEBIAN
 
 
 

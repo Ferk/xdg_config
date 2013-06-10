@@ -1,3 +1,4 @@
+# -*- shell-script -*-
 # ~/.profile
 #
 #  Fernando Carmona Varo
@@ -111,5 +112,8 @@ export LESS_TERMCAP_ue=$'[0m'           # underline end
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # If bash, load the subshell configuration for it to be used in login shells too
-test $BASH && test -f $HOME/.bashrc && . $HOME/.bashrc
+if test $BASH && test -f $HOME/.bashrc
+then
+    . $HOME/.bashrc
+fi
 

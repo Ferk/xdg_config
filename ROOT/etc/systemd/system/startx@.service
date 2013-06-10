@@ -3,9 +3,8 @@ Description=Run graphical server via startx (no display manager)
 After=systemd-user-sessions.service
 
 [Service]
-ExecStart=/usr/bin/startx 
+ExecStart=/bin/su %i -l -c "bash --login -c exec xinit"
 Restart=on-abort
-User=%i
 WorkingDirectory=/home/%i
 
 [Install]
