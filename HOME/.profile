@@ -99,14 +99,14 @@ hash keychain 2>&- && eval $(keychain --eval --quiet)
 ## *0-*7 colors:
 # 0:black 1:red 2:green 3:yellow 4:blue 5:purple 6:cyan 7:white
 
-export LESS_TERMCAP_mb=$'\e[01;31m'       # blinking markout
-export LESS_TERMCAP_md=$'\e[01;38;5;74m'  # bold markout
-export LESS_TERMCAP_so=$'\e[1;104m'       # standout, info box
-export LESS_TERMCAP_us=$'\e[04;38;5;146m' # underline
+export LESS_TERMCAP_mb=$'[01;31m'       # blinking markout
+export LESS_TERMCAP_md=$'[01;38;5;74m'  # bold markout
+export LESS_TERMCAP_so=$'1;104m'       # standout, info box
+export LESS_TERMCAP_us=$'[04;38;5;146m' # underline
 
-export LESS_TERMCAP_me=$'\e[0m'           # markout end
-export LESS_TERMCAP_se=$'\e[0m'           # standout end
-export LESS_TERMCAP_ue=$'\e[0m'           # underline end
+export LESS_TERMCAP_me=$'[0m'           # markout end
+export LESS_TERMCAP_se=$'[0m'           # standout end
+export LESS_TERMCAP_ue=$'[0m'           # underline end
 
 
 
