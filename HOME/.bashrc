@@ -36,6 +36,9 @@ fi
 shopt -s checkwinsize # refresh LINES and COLUMNS when window size changes
 shopt -s no_empty_cmd_completion # dont autocomplete on empty lines
 
+# Determine terminal type and initialise if needed
+[ "$TERM" ] || eval $(tset -s -m :?xterm)
+
 # Color! ...if the terminal where this subshell is running supports it
 [ "$TERM" != "dumb" ] && {
 
@@ -116,9 +119,6 @@ shopt -s no_empty_cmd_completion # dont autocomplete on empty lines
        # echo -ne "\e]1;gnome-terminal\a"
     }
 
-    # If unknown terminal, set as linux console
-    tset 2>&1 >/dev/null || export TERM=linux 
-
     ###
     # Since it's not a dumb terminal, display initial messages
     echo -e "\033[36m $(uptime)"
@@ -134,6 +134,5 @@ do
     [[ -f "$src" ]] && . "$src"
 done
 
-hash fasd 2>&- && eval "$(fasd --init auto)"
 
 
