@@ -37,9 +37,8 @@ fi
 # search path for "cd", for faster directory switching
 export CDPATH=".:$HOME"
 
-#export LANG="es_ES.utf8"
-export LANG="en_US.UTF-8"
-export LC_ALL=
+export LANG="C"
+export LC_ALL="C"
 export LC_COLLATE="C"
 
 # Find the preferred basic tools and hash them for faster access
@@ -99,17 +98,18 @@ hash keychain 2>&- && eval $(keychain --eval --quiet)
 ## *0-*7 colors:
 # 0:black 1:red 2:green 3:yellow 4:blue 5:purple 6:cyan 7:white
 
-export LESS_TERMCAP_mb=$'\e[01;31m'       # blinking markout
-export LESS_TERMCAP_md=$'\e[01;38;5;74m'  # bold markout
-export LESS_TERMCAP_so=$'\e[1;104m'       # standout, info box
-export LESS_TERMCAP_us=$'\e[04;38;5;146m' # underline
+export LESS_TERMCAP_mb=$'[01;31m'       # blinking markout
+export LESS_TERMCAP_md=$'[01;38;5;74m'  # bold markout
+export LESS_TERMCAP_so=$'1;104m'       # standout, info box
+export LESS_TERMCAP_us=$'[04;38;5;146m' # underline
 
-export LESS_TERMCAP_me=$'\e[0m'           # markout end
-export LESS_TERMCAP_se=$'\e[0m'           # standout end
-export LESS_TERMCAP_ue=$'\e[0m'           # underline end
+export LESS_TERMCAP_me=$'[0m'           # markout end
+export LESS_TERMCAP_se=$'[0m'           # standout end
+export LESS_TERMCAP_ue=$'[0m'           # underline end
 
+# Colorize gcc output
+export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-
-# If bash, load the subshell configuration for it to be used in login shells too.
+# If bash, load the subshell configuration for it to be used in login shells too
 test $BASH && test -f $HOME/.bashrc && . $HOME/.bashrc
 
