@@ -108,8 +108,9 @@ export LESS_TERMCAP_me=$'[0m'           # markout end
 export LESS_TERMCAP_se=$'[0m'           # standout end
 export LESS_TERMCAP_ue=$'[0m'           # underline end
 
+# Colorize gcc output
+export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-
-# If bash, load the subshell configuration for it to be used in login shells too.
+# If bash, load the subshell configuration for it to be used in login shells too
 test $BASH && test -f $HOME/.bashrc && . $HOME/.bashrc
 
