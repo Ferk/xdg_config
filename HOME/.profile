@@ -51,8 +51,7 @@ for cmd in "less" "more"; do
     PAGER="$cmd"
     hash ${PAGER%% *} 2>&- && break
 done
-#for cmd in "firefox" "chromium --purge-memory-button" "links"; do
-for cmd in "chromium --purge-memory-button" "firefox" "links"; do
+for cmd in "chromium --purge-memory-button --proxy-pac-url=file:///home/ferk/.config/browser/proxy.pac" "firefox" "elinks"; do
     BROWSER="$cmd"
     hash ${BROWSER%% *} 2>&- && break
 done
