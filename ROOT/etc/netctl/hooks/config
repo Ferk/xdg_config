@@ -1,6 +1,5 @@
 #!/bin/sh
 
-
 # Use a specific MAC address
 #IWCONFIG="ap 14:15:92:65:90:12"
 
@@ -9,11 +8,6 @@
 #RFKILL=soft
 #RFKILL_NAME=$(cat /sys/class/rfkill/rfkill*/name | head -n 1 2> /dev/null || echo "")
 
-# After a successful connection, do this
-POST_UP="rc.d start dnsmasq"
-
-# After a successful disconnection, do this
-POST_UP="rc.d stop dnsmasq"
-
-
+# Increase timeout
+DHCP_TIMEOUT=30
 

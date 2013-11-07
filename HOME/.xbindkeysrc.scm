@@ -85,7 +85,7 @@
 ;; 	(run-command "echo \"e\" | xmacroplay "))
  
 
-(xbindkey '(Alt F1)   "$XTERM")
+(xbindkey '(Alt F1)   "t")
 (xbindkey '(Alt Help) "$XTERM")
 (xbindkey '(Alt Mod4 F1) "$XTERM")
 

@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# After a successful connection, do this
+POST_UP="rc.d start dnsmasq"
+
+# After a successful disconnection, do this
+POST_UP="rc.d stop dnsmasq"

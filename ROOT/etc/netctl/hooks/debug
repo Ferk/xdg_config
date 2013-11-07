@@ -1,0 +1,4 @@
+#!/bin/sh
+
+export NETCTL_DEBUG=yes
+
