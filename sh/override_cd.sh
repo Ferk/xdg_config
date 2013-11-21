@@ -8,7 +8,7 @@ cd() {
 	git rev-parse --git-dir 2>&- >&- && {
 	    git status -bs --untracked-files="no" #| column -c $COLUMNS
 	    git log -3 --pretty=format:'%an, %ar: %s' | cut -c -$COLUMNS
-	}
+	} || true
     }
 }
 
