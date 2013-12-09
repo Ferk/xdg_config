@@ -41,7 +41,6 @@ static const Rule rules[] = {
 #include "other/gaplessgrid.c"
 #include "other/deck.c"
 
-
 /* layout(s) */
 static const float mfact      = 0.55; /* factor of master area size [0.05..0.95] */
 static const int nmaster      = 1;    /* number of clients in master area */
@@ -75,8 +74,8 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[] = { "dmenu_run", "-fn", font, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
 static const char *termcmd[]  = { "t", NULL };
 
-static Key keys[] = {
-
+static Key keys[] = { /* mod, keysym, func(Arg*), arg */
+	
 	/* WASD controls */
 	{ MODKEY,                       XK_w,       focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_s,       focusstack,     {.i = -1 } },
@@ -84,6 +83,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_d,       shiftview,     {.i = +1 } },
 	{ MODKEY,                       XK_q,       setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_e,       setmfact,       {.f = +0.05} },
+	{ MODKEY|ShiftMask,             XK_q,       incnmaster,     {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_e,       incnmaster,     {.i = -1 } },
 	/* custom dmenu_run key */
 	{ MODKEY,                       XK_r,      spawn,          {.v = dmenucmd } },
 
@@ -96,8 +97,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
-	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
-	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
+	//{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
+	//{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
 	{ MODKEY,                       XK_Return, zoom,           {0} },
@@ -127,7 +128,7 @@ static Key keys[] = {
 	TAGKEYS(                        XK_6,                      6)
 	TAGKEYS(                        XK_7,                      7)
 	TAGKEYS(                        XK_8,                      8)
-	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+	{ MODKEY|ControlMask|ShiftMask, XK_q,      quit,           {0} },
 };
 
 /* button definitions */
