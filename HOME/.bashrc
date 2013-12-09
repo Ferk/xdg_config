@@ -13,6 +13,12 @@
 # If not running interactively, don't do anything
 [[ "$-" =~ "i" ]] || return
 
+# # If dvtm available, run a dvtm session if not in one already
+# if hash dvtm 2>/dev/null && ! [[ "$TERM" =~ "dvtm" ]]
+# then
+#      [ "$TERM" != "dumb" ] && exec dvtm
+# fi
+
 # If .profile is newer, load it and exit (since it already loads bash)
 [ ~/.profile -nt ~/.bashrc ] && {
     echo " ~/.profile was changed, reloading"
@@ -54,7 +60,7 @@ shopt -s no_empty_cmd_completion # dont autocomplete on empty lines
     hash dircolors 2>&- && eval "$(dircolors -b ~/.dir_colors)"
 
     # Colorize (red) the stderr output in the terminal
-    [ -f "/usr/lib/stderred.so" ] && export LD_PRELOAD="/usr/\$LIB/stderred.so"
+    [ -f "/usr/lib/stderred.so" ] && export LD_PRELOAD="${LD_PRELOAD} /usr/\$LIB/stderred.so"
 
 
 ### Formatting escape codes
