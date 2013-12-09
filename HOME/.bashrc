@@ -133,6 +133,12 @@ shopt -s no_empty_cmd_completion # dont autocomplete on empty lines
        # echo -ne "\e]1;gnome-terminal\a"
     }
 
+    # If unknown terminal, set as linux console
+    tset >/dev/null 2>&1 || {
+	echo "WARN: your terminal '$TERM' is unknown for this machine, falling back to 'linux''"
+	export TERM=linux
+    }
+
     ###
     # Since it's not a dumb terminal, display initial messages
     echo -e "\033[36m $(uptime)"
