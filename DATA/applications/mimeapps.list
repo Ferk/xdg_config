@@ -27,3 +27,4 @@ video/x-msvideo=mplayer-no-gui.desktop;subdownloader.desktop;totem.desktop;
 [Default Applications]
 image/svg+xml=chromium.desktop;
 application/pdf=evince.desktop
+video/mp4=mplayer-no-gui.desktop
