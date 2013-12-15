@@ -113,10 +113,12 @@ shopt -s no_empty_cmd_completion # dont autocomplete on empty lines
 	    fi
 
 	    # Prompt to show on the right side
+	    # Note that this prompt must not have escape characters
+	    # to allow for proper calculation of its size
 	    local PSR="@$(hostname) $(date +'%a %Y-%m-%d')"
 	    [ "$retcode" = "0" ] || PSR="[ err: $retcode ] $PSR"
  
-	    echo -ne "\e[s\e[$LINES;$((COLUMNS-${#PSR}))f\e[37m${PSR}\e[0m\e[u"
+	    echo -ne "\e[s\e[$LINES;$((COLUMNS-${#PSR}))f\e[30m${PSR}\e[0m\e[u"
 	}
 
 	if  ! (( "${BASH_VERSION%%.*}" < "4" ))
@@ -134,7 +136,7 @@ shopt -s no_empty_cmd_completion # dont autocomplete on empty lines
     }
 
     # If unknown terminal, set as linux console
-    tset >/dev/null 2>&1 || {
+    tset || {
 	echo "WARN: your terminal '$TERM' is unknown for this machine, falling back to 'linux''"
 	export TERM=linux
     }
