@@ -1,0 +1,18 @@
+#!/bin/sh
+#
+# $1 = pre|post
+# $2 = suspend|hibernate|hybrid-sleep
+
+
+case $1 in
+    pre)
+	# Do nothing
+	;;
+    post)
+	echo "Restoring keyboard settings"
+	DISPLAY=:0 setxkbmap de
+	;;
+    *)
+	echo "Invalid state argument: $1"
+	;;
+esac
