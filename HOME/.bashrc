@@ -140,7 +140,7 @@ shopt -s no_empty_cmd_completion # dont autocomplete on empty lines
     }
 
     # If unknown terminal, set as linux console
-    if { hash tset && ! tset; } >/dev/null 2>&1
+    if hash tset 2>&- && ! tset
     then
 	echo "WARN: your terminal '$TERM' is unknown for this machine, falling back to 'linux''"
 	export TERM=linux
