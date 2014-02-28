@@ -13,7 +13,9 @@ cd() {
 	then
 	    git status -bs --untracked-files="no" #| column -c $COLUMNS
 	    git log -3 --pretty=format:'%an, %ar: %s' | cut -c -$COLUMNS
-	else
+
+	elif svn info 2>$- >$-
+	then
 	    # Show svn status, but if it takes more than 1 second only cache it on background
 	    if ! timeout 1s svn status --non-interactive -q 2>&-
 	    then

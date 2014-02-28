@@ -77,7 +77,13 @@ shopt -s no_empty_cmd_completion # dont autocomplete on empty lines
     # Different color according to error value
     PSCOLOR='eval [[ $? = 0 ]] && { [[ $EUID = 0  ]] && echo -ne "\033[1;36m" || echo -ne "\033[32m"; } || echo -ne "\033[31m";'
     #PS1='\[\033[33m\]\t \[$($PSCOLOR)\]\u\[\033[0m\]:\[\033[94m\]${sPWD:-${PWD/$HOME/~}}\[\033[0m\]\$ '
-    PS1='\[\033[33m\]\t \[$($PSCOLOR)\]\u\[\033[0m\]:\[\033[94m\]${sPWD:-${PWD/$HOME/~}}\[\033[0m\]\$ '
+    # Only show host if running from a remote connection
+    if [ "$SSH_CLIENT" ]
+    then
+	PS1='\[\033[33m\]\t \[$($PSCOLOR)\]\u\[\033[00m\]@\[\033[35m\]\h\[\033[0m\]:\[\033[94m\]${sPWD:-${PWD/$HOME/~}}\[\033[0m\]\$ '
+    else
+	PS1='\[\033[33m\]\t \[$($PSCOLOR)\]\u\[\033[0m\]:\[\033[94m\]${sPWD:-${PWD/$HOME/~}}\[\033[0m\]\$ '
+    fi
 
     [ "$DISPLAY" ] && {
 
@@ -139,7 +145,7 @@ shopt -s no_empty_cmd_completion # dont autocomplete on empty lines
     }
 
     # If unknown terminal, set as linux console
-    if { hash tset && ! tset; } >/dev/null 2>&1
+    if hash tset 2>&- && ! tset
     then
 	echo "WARN: your terminal '$TERM' is unknown for this machine, falling back to 'linux''"
 	export TERM=linux
@@ -147,6 +153,7 @@ shopt -s no_empty_cmd_completion # dont autocomplete on empty lines
 
     ###
     # Since it's not a dumb terminal, display initial messages
+
     echo -ne "\033[36m"
     if [[ "$OS" =~ "CYGWIN" ]]
     then
@@ -157,6 +164,12 @@ shopt -s no_empty_cmd_completion # dont autocomplete on empty lines
     fi
     hash fortune 2>&- && echo -e '\033[33m' && fortune -cs
     echo -e '\033[00m'
+
+    # Some warnings
+    echo -e '\033[31m'
+    [ "$SSH_CLIENT" ] && echo -e "Connected from SSH client $SSH_CLIENT"
+    [ -z "$DISPLAY" ] && hash X 2>&- && echo -e "Display server not set"
+    echo -en '\033[00m'
 }
 
 # Source additional config files from custom directory (aliases, completions, etc)
