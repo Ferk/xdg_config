@@ -113,9 +113,14 @@ shopt -s no_empty_cmd_completion # dont autocomplete on empty lines
 	    fi
 
 	    # Prompt to show on the right side
-	    local PSR="@$(hostname) $(date +'%a %Y-%m-%d')"
-	    [ "$retcode" = "0" ] || PSR="[ err: $retcode ] $PSR"
- 
+	    local PSR="$(date +'%a %Y-%m-%d')"
+
+	    # Add number of running jobs
+	    local jobn=$(jobs | wc -l)
+	    [ "$jobn" = "0" ] || PSR="(bg:$jobn) $PSR" 
+	    # Add error code
+	    [ "$retcode" = "0" ] || PSR="err:$retcode $PSR"
+
 	    echo -ne "\e[s\e[$LINES;$((COLUMNS-${#PSR}))f\e[37m${PSR}\e[0m\e[u"
 	}
 
