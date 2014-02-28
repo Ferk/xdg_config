@@ -85,7 +85,8 @@ shopt -s no_empty_cmd_completion # dont autocomplete on empty lines
 	PS1='\[\033[33m\]\t \[$($PSCOLOR)\]\u\[\033[0m\]:\[\033[94m\]${sPWD:-${PWD/$HOME/~}}\[\033[0m\]\$ '
     fi
 
-    [ "$DISPLAY" ] && {
+    # The following block should only apply to terminals with GUI interface
+    [[ $DISPLAY || $TERM =~ ^x ]] && {
 
 	__on_debug() { 	    
             # Show current running command in window title (only printf allows proper sanitization)
@@ -119,9 +120,14 @@ shopt -s no_empty_cmd_completion # dont autocomplete on empty lines
 	    fi
 
 	    # Prompt to show on the right side
-	    local PSR="@$(hostname) $(date +'%a %Y-%m-%d')"
-	    [ "$retcode" = "0" ] || PSR="[ err: $retcode ] $PSR"
- 
+	    local PSR="$(date +'%a %Y-%m-%d')"
+
+	    # Add number of running jobs
+	    local jobn=$(jobs | wc -l)
+	    [ "$jobn" = "0" ] || PSR="(bg:$jobn) $PSR" 
+	    # Add error code
+	    [ "$retcode" = "0" ] || PSR="err:$retcode $PSR"
+
 	    echo -ne "\e[s\e[$LINES;$((COLUMNS-${#PSR}))f\e[37m${PSR}\e[0m\e[u"
 	}
 
