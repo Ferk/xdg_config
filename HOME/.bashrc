@@ -85,7 +85,8 @@ shopt -s no_empty_cmd_completion # dont autocomplete on empty lines
 	PS1='\[\033[33m\]\t \[$($PSCOLOR)\]\u\[\033[0m\]:\[\033[94m\]${sPWD:-${PWD/$HOME/~}}\[\033[0m\]\$ '
     fi
 
-    [ "$DISPLAY" ] && {
+    # The following block should only apply to terminals with GUI interface
+    [[ $DISPLAY || $TERM =~ ^x ]] && {
 
 	__on_debug() { 	    
             # Show current running command in window title (only printf allows proper sanitization)
