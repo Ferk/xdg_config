@@ -81,28 +81,31 @@ hash lesspipe.sh 2>&- && eval "$(lesspipe.sh)"
 # long running ssh/gpg session (don't ask passwords every time)
 hash keychain 2>&- && eval $(keychain --eval --quiet)
 
-##### More colors for Less ;)
-# 0:black 1:red 2:green 3:yellow 4:blue 5:purple 6:cyan 7:white
+if hash tput 2>/dev/null
+then
+    ##### More colors for Less ;)
+    # 0:black 1:red 2:green 3:yellow 4:blue 5:purple 6:cyan 7:white
 
-# Markout (Blinking, bolD, End)
-export LESS_TERMCAP_mb=$(tput bold; tput setaf 2)
-export LESS_TERMCAP_md=$(tput bold; tput setaf 60)
-export LESS_TERMCAP_me=$(tput sgr0)
+    # Markout (Blinking, bolD, End)
+    export LESS_TERMCAP_mb=$(tput bold; tput setaf 2)
+    export LESS_TERMCAP_md=$(tput bold; tput setaf 60)
+    export LESS_TERMCAP_me=$(tput sgr0)
+    
+    # StandOut (Used in the modeline)
+    export LESS_TERMCAP_so=$(tput bold; tput setaf 6; tput setab 4)
+    export LESS_TERMCAP_se=$(tput rmso; tput sgr0)
+    
+    # Underline
+    export LESS_TERMCAP_us=$(tput smul; tput setaf 7)
+    export LESS_TERMCAP_ue=$(tput rmul; tput sgr0)
 
-# StandOut (Used in the modeline)
-export LESS_TERMCAP_so=$(tput bold; tput setaf 6; tput setab 4)
-export LESS_TERMCAP_se=$(tput rmso; tput sgr0)
-
-# Underline
-export LESS_TERMCAP_us=$(tput smul; tput setaf 7)
-export LESS_TERMCAP_ue=$(tput rmul; tput sgr0)
-
-export LESS_TERMCAP_mr=$(tput rev)
-export LESS_TERMCAP_mh=$(tput dim)
-export LESS_TERMCAP_ZN=$(tput ssubm)
-export LESS_TERMCAP_ZV=$(tput rsubm)
-export LESS_TERMCAP_ZO=$(tput ssupm)
-export LESS_TERMCAP_ZW=$(tput rsupm)
+    export LESS_TERMCAP_mr=$(tput rev)
+    export LESS_TERMCAP_mh=$(tput dim)
+    export LESS_TERMCAP_ZN=$(tput ssubm)
+    export LESS_TERMCAP_ZV=$(tput rsubm)
+    export LESS_TERMCAP_ZO=$(tput ssupm)
+    export LESS_TERMCAP_ZW=$(tput rsupm)
+fi
 
 # Colorize gcc output
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
