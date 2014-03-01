@@ -5,13 +5,34 @@
 [default]
 # Default config options here!
 
-# Video and Audio default Outputs
-vo=gl,vx,xvmc,x11
-#ao=pulse,alsa,oss,
-ao=alsa,oss,
+
+### VIDEO
+
+#vo=vdpau,gl,vx,
+#vc=ffh264vdpau,ffmpeg12vdpau,ffodivxvdpau,ffwmv3vdpau,ffvc1vdpau,
+
+vo=gl,vx,
 
 # Video Filters
-vf=denoise3d
+#vf=pp=de,hqdn3d
+#vf=denoise3d
+
+#This sets the postprocessing into overdrive using all possible spare cpu cycles to make the movie look better
+#autoq=100
+
+# Use double-buffering. (Recommended for xv with SUB/OSD usage)
+double=yes
+
+
+# Drop frames for better audio-video sync
+framedrop=1
+hardframedrop=0  #Make sure hard frame drop is off but can turn on easily now
+
+
+### AUDIO
+
+#ao=pulse,alsa,oss,
+ao=pulse,alsa,oss,
 
 # Verbose level (for more modules see "mplayer -msglevel help")
 msglevel=all=2:demux=4:statusline=5
@@ -22,16 +43,26 @@ softvol=true
 softvol-max= 1000
 #volume=100
 
-# Drop frames for better audio-video sync
-framedrop=true
+# Fix A/V sync problems. *
+#mc=0.2
+autosync=30
+
 # rebuild index if not found (fixes incomplete files)
 idx=true
 
 # disable infrared sensor control support
 nolirc=yes
 
-## Subtitles
+### SUBFONT
+
+# Find subtitle files. (1: load all subs containing movie name)
+sub-fuzziness=1
+
 slang=Spanish,spa,es,English,eng,en
+
+# Set font encoding.
+subfont-encoding=unicode
+
 # outline/blur range: 0-8
 subfont-outline=6
 subfont-blur=4
@@ -40,10 +71,18 @@ subfont-autoscale=3
 subfont-osd-scale=0.6
 subfont-text-scale=3
 
+### Other
+
+# mouse for dvd menus
+mouse-movements=1
+
+# Disable screensaver.
+#heartbeat-cmd="xscreensaver-command -deactivate"
+
+# Position window. (50%:50%: center of screen)
+geometry=50%:50%
+
 [gnome-mplayer]
 profile-desc="Configuration for gnome-mplayer interface"
-vo=xv
-ao=alsa
 msglevel=all=5
-vf=eq2
 

@@ -16,7 +16,6 @@ static const Bool topbar            = True;     /* False means bottom bar */
 /* tagging */
 static const char *tags[] = { "0", "1", "2", "3", "4", "5", "6", "7", "8" };
 
-
 static const Rule rules[] = {
   /* class          instance  title   tags mask  isfloating   monitor */
   { "Gimp",         NULL,    NULL,     0,        True,        -1,},
@@ -117,8 +116,8 @@ static Key keys[] = { /* mod, keysym, func(Arg*), arg */
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
 
+	TAGKEYS(                        XK_grave,                  0)
 	TAGKEYS(                        XK_masculine,              0)
-	TAGKEYS(                        XK_dead_acute,             0)
 	TAGKEYS(                        XK_dead_circumflex,        0)
 	TAGKEYS(                        XK_1,                      1)
 	TAGKEYS(                        XK_2,                      2)

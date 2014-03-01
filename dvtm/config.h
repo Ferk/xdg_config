@@ -146,10 +146,10 @@ Button buttons[] = {
 	{ BUTTON3_CLICKED,        { mouse_minimize,   { NULL  } } },
    
    	{ BUTTON4_CLICKED,        { scrollback,   { "1"  } } },
-      /*	{ BUTTON5_CLICKED,        { scrollback,   { "-1"  } } }, */
+    	{ BUTTON5_CLICKED,        { scrollback,   { "-1"  } } }, 
 };
 #endif /* CONFIG_MOUSE */
-
+git clone git://repo.or.cz/dvtm.git
 Cmd commands[] = {
 	{ "create", { create,	{ NULL } } },
 };

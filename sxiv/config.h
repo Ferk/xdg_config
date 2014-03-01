@@ -114,6 +114,9 @@ static const keymap_t keys[] = {
 	{ false,  XK_less,          i_rotate,             (arg_t) DIR_LEFT },
 	{ false,  XK_greater,       i_rotate,             (arg_t) DIR_RIGHT },
 
+	{ true,   XK_s,             i_navigate_frame,     (arg_t) +1 },
+	{ true,   XK_d,             i_navigate_frame,     (arg_t) -1 },
+
 	{ false,  XK_a,             i_toggle_antialias,   (arg_t) None },
 	{ false,  XK_A,             it_toggle_alpha,      (arg_t) None },
 

@@ -24,7 +24,11 @@ video/webm=mplayer-no-gui.desktop;
 video/x-flv=mplayer-no-gui.desktop;
 video/x-matroska=mplayer-no-gui.desktop;
 video/x-msvideo=mplayer-no-gui.desktop;subdownloader.desktop;totem.desktop;
+application/x-compressed-tar=7zFM.desktop;
+
 [Default Applications]
 image/svg+xml=chromium.desktop;
 application/pdf=evince.desktop
 video/mp4=mplayer-no-gui.desktop
+application/x-compressed-tar=7zFM.desktop
+

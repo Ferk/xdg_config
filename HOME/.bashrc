@@ -77,9 +77,16 @@ shopt -s no_empty_cmd_completion # dont autocomplete on empty lines
     # Different color according to error value
     PSCOLOR='eval [[ $? = 0 ]] && { [[ $EUID = 0  ]] && echo -ne "\033[1;36m" || echo -ne "\033[32m"; } || echo -ne "\033[31m";'
     #PS1='\[\033[33m\]\t \[$($PSCOLOR)\]\u\[\033[0m\]:\[\033[94m\]${sPWD:-${PWD/$HOME/~}}\[\033[0m\]\$ '
-    PS1='\[\033[33m\]\t \[$($PSCOLOR)\]\u\[\033[0m\]:\[\033[94m\]${sPWD:-${PWD/$HOME/~}}\[\033[0m\]\$ '
+    # Only show host if running from a remote connection
+    if [ "$SSH_CLIENT" ]
+    then
+	PS1='\[\033[33m\]\t \[$($PSCOLOR)\]\u\[\033[00m\]@\[\033[35m\]\h\[\033[0m\]:\[\033[94m\]${sPWD:-${PWD/$HOME/~}}\[\033[0m\]\$ '
+    else
+	PS1='\[\033[33m\]\t \[$($PSCOLOR)\]\u\[\033[0m\]:\[\033[94m\]${sPWD:-${PWD/$HOME/~}}\[\033[0m\]\$ '
+    fi
 
-    [ "$DISPLAY" ] && {
+    # The following block should only apply to terminals with GUI interface
+    [[ $DISPLAY || $TERM =~ ^x ]] && {
 
 	__on_debug() { 	    
             # Show current running command in window title (only printf allows proper sanitization)
@@ -115,10 +122,15 @@ shopt -s no_empty_cmd_completion # dont autocomplete on empty lines
 	    # Prompt to show on the right side
 	    # Note that this prompt must not have escape characters
 	    # to allow for proper calculation of its size
-	    local PSR="@$(hostname) $(date +'%a %Y-%m-%d')"
-	    [ "$retcode" = "0" ] || PSR="[ err: $retcode ] $PSR"
- 
-	    echo -ne "\e[s\e[$LINES;$((COLUMNS-${#PSR}))f\e[30m${PSR}\e[0m\e[u"
+	    local PSR="$(date +'%a %Y-%m-%d')"
+
+	    # Add number of running jobs
+	    local jobn=$(jobs | wc -l)
+	    [ "$jobn" = "0" ] || PSR="(bg:$jobn) $PSR" 
+	    # Add error code
+	    [ "$retcode" = "0" ] || PSR="err:$retcode $PSR"
+
+	    echo -ne "\e[s\e[$LINES;$((COLUMNS-${#PSR}))f\e[37m${PSR}\e[0m\e[u"
 	}
 
 	if  ! (( "${BASH_VERSION%%.*}" < "4" ))
@@ -136,18 +148,31 @@ shopt -s no_empty_cmd_completion # dont autocomplete on empty lines
     }
 
     # If unknown terminal, set as linux console
-    tset || {
+    if hash tset 2>&- && ! tset
+    then
 	echo "WARN: your terminal '$TERM' is unknown for this machine, falling back to 'linux''"
 	export TERM=linux
-    }
+    fi
 
     ###
     # Since it's not a dumb terminal, display initial messages
-    echo -e "\033[36m $(uptime)"
-    last -3 | head -n -2
-    echo -e '\033[33m'
-    hash fortune 2>&- && fortune -cs
+
+    echo -ne "\033[36m"
+    if [[ "$OS" =~ "CYGWIN" ]]
+    then
+	tasklist /fi "memusage gt 100000"
+    else
+	uptime
+	last -3 | head -n -2
+    fi
+    hash fortune 2>&- && echo -e '\033[33m' && fortune -cs
     echo -e '\033[00m'
+
+    # Some warnings
+    echo -e '\033[31m'
+    [ "$SSH_CLIENT" ] && echo -e "Connected from SSH client $SSH_CLIENT"
+    [ -z "$DISPLAY" ] && hash X 2>&- && echo -e "Display server not set"
+    echo -en '\033[00m'
 }
 
 # Source additional config files from custom directory (aliases, completions, etc)

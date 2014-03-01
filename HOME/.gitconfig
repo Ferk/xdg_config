@@ -1,0 +1,30 @@
+# -*- conf -*-
+
+[user]
+	email = ferkiwi@gmail.com
+	name = Fernando C.V.
+[color]
+  ui = always
+
+[color "branch"]
+  current = yellow reverse
+  local = yellow
+  remote = green
+
+[color "diff"]
+  meta = yellow bold
+  frag = magenta bold
+  old = red bold
+  new = green bold
+
+[color "status"]
+  added = yellow
+  changed = green
+  untracked = cyan
+
+[filter "encrypt"]
+clean = gpg -q --batch --no-tty -e -r ferk 
+smudge = gpg -q --batch --no-tty -d
+
+[diff "gpg"]
+textconv = gpg -q --batch --no-tty -d
