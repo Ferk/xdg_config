@@ -82,30 +82,27 @@ hash lesspipe.sh 2>&- && eval "$(lesspipe.sh)"
 hash keychain 2>&- && eval $(keychain --eval --quiet)
 
 ##### More colors for Less ;)
-### Formatting escape codes
-# 00: none
-# 01: bold
-# 04: undeline
-# 05-6: blink (slow-fast)
-# 07: invert colors
-# 08: concealed
-# 38: next argument "5;x", "x" is a fg 0-256 color
-# 48: next argument "5;x", "x" is a bg 0-256 color
-# 30-37: fg color (dark)
-# 40-47: bg color (dark)
-# 90-97: fg color (bright)
-# 100-107: bg color (bright)
-## *0-*7 colors:
 # 0:black 1:red 2:green 3:yellow 4:blue 5:purple 6:cyan 7:white
 
-export LESS_TERMCAP_mb=$'[01;31m'       # blinking markout
-export LESS_TERMCAP_md=$'[01;38;5;74m'  # bold markout
-export LESS_TERMCAP_so=$'1;104m'       # standout, info box
-export LESS_TERMCAP_us=$'[04;38;5;146m' # underline
+# Markout (Blinking, bolD, End)
+export LESS_TERMCAP_mb=$(tput bold; tput setaf 2)
+export LESS_TERMCAP_md=$(tput bold; tput setaf 60)
+export LESS_TERMCAP_me=$(tput sgr0)
 
-export LESS_TERMCAP_me=$'[0m'           # markout end
-export LESS_TERMCAP_se=$'[0m'           # standout end
-export LESS_TERMCAP_ue=$'[0m'           # underline end
+# StandOut (Used in the modeline)
+export LESS_TERMCAP_so=$(tput bold; tput setaf 6; tput setab 4)
+export LESS_TERMCAP_se=$(tput rmso; tput sgr0)
+
+# Underline
+export LESS_TERMCAP_us=$(tput smul; tput setaf 7)
+export LESS_TERMCAP_ue=$(tput rmul; tput sgr0)
+
+export LESS_TERMCAP_mr=$(tput rev)
+export LESS_TERMCAP_mh=$(tput dim)
+export LESS_TERMCAP_ZN=$(tput ssubm)
+export LESS_TERMCAP_ZV=$(tput rsubm)
+export LESS_TERMCAP_ZO=$(tput ssupm)
+export LESS_TERMCAP_ZW=$(tput rsupm)
 
 # Colorize gcc output
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
