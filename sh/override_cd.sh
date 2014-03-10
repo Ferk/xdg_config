@@ -2,7 +2,7 @@
 
 # Custom 'cd' override for additional info and functions
 cd() {
-	builtin cd "$@" || exit $?
+	builtin cd "$@" || return $?
 
 	## Show version control status
 	if git rev-parse --git-dir >/dev/null 2>&1
