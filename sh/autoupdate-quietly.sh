@@ -5,6 +5,6 @@
     touch -t $timelimit /tmp/timemarker
     if [ .git/FETCH_HEAD -ot /tmp/timemarker ]
     then
-	git pull -v
-    fi >autoupdate.log 2>&1
+	git pull -v >autoupdate.log 2>&1
+    fi
 }&)
