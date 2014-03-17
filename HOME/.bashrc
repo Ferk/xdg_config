@@ -37,11 +37,14 @@ export HISTSIZE=100000
 
 OS=$(uname -s)
 
-if [ "$OS" = "Darwin" ]
+if hash brew 2>/dev/null
 then
     # Load completion from brew
-    . "$(brew --prefix)/etc/bash_completion"
-else
+    . "$(brew --prefix)/etc/bash_completion" 2>/dev/null
+fi
+
+if ((BASH_VERSINFO[0] >= 4))
+then
    shopt -s checkjobs # needs to double close if there are pending jobs
    shopt -s globstar # recursive globbing with **
    shopt -s cdspell dirspell # spelling corrections when cd'ing and globbing
