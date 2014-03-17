@@ -2,7 +2,16 @@
 
 # Custom 'cd' override for additional info and functions
 cd() {
-	builtin cd "$@" || return $?
+	builtin cd "$@" || {
+		local err=$?
+		if type -p _z
+		then
+			echo "cd: attempting to use next best directory match"
+			_z "$@" && echo "$PWD"
+			err=$?
+		fi
+		return $err
+	}
 
 	## Show version control status
 	if git rev-parse --git-dir >/dev/null 2>&1
