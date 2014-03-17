@@ -133,7 +133,10 @@ shopt -s no_empty_cmd_completion # dont autocomplete on empty lines
 	    # Add error code
 	    [ "$retcode" = "0" ] || PSR="err:$retcode $PSR"
 
-	    echo -ne "\e[s\e[$LINES;$((COLUMNS-${#PSR}+1))f\e[37m${PSR}\e[0m\e[u"
+
+		echo -ne "$(tput sc)$(tput cup $LINES $((COLUMNS-${#PSR})))"
+	    echo -ne "\e[37m${PSR}\e[0m"
+		echo -ne "$(tput rc)"
 	}
 
 	if  ! (( "${BASH_VERSION%%.*}" < "4" ))
