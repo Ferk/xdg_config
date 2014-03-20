@@ -159,8 +159,8 @@ shopt -s no_empty_cmd_completion # dont autocomplete on empty lines
     # If unknown terminal, set as linux console
     if hash tset 2>&- && ! tset
     then
-	echo "WARN: your terminal '$TERM' is unknown for this machine, falling back to 'linux''"
-	export TERM=linux
+		echo "WARN: your terminal '$TERM' is unknown for this machine, falling back to 'linux''"
+		export TERM=linux
     fi
 
     ###
@@ -169,10 +169,11 @@ shopt -s no_empty_cmd_completion # dont autocomplete on empty lines
     echo -ne "\033[36m"
     if [[ "$OS" =~ "CYGWIN" ]]
     then
-	tasklist /fi "memusage gt 100000"
+		tasklist /fi "memusage gt 100000"
+		export TERM=cygwin
     else
-	uptime
-	last -3 | head -n -2
+		uptime
+		last -3 | head -n -2
     fi
     hash fortune 2>&- && echo -e '\033[33m' && fortune -cs
     echo -e '\033[00m'
