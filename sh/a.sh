@@ -10,12 +10,16 @@
 function a() {
 	# This would be useful if your terminal is set up to trigger the
 	# 'urgent' property to your windowmanager, so the window will blink.
-	echo -ne '\a'
-
-	if hash beep 2>/dev/null
-	then
-		beep -f 5000 -l 50 -r 2
-	fi &
+	printf '\a'
+	( 
+		if hash beep
+		then
+			beep -f 5000 -l 50 -r 2
+		elif hash rundll32
+		then
+			# kernel32.dll,Beep might also work, but I can't get any
+			# pleasant sound
+			rundll32 user32.dll,MessageBeep -1
+		fi &
+	) 2>/dev/null
 }
-
-
