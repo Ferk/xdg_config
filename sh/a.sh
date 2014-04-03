@@ -20,7 +20,6 @@ function a() {
 			# kernel32.dll,Beep might also work, but I can't get any
 			# pleasant sound
 			rundll32 user32.dll,MessageBeep -1
-		fi
 		elif hash say
 		then
 			say "ding"
