@@ -6,7 +6,5 @@
     if [ .git/FETCH_HEAD -ot /tmp/timemarker ]
     then
 		git pull -v
-		echo " -- Updating submodules"
-		git submodule update
     fi
 } >autoupdate.log 2>&1 &)
