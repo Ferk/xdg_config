@@ -11,6 +11,10 @@ complete -F _root_command sudo
 complete -F _filedir_xspec e
 complete -F _filedir_xspec mpv
 
+# Exclude some commands that load their own completion
+# at runtime
+exclude_completion_history="git"
+
 # Autocomplete using previous history
 # The COMP_LINE variable holds the currently entered input
 # The function will return the remaining of the matching lines, 
@@ -25,9 +29,12 @@ complete -C _history \
 # that doesn't have a completion facility already.
 for cmd in $(cat "$HISTFILE" | sed -n "s/\(\w*\).*/\1/p" | sort | uniq)
 do
-    if ! hash $cmd 2>&-
+    if ! hash $cmd 2>&- || [[ $exclude_completion_history =~ $cmd ]]
     then continue
     fi
     complete | grep -q " $cmd\$" || complete -C _history "$cmd"
 done
+
+# remove the variable after use
+unset completion_history_exclude
 

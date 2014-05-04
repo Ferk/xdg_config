@@ -32,7 +32,7 @@ fi
     export PERL_MB_OPT="--install_base $HOME/perl5";
     export PERL_MM_OPT="INSTALL_BASE=$HOME/perl5";
     export PERL5LIB="$HOME/perl5/lib/perl5/i686-linux-thread-multi:$HOME/perl5/lib/perl5";
-    export PATH="$HOME/perl5/bin:$PATH";
+    PATH="$HOME/perl5/bin:$PATH";
 }
 
 # search path for "cd", for faster directory switching
@@ -107,8 +107,16 @@ then
     export LESS_TERMCAP_ZW=$(tput rsupm)
 fi
 
+##
 # Colorize gcc output
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+
+##
+# Include Ruby gems in path
+if which ruby gem >/dev/null
+then
+	PATH="$PATH:$(gem env gemdir)/bin"
+fi
 
 # If bash, load the subshell configuration for it to be used in login shells too
 if test $BASH && test -f $HOME/.bashrc
