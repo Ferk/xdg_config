@@ -79,11 +79,11 @@ shopt -s no_empty_cmd_completion # dont autocomplete on empty lines
 
     # Different color according to error value
     PSCOLOR='eval [[ $? = 0 ]] && { [[ $EUID = 0  ]] && echo -ne "\033[1;36m" || echo -ne "\033[32m"; } || echo -ne "\033[31m";'
-    #PS1='\[\033[33m\]\t \[$($PSCOLOR)\]\u\[\033[0m\]:\[\033[94m\]${sPWD:-${PWD/$HOME/~}}\[\033[0m\]\$ '
+    #PS1='\[\033[33m\]\t \[$($PSCOLOR)\]\u\[\033[0m\]:\[\033[94m\]${sPWD:-${PWD/$HOME/\~}}\[\033[0m\]\$ '
     # Only show host if running from a remote connection
     if [ "$SSH_CLIENT" ]
     then
-	PS1='\[\033[33m\]\t \[$($PSCOLOR)\]\u\[\033[00m\]@\[\033[35m\]\h\[\033[0m\]:\[\033[94m\]${sPWD:-${PWD/$HOME/~}}\[\033[0m\]\$ '
+	PS1='\[\033[33m\]\t \[$($PSCOLOR)\]\u\[\033[00m\]@\[\033[35m\]\h\[\033[0m\]:\[\033[94m\]${sPWD:-${PWD/$HOME/\~}}\[\033[0m\]\$ '
     else
 	PS1='\[\033[33m\]\t \[$($PSCOLOR)\]\u\[\033[0m\]:\[\033[94m\]${sPWD:-${PWD/$HOME/~}}\[\033[0m\]\$ '
     fi
@@ -119,7 +119,7 @@ shopt -s no_empty_cmd_completion # dont autocomplete on empty lines
 	    then
 		sPWD="../${PWD##*/}"
 	    else
-		sPWD="${PWD/$HOME/~}"
+		sPWD="${PWD/$HOME/\~}"
 	    fi
 
 	    # Prompt to show on the right side
