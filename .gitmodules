@@ -1,6 +1,12 @@
-[submodule "dwm"]
-	path = dwm
-	url = http://git.suckless.org/dwm
+# -*- conf -*-
+
 [submodule "HOME/.emacs.d"]
 	path = HOME/.emacs.d
 	url = https://github.com/Ferk/emacs.d.git
+	fetchRecurseSubmodules = true
+	ignore = untracked
+
+[submodule "dwm"]
+	path = dwm
+	url = http://git.suckless.org/dwm
+	fetchRecurseSubmodules = true
