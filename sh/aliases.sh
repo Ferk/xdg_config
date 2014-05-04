@@ -61,7 +61,7 @@ alias la='ls -A'
 
 alias unp='unp -U'
 
-alias e='${EDITOR:=$(which nano 2>&- || which vi)}'
+alias e="${EDITOR:=$({ which emacs || which nano || which vi; } 2>/dev/null)}"
 
 alias h=' history | tail '
 alias history.top="cat $HISTFILE | sort | uniq -c | sort -rn | head"
