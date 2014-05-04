@@ -27,6 +27,8 @@ static const Rule rules[] = {
   
   { "Pidgin",       NULL,    NULL,     1<< 2,    False,       -1,},
  
+  { "Steam",       NULL,    NULL,      1<< 2,    True,       -1,},
+
   { NULL,           NULL,    "cmus",   1<< 6,    False,       -1,},
   { "Transmission", NULL,    NULL,     1<< 7,    False,       -1,},
   { "Downloader",   NULL,    NULL,     1<< 7,    False,       -1,},
