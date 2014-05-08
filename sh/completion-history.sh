@@ -17,12 +17,23 @@ exclude_completion_history="git"
 
 # Autocomplete using previous history
 # The COMP_LINE variable holds the currently entered input
-# The function will return the remaining of the matching lines, 
+# COMPREPLY array will store the remaining of the matching lines, 
 # this will be done per word (no partial words will be shown).
 _history() {
-    history | sed -n "s/^[0-9: \-]* ${COMP_LINE:=$1}/${COMP_LINE##* }/p"
+    local esc_line
+    _init_completion || return
+
+    esc_line=$(echo "${COMP_LINE:=$1}" | sed 's_\([][\.$\-\\|]\)_\\\1_g')
+    
+    COMPREPLY=($(history | sed -n "s|^[0-9: \-]* ${esc_line}|${esc_line##* }|p"))
+    
+    if [[ ! $COMPREPLY ]]
+    then
+	# When no completion was found, use filedir on last word
+	_filedir_xspec 2>/dev/null
+    fi
 }
-complete -C _history \
+complete -F _history \
     browser chromium firefox t mount.iso pomodoro wicd-cli xmacroplay
 
 # Apply _history completion for every suitable command in history
@@ -32,7 +43,7 @@ do
     if ! hash $cmd 2>&- || [[ $exclude_completion_history =~ $cmd ]]
     then continue
     fi
-    complete | grep -q " $cmd\$" || complete -C _history "$cmd"
+    complete | grep -q " $cmd\$" || complete -F _history "$cmd"
 done
 
 # remove the variable after use
