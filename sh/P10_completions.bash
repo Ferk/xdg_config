@@ -21,7 +21,7 @@ _history() {
     if [[ ! $COMPREPLY ]]
     then
 	# When no completion was found, use filedir on last word
-	_filedir_xspec $@
+	_filedir_xspec ${@:-""}
     fi
 }
 
