@@ -30,7 +30,7 @@ _history() {
     if [[ ! $COMPREPLY ]]
     then
 	# When no completion was found, use filedir on last word
-	_filedir_xspec 2>/dev/null
+	_filedir_xspec $@
     fi
 }
 complete -F _history \
