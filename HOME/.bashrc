@@ -185,8 +185,8 @@ shopt -s no_empty_cmd_completion # dont autocomplete on empty lines
     echo -en '\033[00m'
 }
 
-# Source additional config files from custom directory (aliases, completions, etc)
-for src in ~/.config/sh/*.sh
+# Source additional (non-profile) config files from custom directory (aliases, completions, etc)
+for src in ~/.config/sh/[^P]*.sh
 do
     [[ -f "$src" ]] && . "$src"
 done
