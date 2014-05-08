@@ -1,9 +1,5 @@
 # -*- conf -*-
 
-[user]
-email = ferkiwi@gmail.com
-name = Fernando C.V.
-
 [core]
 whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
 
@@ -49,3 +45,6 @@ textconv = gpg -q --batch --no-tty -d
 
 [push]
 default = simple
+[user]
+	email = ferkiwi@gmail.com
+	name = Fernando Carmona Varo
