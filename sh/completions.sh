@@ -4,13 +4,6 @@
 #
 # Fernando Carmona Varo
 
-# Missing autocompletions, that we don't want to override with _history
-complete -F _pacman pac packer
-# complete -F _aptitude a
-complete -F _root_command sudo
-complete -F _filedir_xspec e
-complete -F _filedir_xspec mpv
-
 # Autocomplete using previous history
 # The COMP_LINE variable holds the currently entered input
 # COMPREPLY array will store the remaining of the matching lines, 
@@ -69,8 +62,17 @@ _complete_with_fallback()
     fi
 }
 
-_completion_loader_with_fallback()
+_completion_loader_wrapper()
 {
+    # Attempt to load first the completions in the subdirectory
+    # completions from this file
+    local compfile="${BASH_SOURCE%/*}/completions/${1##*/}"
+    # Avoid trying to source dirs; https://bugzilla.redhat.com/903540
+    [[ -f "$compfile" ]] && . "$compfile" &>/dev/null && return 124
+
+    # Then, if no user completion was added, use the main system
+    # completions, but wrap with the fallback for the selected
+    # commands
     for cmd in "${COMP_USE_FALLBACK[@]}"
     do
 	if [[ $cmd == "${1##*/}" ]]
@@ -83,8 +85,8 @@ _completion_loader_with_fallback()
     done
     _completion_loader $@
 } &&
-complete -D -F _completion_loader_with_fallback
+complete -D -F _completion_loader_wrapper
 
 [[ $COMP_USE_FALLBACK ]] || 
-COMP_USE_FALLBACK=(make wget chromium firefox)
+COMP_USE_FALLBACK=(make wget curl chromium firefox)
 
