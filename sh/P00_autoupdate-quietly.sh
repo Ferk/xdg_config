@@ -6,6 +6,6 @@
     if [ .git/FETCH_HEAD -ot /tmp/timemarker ]
     then
 		git pull -v
-		git submodule update --recursive
+		git submodule update --remote --recursive
     fi
 } >autoupdate.log 2>&1 &)
