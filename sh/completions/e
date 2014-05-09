@@ -1,0 +1,2 @@
+# -*- sh -*-
+complete -F _filedir_xspec ${BASH_SOURCE##*/}

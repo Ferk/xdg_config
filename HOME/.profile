@@ -113,14 +113,28 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 
 ##
 # Include Ruby gems in path
-if which ruby gem >/dev/null
+if which ruby gem >/dev/null 2>&1
 then
 	PATH="$PATH:$(gem env gemdir)/bin"
 fi
 
-# If bash, load the subshell configuration for it to be used in login shells too
-if test $BASH && test -f $HOME/.bashrc
+# Source additional Profile config files from custom directory (aliases, completions, etc)
+for src in ~/.config/sh/P*.sh
+do
+    [ -f "$src" ] && . "$src"
+done
+# Also source the ones particular to the given shell
+if [ "${SHELL##*/}" != 'sh' ]
 then
-    . $HOME/.bashrc
+    for src in ~/.config/sh/P*."${SHELL##*/}"
+    do
+	[ -f "$src" ] && . "$src"
+    done
+fi
+
+# If bash, load the subshell configuration for it to be used in login shells too
+if test $BASH
+then
+    [ -f $HOME/.bashrc ] && . $HOME/.bashrc
 fi
 

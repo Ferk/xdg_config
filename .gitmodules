@@ -4,9 +4,11 @@
 	path = HOME/.emacs.d
 	url = https://github.com/Ferk/emacs.d.git
 	fetchRecurseSubmodules = true
+	update = merge
 	ignore = untracked
 
 [submodule "dwm"]
 	path = dwm
 	url = http://git.suckless.org/dwm
 	fetchRecurseSubmodules = true
+	update = checkout
