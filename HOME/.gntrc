@@ -1,0 +1,6 @@
+[general]
+shadow = 0
+# There is experimental mouse support
+#mouse = 1
+# To use some custom window-manager
+wm = /usr/lib/gnt/irssi.so

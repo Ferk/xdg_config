@@ -68,6 +68,10 @@ alias history.top="cat $HISTFILE | sort | uniq -c | sort -rn | head"
 #alias hg=' history | gi '
 alias j=' jobs -l '
 
+# Check the return value of last command and act accordingly
+# Useful when entering commands one after the other before the prompt appears
+alias :='[ "$?" = 0 ] &&'
+
 alias cmi="./configure && make && sudo make install"
 
 # Networking
@@ -114,5 +118,7 @@ alias rmorphans='sudo pacman -Rs $(pacman -Qtdq)'
 
 alias engage="play -n -c1 synth whitenoise band -n 100 20 band -n 50 20 gain +25  fade h 1 864000 1"
 
+
+alias httpd_log='tac /var/log/httpd/access_log* | less'
 
 

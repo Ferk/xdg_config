@@ -1,0 +1,13 @@
+[Unit]
+Description=Set X system bell volume and settings when resuming from sleep
+After=suspend.target
+
+[Service]
+Type=forking
+User=ferk
+Environment=DISPLAY=:0
+ExecStart=/usr/bin/xset b 2 1 200
+
+[Install]
+WantedBy=suspend.target
+

@@ -27,16 +27,21 @@ then
 fi
 
 mk() {
+	for file in package/heatapp/ebvnode/Makefile
+	do
+		touch "$file"
+	done
     {
 	if make V=s "$@" 2>&1
 	then
-	    echo "Finished with successful error code ($?)!"
+	    echo -e "\e[32m; -- Finished with successful error code ($?)!"
 	else
-	    echo "Returned error code: $? ...see make.log for full log"
+	    echo -e "\e[31m; -- Returned error code: $? ...see make.log for full log"
 	fi
     } | \
 	tee make.log | grep -ie "[^-_\w]error" -e "^make.*: Entering directory"
     echo -e "\a"
+	beep -f90 -l20
 }
 
 export PATH=$PATH:./scripts:./scripts/flashing
