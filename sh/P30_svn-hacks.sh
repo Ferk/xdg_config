@@ -3,7 +3,9 @@
 # svn wrapper with some useful hacks that make my life easier.
 #
 
-SVN_BIN=$(which svn)
+SVN_BIN=$(which svn 2>/dev/null)
+
+[ "$SVN_BIN" ] || return
 
 _jira_task_query() {
 	search_cmd="$*"
