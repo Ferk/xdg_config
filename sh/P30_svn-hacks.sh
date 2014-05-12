@@ -58,7 +58,7 @@ EOF
 svn() {
 	case $1 in
 
-		commit)
+		commit|ci)
 			shift
 			# only forward args if there are no special options to the commit
 			if ! echo "$@" | grep -q ' -'
