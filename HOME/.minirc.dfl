@@ -1,9 +1,9 @@
 # Machine-generated file - use "minicom -s" to change parameters.
-#pu port             /dev/ttyUSB0
-pu port             /dev/ttyACM0
+pu port             /dev/ttyUSB0
+#pu port             /dev/ttyACM0
 pu baudrate         115200
 pu bits             8
 pu parity           N
 pu stopbits         1
 pu localecho        Yes
-pu addlinefeed      Yes
+#pu addlinefeed      Yes

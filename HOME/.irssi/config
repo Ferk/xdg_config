@@ -280,7 +280,7 @@ settings = {
   core = {
     real_name = "Fernando";
     user_name = "ferk";
-    nick = "ferk";
+    nick = "Ferkv-irssi";
     quit_message = "\"Bye!!\"";
   };
   "fe-text" = { actlist_sort = "refnum"; };

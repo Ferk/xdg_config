@@ -38,7 +38,7 @@ fi
 # search path for "cd", for faster directory switching
 export CDPATH=".:$HOME"
 
-export LANG="C"
+export LANG="C.UTF-8"
 export LC_ALL="C"
 export LC_COLLATE="C"
 
@@ -135,6 +135,6 @@ fi
 # If bash, load the subshell configuration for it to be used in login shells too
 if test $BASH
 then
-    [ -f $HOME/.bashrc ] && . $HOME/.bashrc
+    [ -f "$HOME/.bashrc" ] && . "$HOME/.bashrc"
 fi
 
