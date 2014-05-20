@@ -2,6 +2,16 @@
 
 # Custom 'cd' override for additional info and functions
 cd() {
+
+	case "$1" in
+		-|-[0-9]|+|+[0-9])
+			pushd "$@"
+			return $?		
+			;;
+		*)
+			;;
+	esac
+
 	builtin cd "$@" || {
 		local err=$?
 		if type -p _z
@@ -32,5 +42,12 @@ cd() {
 	if hash _z >/dev/null
 	then
 		_z --add "$(pwd $_Z_RESOLVE_SYMLINKS 2>/dev/null)" 2>/dev/null
+	fi
+
+	# Add old directory to the top of pushd stack
+	# if not already there
+	if [ "$(dirs +1 2>/dev/null)" != "$OLDPWD" ]
+	then
+		pushd -n "$OLDPWD"
 	fi
 }
