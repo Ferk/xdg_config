@@ -48,6 +48,6 @@ cd() {
 	# if not already there
 	if [ "$(dirs +1 2>/dev/null)" != "$OLDPWD" ]
 	then
-		pushd -n "$OLDPWD"
+		pushd -n "$OLDPWD" >/dev/null
 	fi
 }
