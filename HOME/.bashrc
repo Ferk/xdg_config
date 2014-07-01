@@ -54,7 +54,11 @@ shopt -s checkwinsize # refresh LINES and COLUMNS when window size changes
 shopt -s no_empty_cmd_completion # dont autocomplete on empty lines
 
 # Determine terminal type and initialise if needed
-[ "$TERM" ] || eval $(tset -s -m :?xterm)
+if ! [ "$TERM" ] && hash tset 2>&- && eval $(tset -s) && [ "$TERM" = "unknown" ]
+then
+	echo "WARN: your terminal is unknown for this machine, falling back to 'linux'"
+	export TERM=linux
+fi
 
 # Color! ...if the terminal where this subshell is running supports it
 [ "$TERM" != "dumb" ] && {
@@ -155,13 +159,6 @@ shopt -s no_empty_cmd_completion # dont autocomplete on empty lines
        # # set iconname
        # echo -ne "\e]1;gnome-terminal\a"
     }
-
-    # If unknown terminal, set as linux console
-    if hash tset 2>&- && ! tset
-    then
-		echo "WARN: your terminal '$TERM' is unknown for this machine, falling back to 'linux''"
-		export TERM=linux
-    fi
 
     ###
     # Since it's not a dumb terminal, display initial messages
