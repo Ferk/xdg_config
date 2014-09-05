@@ -123,7 +123,7 @@ fi
 	    then
 		sPWD="../${PWD##*/}"
 	    else
-		sPWD="${PWD/$HOME/~}"
+		sPWD="${PWD/$HOME/\~}"
 	    fi
 
 	    # Prompt to show on the right side
