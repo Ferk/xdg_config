@@ -8,4 +8,4 @@
 		git pull -v
 		git submodule update --remote --recursive
     fi
-} >autoupdate.log 2>&1 &)
+} >/tmp/xdg-config-autoupdate.log 2>&1 &)
