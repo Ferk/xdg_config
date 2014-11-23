@@ -121,4 +121,5 @@ alias engage="play -n -c1 synth whitenoise band -n 100 20 band -n 50 20 gain +25
 
 alias httpd_log='tac /var/log/httpd/access_log* | less'
 
+alias shutdown='sudo shutdown'
 
