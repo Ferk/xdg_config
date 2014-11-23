@@ -123,3 +123,5 @@ alias httpd_log='tac /var/log/httpd/access_log* | less'
 
 alias shutdown='sudo shutdown'
 
+alias speedtest='wget -O /dev/null http://speedtest.wdc01.softlayer.com/downloads/test100.zip'
+
