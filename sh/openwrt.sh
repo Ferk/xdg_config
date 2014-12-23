@@ -47,3 +47,21 @@ mk() {
 export PATH=$PATH:./scripts:./scripts/flashing
 
 alias linux-rebuild="make target/linux/{clean,compile,install} V=s"
+alias linux-initcalls="./staging_dir/toolchain-*/bin/*-openwrt-linux-objdump -x build_dir/target-*/linux-*/linux-*/vmlinux | grep __initcall_"
+
+
+function openwrt-gcc() {
+	( eval "$(grep --color=never .config -e '^[^-]\+=')"
+
+		export STAGING_DIR=$(find .  -maxdepth 2  -type d -wholename "*/staging_dir/target-${CONFIG_ARCH}*" | head -n1)
+		export TOOLCHAIN_DIR=$(find .  -maxdepth 2  -type d -wholename "*/staging_dir/toolchain-${CONFIG_ARCH}*" | head -n1)
+		GCC_ARGS=$CONFIG_TARGET_OPTIMIZATION
+
+		[ "$TOOLCHAIN_DIR" ] && [ "$STAGING_DIR" ] || return 1
+		
+		$TOOLCHAIN_DIR/bin/arm-openwrt-linux-gcc ${GCC_ARGS} "$@"
+	)
+}
+
+
+alias rootdu="ncdu staging_dir/target-*/target-*/root-*"
