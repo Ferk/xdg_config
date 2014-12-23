@@ -98,7 +98,7 @@ alias taill='tail -f `ls -t1 | head -n1`'
 # youtube-dl
 alias youtube-dl='youtube-dl -t'
 alias youtube-dl-low='youtube-dl -f 17'
-alias youtube-dl-mp3='youtube-dl --extract-audio --audio-format mp3'
+alias youtube-dl-mp3='youtube-dl --extract-audio --audio-format mp3 --ignore-errors'
 
 alias update-usplash='sudo update-alternatives --config usplash-artwork.so'
 
