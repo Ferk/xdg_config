@@ -51,11 +51,11 @@ for cmd in "less" "more"; do
     PAGER="$cmd"
     hash ${PAGER%% *} 2>&- && break
 done
-for cmd in "chromium --purge-memory-button --proxy-pac-url=file:///home/ferk/.config/browser/proxy.pac" "firefox" "elinks"; do
+for cmd in "google-chrome-beta" "chromium --purge-memory-button --proxy-pac-url=file:///home/ferk/.config/browser/proxy.pac" "firefox" "elinks"; do
     BROWSER="$cmd"
     hash ${BROWSER%% *} 2>&- && break
 done
-for cmd in "st" "urxvt" "rxvt" "xterm"; do
+for cmd in "urxvt" "rxvt" "st" "xterm"; do
     XTERM="$cmd"
     hash ${XTERM%% *} 2>&- && break
 done
@@ -79,7 +79,15 @@ export LESS="-Rq -XF -P ?c<- .?f%f:Standard input.  ?n:?eEND:?p%pj\%.. .?c%ccol 
 hash lesspipe.sh 2>&- && eval "$(lesspipe.sh)"
 
 # long running ssh/gpg session (don't ask passwords every time)
-hash keychain 2>&- && eval $(keychain --eval --quiet)
+{
+	if hash envoy && pgrep envoy
+	then
+		eval $(envoy -p)
+	elif hash keychain
+	then
+		 eval $(keychain --eval --quiet)
+	fi
+} >/dev/null 2>/dev/null
 
 if hash tput 2>/dev/null
 then

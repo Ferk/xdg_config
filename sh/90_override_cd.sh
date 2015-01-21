@@ -4,11 +4,11 @@
 cd() {
 
 	case "$1" in
-		-|-[0-9]|+|+[0-9])
+		-|-[0-9]*|+[0-9]*)
+			printf "\e[36m"
 			pushd "$@"
-			return $?		
-			;;
-		*)
+			printf "\e[0m"
+			return $?
 			;;
 	esac
 

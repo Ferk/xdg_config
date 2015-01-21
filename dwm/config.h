@@ -21,13 +21,15 @@ static const Rule rules[] = {
   { "Gimp",         NULL,    NULL,     0,        True,        -1,},
   
   { "Firefox",      NULL,    NULL,     1<< 1,    True,        -1,},
-  { "Midori",       NULL,    NULL,     1<< 1,    True,       -1,},
-  { "Chromium",     NULL,    NULL,     1<< 1,    True,       -1,},
-  { "Google Chrome",NULL,    NULL,     1<< 1,    True,       -1,},
+  { "Midori",       NULL,    NULL,     1<< 1,    True,        -1,},
+  { "Chromium",     NULL,    NULL,     1<< 1,    True,        -1,},
+  { "Google Chrome",NULL,    NULL,     1<< 1,    True,        -1,},
+  { "Google-chrome-beta", NULL, NULL,  1<< 1,    True,        -1,},
   
   { "Pidgin",       NULL,    NULL,     1<< 2,    False,       -1,},
+  { "HipChat",      NULL,    NULL,     1<< 4,    False,       -1,},
  
-  { "Steam",       NULL,    NULL,      1<< 2,    True,       -1,},
+  { "Steam",       NULL,    NULL,      1<< 2,    True,        -1,},
 
   { NULL,           NULL,    "cmus",   1<< 6,    False,       -1,},
   { "Transmission", NULL,    NULL,     1<< 7,    False,       -1,},

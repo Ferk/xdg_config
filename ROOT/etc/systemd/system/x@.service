@@ -1,0 +1,9 @@
+[Unit]
+Description=X on %I
+Wants=graphical.target
+Before=graphical.target
+StopWhenUnneeded=true
+
+[Service]
+Type=forking
+ExecStart=sh -c 'trap "exit 0" USR1 && ( trap "" USR1 && exec /usr/bin/X -nolisten tcp -noreset %I; ) &; wait; exit 1'
