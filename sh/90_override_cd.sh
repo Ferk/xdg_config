@@ -26,12 +26,17 @@ cd() {
 	## Show version control status
 	if git rev-parse --git-dir >/dev/null 2>&1
 	then
-		git status -bs --untracked-files="no" #| column -c $COLUMNS
-		git log -3 --pretty=format:'%an, %ar: %s' | cut -c -$COLUMNS
+		# if it takes more than 2 seconds, cleanup and optimize
+		if ! timeout 2s git status -bs --untracked-files="no" #| column -c $COLUMNS
+		then
+			git gc >/dev/null &
+		else
+			git log -3 --pretty=format:'%an, %ar: %s' | cut -c -$COLUMNS
+		fi
 
 	elif timeout 0.5s svn info >/dev/null 2>&1
 	then
-		# Show svn status, but if it takes more than 1 second only cache it on background
+		# if it takes more than 1 second only cache it on background
 		if ! timeout 1s svn status --non-interactive -q 2>/dev/null
 		then
 			svn status -q >/dev/null &
