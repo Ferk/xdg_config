@@ -16,10 +16,12 @@ cl = clone --recurse-submodules
 ##
 br = branch
 brl = branch -v -a
-#
+##
+rb = rebase
+##
 ps = push
 pl = pull --recurse-submodules
-up-submod = submodule foreach --recursive git submodule update
+up-submod = submodule update --recursive --init --remote
 ##
 df = diff
 dc = diff --cached
@@ -34,6 +36,28 @@ lp = log -p
 who = shortlog -s --
 new = !sh -c 'git log $1@{1}..$1@{0} "$@"'
 lcount = shortlog -sn
+#
+patch-out = format-patch --stdout
+patch-in = apply
+
+# git-flow plugin required
+fstart = flow feature start
+fco = flow feature checkout
+fpl = flow feature pull
+fps = flow feature push
+frb = flow feature rebase
+hstart = flow feature start
+hco = flow hotfix checkout
+hpl = flow hotfix pull
+hps = flow hotfix push
+hrb = flow hotfix rebase
+
+# git-gitlab plugin required. To install: gem install git-gitlab
+gl-feature-merge = gitlab merge SOURCE_BRANCH TARGET_BRANCH --assign USER_NAME
+gl-hotfix-merge = gitlab merge SOURCE_BRANCH TARGET_BRANCH --assign USER_NAME
+gl-ls = gitlab merge --list
+gl-set-project = git config gitlab.project
+
 
 [color]
 ui = always
@@ -67,6 +91,9 @@ default = simple
 [credential]
 helper = cache --timeout=28800
 
+
+##########################################
+
 # For machine/user specific settings you might want to use ~/.gitconfig
 # the settings in there will take precedence over the ones in this file.
 # For example, you might want to use that for defining your user:
@@ -75,3 +102,24 @@ helper = cache --timeout=28800
 #  email = <YOUR EMAIL>
 #  name = <YOUR NAME>
 
+##########################################
+
+# git merge -s ours --no-commit packages/master
+# git read-tree -prefix="" -u packages/master
+
+# git filter-branch --env-filter '
+# OLD_EMAIL="old@mail.con"
+# CORRECT_NAME="Name"
+# CORRECT_EMAIL="new@mail.com"
+# 
+# if [ "$GIT_COMMITTER_EMAIL" = "$OLD_EMAIL" ]
+# then
+#     export GIT_COMMITTER_NAME="$CORRECT_NAME"
+#     export GIT_COMMITTER_EMAIL="$CORRECT_EMAIL"
+# fi
+# if [ "$GIT_AUTHOR_EMAIL" = "$OLD_EMAIL" ]
+# then
+#     export GIT_AUTHOR_NAME="$CORRECT_NAME"
+#     export GIT_AUTHOR_EMAIL="$CORRECT_EMAIL"
+# fi
+# ' --tag-name-filter cat -- --branches --tags
