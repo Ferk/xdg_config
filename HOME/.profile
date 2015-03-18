@@ -36,7 +36,7 @@ fi
 }
 
 # search path for "cd", for faster directory switching
-export CDPATH=".:$HOME"
+#export CDPATH=".:$HOME"
 
 export LANG="C.UTF-8"
 export LC_ALL="C"
