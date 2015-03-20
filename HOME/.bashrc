@@ -129,14 +129,17 @@ fi
 	    # Prompt to show on the right side
 	    # Note that this prompt must not have escape characters
 	    # to allow for proper calculation of its size
-	    local PSR="$(date +'%a %Y-%m-%d')"
+	    local PSR=" $(date +'%a %Y-%m-%d')"
 
 	    # Add number of running jobs
 	    local jobn=$(jobs | wc -l)
-	    [ "$jobn" = "0" ] || PSR="(bg:$jobn) $PSR" 
+	    [ "$jobn" = "0" ] || PSR="(bg:$jobn)$PSR" 
 	    # Add error code
-	    [ "$retcode" = "0" ] || PSR="err:$retcode $PSR"
-
+	    [ "$retcode" = "0" ] || PSR=" err:$retcode$PSR"
+		# Add __git_ps1	
+		if hash __git_ps1 2>/dev/null; then
+			PSR="$(GIT_PS1_SHOWDIRTYSTATE=y GIT_PS1_SHOWUPSTREAM=auto __git_ps1)$PSR"
+		fi
 
 	    if hash tput 2>/dev/null
 	    then
@@ -181,6 +184,13 @@ fi
     [ -z "$DISPLAY" ] && hash X 2>&- && echo -e "Display server not set"
     echo -en '\033[00m'
 }
+
+# Some system files to source if existing
+for src in /usr/share/git/completion/git-prompt.sh
+do
+    [[ -f "$src" ]] && . "$src"
+done
+
 
 # Source additional (non-profile) config files from custom directory (aliases, completions, etc)
 for src in ~/.config/sh/[^P]*.sh
