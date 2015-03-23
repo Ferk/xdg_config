@@ -16,8 +16,7 @@
 # add personal executables directory to system PATH
 export PATH="$PATH:$HOME/bin"
 # other executable folders wanted
-##export PATH="$PATH:/root/.gem/ruby/1.9.1/bin"
-export PATH="$PATH:$HOME/.gem/ruby/1.9.1/bin"
+export PATH="$PATH:$(echo $HOME/.gem/ruby/*/bin | head -1)"
 export PATH="$PATH:/usr/local/share/npm/bin"
 
 # In a mac, use coreutils
