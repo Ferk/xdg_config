@@ -29,7 +29,7 @@ cd() {
 		# if it takes more than 2 seconds, cleanup and optimize
 		if ! timeout 2s git status -bs --untracked-files="no" #| column -c $COLUMNS
 		then
-			git gc >/dev/null &
+			( git gc >/dev/null 2>&1 ) &
 		else
 			git log -3 --pretty=format:'%an, %ar: %s' | cut -c -$COLUMNS
 		fi
