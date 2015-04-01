@@ -16,8 +16,8 @@
 
 !*background:            #080808
 !*foreground:            #FFF
-*fading:                25
-*fadeColor:             #333
+*fading:                10
+*fadeColor:             #000
 *cursorColor:           #FF0
 ! *pointerColorBackground:#222
 ! *pointerColorForeground:#BBB
