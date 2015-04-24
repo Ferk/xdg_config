@@ -235,19 +235,19 @@ globalkeys = awful.util.table.join(
 
     -- WASD movement
     awful.key({ modkey,           }, "w", function ()
-            awful.client.focus.byidx( 1)
-            if client.focus then client.focus:raise() end
-        end),
+		  awful.client.focus.byidx( 1)
+		  if client.focus then client.focus:raise() end
+	end),
     awful.key({ modkey,           }, "s", function ()
-            awful.client.focus.byidx(-1)
-            if client.focus then client.focus:raise() end
-        end),
+		  awful.client.focus.byidx(-1)
+		  if client.focus then client.focus:raise() end
+	end),
+	awful.key({ modkey, "Shift"   }, "w", function () awful.client.swap.byidx( -1)    end),
+    awful.key({ modkey, "Shift"   }, "s", function () awful.client.swap.byidx( 1)    end),
     awful.key({ modkey,           }, "a", awful.tag.viewprev),
     awful.key({ modkey,           }, "d", awful.tag.viewnext),
-    awful.key({ modkey,           }, "q", awful.tag.incmwfact(-0.05)),
-    awful.key({ modkey,           }, "e", awful.tag.incmwfact( 0.05)),
-
-
+    awful.key({ modkey,           }, "q", function () awful.tag.incmwfact( -0.05)    end),
+    awful.key({ modkey,           }, "e", function () awful.tag.incmwfact( 0.05)    end),
 
     -- Layout manipulation
     awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1)    end),
@@ -264,7 +264,7 @@ globalkeys = awful.util.table.join(
         end),
 
     -- Standard program
-    awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),
+    --awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),
     awful.key({ modkey, "Control" }, "r", awesome.restart),
     awful.key({ modkey, "Shift"   }, "q", awesome.quit),
 
@@ -297,7 +297,8 @@ clientkeys = awful.util.table.join(
     awful.key({ modkey,           }, "f",      function (c) c.fullscreen = not c.fullscreen  end),
     awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end),
     awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ),
-    awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end),
+    --awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end),
+	awful.key({ modkey,           }, "Return", function (c) c:swap(awful.client.getmaster()) end),
     awful.key({ modkey,           }, "o",      awful.client.movetoscreen                        ),
     awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end),
     awful.key({ modkey,           }, "n",
