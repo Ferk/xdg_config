@@ -63,7 +63,7 @@ set const
 set matchbrackets "(<[{)>]}"
 
 ## Use the blank line below the titlebar as extra editing space.
-# set morespace
+set morespace
 
 ## Enable mouse support, if available for your system.  When enabled,
 ## mouse clicks can be used to place the cursor, set the mark (with a
@@ -89,9 +89,6 @@ set mouse
 
 ## Don't add newlines to the ends of files.
 # set nonewlines
-
-## Don't wrap text at all.
-# set nowrap
 
 ## Set operating directory.  nano will not read or write files outside
 ## this directory and its subdirectories.  Also, the current directory
@@ -141,19 +138,22 @@ set mouse
 ## Use smooth scrolling as the default.
 # set smooth
 
+## Don't wrap text at all.
+set nowrap
+
 ## Enable soft line wrapping (AKA full line display).
-# set softwrap
+set softwrap
 
 ## Use this spelling checker instead of the internal one.  This option
 ## does not properly have a default value.
 ##
 # set speller "aspell -x -c"
 
-## Allow nano to be suspended.
-# set suspend
+## Allow nano to be suspended when pressing Ctrl+Z
+set suspend
 
 ## Use this tab size instead of the default; it must be greater than 0.
-# set tabsize 8
+set tabsize 4
 
 ## Convert typed tabs to spaces.
 # set tabstospaces
@@ -185,7 +185,12 @@ set mouse
 ##
 # bind M-W nowrap main
 # bind M-A casesens search
-# bind ^S research main
+
+## Emacs-friendly
+bind ^S research main
+bind ^Y uncut main
+bind M-V prevpage main
+bind ^_ undo main
 
 ## Set this if your backspace key sends delete most of the time (2.1.3+)
 # bind kdel backspace all
@@ -315,6 +320,36 @@ color brightblue    ":active|:focus|:hover|:link|:visited|:link|:after|:before|$
 color brightblue    start="\/\*" end="\\*/"
 color green         ";|:|\{|\}"
 
+
+#################
+## Javascript files.
+##
+syntax "javascript" "\.js(on)?$"
+header "node$"
+## Decimal, cotal and hexadecimal numbers
+color yellow "\<[-+]?([1-9][0-9]*|0[0-7]*|0x[0-9a-fA-F]+)([uU][lL]?|[lL][uU]?)?\>"
+## Floating point number with at least one digit before decimal point
+color yellow "\<[-+]?([0-9]+\.[0-9]*|[0-9]*\.[0-9]+)([EePp][+-]?[0-9]+)?[fFlL]?"
+color yellow "\<[-+]?([0-9]+[EePp][+-]?[0-9]+)[fFlL]?"
+## Keywords
+color green "\<(break|case|catch|continue|default|delete|do|else|finally)\>"
+color green "\<(for|function|if|in|instanceof|new|null|return|switch)\>"
+color green "\<(switch|this|throw|try|typeof|undefined|var|void|while|with)\>"
+## Type specifiers
+color red "\<(Array|Boolean|Date|Enumerator|Error|Function|Math)\>"
+color red "\<(Number|Object|RegExp|String)\>"
+color red "\<(true|false)\>"
+## String
+color brightyellow "L?\"(\\"|[^"])*\""
+color brightyellow "L?'(\'|[^'])*'"
+# keys
+color yellow "L?\"(\\"|[^"])*\":"
+## Escapes
+color red "\\[0-7][0-7]?[0-7]?|\\x[0-9a-fA-F]+|\\[bfnrt'"\?\\]"
+## Comments
+color magenta start="/\*" end="\*/"
+color magenta "//.*$"
+
 #################
 ## patch/diff files.
 ##
@@ -370,3 +405,14 @@ color cyan "(^|[[:space:]])#.*$"
 color brightyellow ""(\\.|[^"])*"" "'(\\.|[^'])*'"
 color ,green "[[:space:]]+$"
 
+#################
+## Generic Config files
+##
+syntax "conf" "\.(c(onf|nf|fg))$"
+icolor yellow ""(\\.|[^"])*""
+icolor brightyellow start="=" end="$"
+icolor magenta start="(^|[[:space:]])[0-9a-z-]" end="(=|:)"
+icolor brightred "(^|[[:space:]])((\[|\()[0-9a-z_!@#$%^&*-]+(\]|\)))"
+color green "[[:space:]][0-9.KM]+"
+color cyan start="(^|[[:space:]])(#|;).*$" end="$"
+color brightblue "(^|[[:space:]])(#|;)"
