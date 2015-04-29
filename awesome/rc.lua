@@ -246,9 +246,10 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Shift"   }, "s", function () awful.client.swap.byidx( 1)    end),
     awful.key({ modkey,           }, "a", awful.tag.viewprev),
     awful.key({ modkey,           }, "d", awful.tag.viewnext),
+	-- TODO: {modkey, "Shift"} "a" and "d" should perform awful.client.movetotag(tag +1 / -1)
     awful.key({ modkey,           }, "q", function () awful.tag.incmwfact( -0.05)    end),
     awful.key({ modkey,           }, "e", function () awful.tag.incmwfact( 0.05)    end),
-
+	
     -- Layout manipulation
     awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1)    end),
     awful.key({ modkey, "Shift"   }, "k", function () awful.client.swap.byidx( -1)    end),
@@ -300,6 +301,8 @@ clientkeys = awful.util.table.join(
     --awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end),
 	awful.key({ modkey,           }, "Return", function (c) c:swap(awful.client.getmaster()) end),
     awful.key({ modkey,           }, "o",      awful.client.movetoscreen                        ),
+	awful.key({ modkey,           }, ",",      awful.client.movetoscreen                        ), -- TODO: move left/right screen
+	awful.key({ modkey,           }, ".",      awful.client.movetoscreen                        ),
     awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end),
     awful.key({ modkey,           }, "n",
         function (c)
@@ -317,13 +320,14 @@ clientkeys = awful.util.table.join(
 -- Bind all key numbers to tags.
 -- Be careful: we use keycodes to make it works on any keyboard layout.
 -- This should map on the top row of your keyboard, usually 1 to 9.
-for i = 1, 9 do
+-- TODO: this goes 0 to 9 because I use the key left of the 1 as first tag.. but this doesn't really work!
+for i = 0, 9 do
     globalkeys = awful.util.table.join(globalkeys,
         -- View tag only.
         awful.key({ modkey }, "#" .. i + 9,
                   function ()
                         local screen = mouse.screen
-                        local tag = awful.tag.gettags(screen)[i]
+                        local tag = awful.tag.gettags(screen)[i+1]
                         if tag then
                            awful.tag.viewonly(tag)
                         end
@@ -332,7 +336,7 @@ for i = 1, 9 do
         awful.key({ modkey, "Control" }, "#" .. i + 9,
                   function ()
                       local screen = mouse.screen
-                      local tag = awful.tag.gettags(screen)[i]
+                      local tag = awful.tag.gettags(screen)[i+1]
                       if tag then
                          awful.tag.viewtoggle(tag)
                       end
@@ -341,7 +345,7 @@ for i = 1, 9 do
         awful.key({ modkey, "Shift" }, "#" .. i + 9,
                   function ()
                       if client.focus then
-                          local tag = awful.tag.gettags(client.focus.screen)[i]
+                          local tag = awful.tag.gettags(client.focus.screen)[i+1]
                           if tag then
                               awful.client.movetotag(tag)
                           end
@@ -351,7 +355,7 @@ for i = 1, 9 do
         awful.key({ modkey, "Control", "Shift" }, "#" .. i + 9,
                   function ()
                       if client.focus then
-                          local tag = awful.tag.gettags(client.focus.screen)[i]
+                          local tag = awful.tag.gettags(client.focus.screen)[i+1]
                           if tag then
                               awful.client.toggletag(tag)
                           end
