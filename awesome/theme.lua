@@ -19,8 +19,8 @@ theme.fg_minimize   = "#ffffff"
 
 theme.border_width  = 1
 theme.border_normal = "#000000"
-theme.border_focus  = "#535d6c"
-theme.border_marked = "#91231c"
+theme.border_focus  = "#00ffff"
+theme.border_marked = "#ff0000"
 
 -- There are other variable sets
 -- overriding the default one when
@@ -31,7 +31,10 @@ theme.border_marked = "#91231c"
 -- tooltip_[font|opacity|fg_color|bg_color|border_width|border_color]
 -- mouse_finder_[color|timeout|animate_timeout|radius|factor]
 -- Example:
---theme.taglist_bg_focus = "#ff0000"
+-- theme.taglist_bg_focus = "#ff0000"
+theme.tasklist_bg_focus = "#084040"
+theme.tasklist_bg_minimize = "#383838"
+theme.tasklist_fg_minimize = "#808080"
 
 -- Display the taglist squares
 theme.taglist_squares_sel   = "/usr/share/awesome/themes/default/taglist/squarefw.png"
