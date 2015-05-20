@@ -129,6 +129,7 @@ alias speedtest='wget -O /dev/null http://speedtest.wdc01.softlayer.com/download
 ## Networking
 
 alias nmap.dhcp='sudo nmap -sU -p 67,68,53 --script=dhcp-discover'
-alias nmap.full='nmap -sS -T4 -PE -PP -PS80,443 -PY -g 53 -A -p1-65535 -v'
-alias nmap.os='nmap -sV -p1-65535 -O --osscan-guess -T4 -Pn'
+alias nmap.full='sudo nmap -sS -T4 -PE -PP -PS80,443 -PY -g 53 -A -p1-65535 -v'
+alias nmap.os='sudo nmap -sV -p1-65535 -O --osscan-guess -T4 -Pn'
+alias nmap.ssh='sudo nmap -sV -p22 --open -O --osscan-guess -T4 -Pn'
 
