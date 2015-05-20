@@ -57,16 +57,16 @@ local layouts =
 {
     awful.layout.suit.floating,
     awful.layout.suit.tile,
-    awful.layout.suit.tile.left,
-    awful.layout.suit.tile.bottom,
+--    awful.layout.suit.tile.left,
+--    awful.layout.suit.tile.bottom,
     awful.layout.suit.tile.top,
-    awful.layout.suit.fair,
+--    awful.layout.suit.fair,
     awful.layout.suit.fair.horizontal,
     awful.layout.suit.spiral,
-    awful.layout.suit.spiral.dwindle,
+--    awful.layout.suit.spiral.dwindle,
     awful.layout.suit.max,
-    awful.layout.suit.max.fullscreen,
-    awful.layout.suit.magnifier,
+--    awful.layout.suit.max.fullscreen,
+--    awful.layout.suit.magnifier,
 }
 -- }}}
 
@@ -130,40 +130,50 @@ mytaglist.buttons = awful.util.table.join(
                     )
 mytasklist = {}
 mytasklist.buttons = awful.util.table.join(
-                     awful.button({ }, 1, function (c)
-                                              if c == client.focus then
-                                                  c.minimized = true
-                                              else
-                                                  -- Without this, the following
-                                                  -- :isvisible() makes no sense
-                                                  c.minimized = false
-                                                  if not c:isvisible() then
-                                                      awful.tag.viewonly(c:tags()[1])
-                                                  end
-                                                  -- This will also un-minimize
-                                                  -- the client, if needed
-                                                  client.focus = c
-                                                  c:raise()
-                                              end
-                                          end),
-                     awful.button({ }, 3, function ()
-                                              if instance then
-                                                  instance:hide()
-                                                  instance = nil
-                                              else
-                                                  instance = awful.menu.clients({
-                                                      theme = { width = 250 }
-                                                  })
-                                              end
-                                          end),
-                     awful.button({ }, 4, function ()
-                                              awful.client.focus.byidx(1)
-                                              if client.focus then client.focus:raise() end
-                                          end),
-                     awful.button({ }, 5, function ()
-                                              awful.client.focus.byidx(-1)
-                                              if client.focus then client.focus:raise() end
-                                          end))
+   -- Left mouse button
+   awful.button({ }, 1, function (c)
+		 if c == client.focus then
+			-- clicking the already selected task just raises it
+			client.focus:raise()
+		 else
+			-- Without this, the following
+			-- :isvisible() makes no sense
+			c.minimized = false
+			if not c:isvisible() then
+			   awful.tag.viewonly(c:tags()[1])
+			end
+			-- This will also un-minimize
+			-- the client, if needed
+			client.focus = c
+			c:raise()
+		 end
+   end),
+   -- Middle mouse button
+   awful.button({ }, 2, function (c)
+		 -- toggle minimized status
+		 c.minimized = not c.minimized
+   end),
+   -- Right mouse button
+   awful.button({ }, 3, function ()
+		 if instance then
+			instance:hide()
+			instance = nil
+		 else
+			instance = awful.menu.clients({
+				  theme = { width = 250 }
+			})
+		 end
+   end),
+   -- Scroll up mouse button
+   awful.button({ }, 4, function ()
+		 awful.client.focus.byidx(1)
+		 if client.focus then client.focus:raise() end
+   end),
+   -- Scroll down mouse button
+   awful.button({ }, 5, function ()
+		 awful.client.focus.byidx(-1)
+		 if client.focus then client.focus:raise() end
+end))
 
 for s = 1, screen.count() do
     -- Create a promptbox for each screen
@@ -390,8 +400,12 @@ awful.rules.rules = {
     { rule = { class = "gimp" },
       properties = { floating = true } },
     -- Set Browsers to always map on tags number 2 of screen 1.
-    { rule_any = { class = {"Firefox","Chromium","Chrome"} },
-      properties = { tag = tags[1][2] } },
+    { rule_any = { class = {"Firefox","Chromium","Google-chrome","Google-chrome-beta"} },
+      properties = { tag = tags[2][2] } },
+	-- Messaging programs
+	{ rule_any = { class = {"Pidgin","Hipchat","Trillian","Mail","Thunderbird"} },
+      properties = { tag = tags[1][4] } },
+
 }
 -- }}}
 
