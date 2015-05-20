@@ -37,6 +37,7 @@ theme.tasklist_bg_minimize = "#383838"
 theme.tasklist_fg_minimize = "#808080"
 
 -- Display the taglist squares
+theme.taglist_bg_focus = "#306060"
 theme.taglist_squares_sel   = "/usr/share/awesome/themes/default/taglist/squarefw.png"
 theme.taglist_squares_unsel = "/usr/share/awesome/themes/default/taglist/squarew.png"
 
