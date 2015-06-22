@@ -1,0 +1,79 @@
+#!/system/bin/mksh
+# -*- shell -*-
+#
+# Minimal mkshrc for lightweight/embedded systems
+#
+
+## Set up any missing variables
+: ${TERM:=vt100} ${HOME:=/data} ${MKSH:=/system/bin/sh} ${HOSTNAME:=$(getprop ro.product.device || uname -n)}
+: ${SHELL:=$MKSH} ${USER:=$(typeset x=$(id); x=${x#*\(}; print -r -- ${x%%\)*})} ${HOSTNAME:=unknown}
+if (( USER_ID )); then PS1='$'; else PS1='#'; fi
+export HOME HOSTNAME MKSH SHELL TERM USER
+
+[ "$TERM" != "dumb" ] && {
+	ESC=$(echo -ne '\e')
+	color1=$ESC[31m
+	color2=$ESC[32m
+	color3=$ESC[33m
+	color4=$ESC[34m
+	color5=$ESC[35m
+	color6=$ESC[36m
+	color7=$ESC[37m
+	reset=$ESC[0m
+}
+
+
+# case "$-" in
+	# *i*) # It's an interactive session
+
+
+		
+		# ;;
+# esac
+
+
+precmd() {
+	typeset e=$?
+	(( e )) && print -n "${color1}$e|" || print -n "${color2}"
+}
+PS1='$(precmd)${USER}${reset}@${color5}${HOSTNAME}${reset}:${color6}${PWD/$HOME/\~}${reset}'"$PS1 "
+
+## Aliases
+alias l='ls --color=auto -Fh'
+alias la='l -a'
+alias ll='l -l'
+alias lo='l -a -l'
+
+## Additional functions
+
+hd() {
+	cat "$@" | command hd /proc/self/fd/0
+}
+
+more() {
+	local dummy line llen curlin=0
+	cat "$@" | while IFS= read -r line; do
+		llen=${%line}
+		(( llen == -1 )) && llen=${#line}
+		(( llen = llen ? (llen + COLUMNS - 1) / COLUMNS : 1 ))
+		if (( (curlin += llen) >= LINES )); then
+			print -n -- '\033[7m--more--\033[0m'
+			read -u1 dummy
+			[[ $dummy = [Qq]* ]] && return 0
+			curlin=$llen
+		fi
+		print -r -- "$line"
+	done
+}
+
+setenv() {
+	eval export "\"$1\""'="$2"'
+}
+
+## Add .bin directories to the PATH
+for p in /storage/sdcard*/.bin ~/.bin ~/bin; do
+	[[ -d $p/. ]] || continue
+	[[ :$PATH: = *:$p:* ]] || PATH=$p:$PATH
+done
+
+unset p
