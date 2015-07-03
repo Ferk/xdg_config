@@ -34,6 +34,8 @@ l = log --decorate --pretty=format:'\n~~~ %C(yellow)commit %H%Creset %C(magenta)
 lg = log --graph --pretty=format:'%C(red reverse)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
 ll = log --graph --pretty=format:'%C(red reverse)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --decorate --numstat
 lp = log -p
+lme = "!f() { git log --author=\"$(git config --get user.name)\" \"$@\"; }; f"
+
 who = shortlog -s --
 new = !sh -c 'git log $1@{1}..$1@{0} "$@"'
 lcount = shortlog -sn
@@ -43,16 +45,19 @@ patch-in = apply
 
 # git-flow plugin required
 flow-startnpublish = "!f() { typ=$1; br=$2; bs=$3; shift; git flow $typ start $br $bs && git br && git flow $typ publish $b || { printf \" ERROR PUBLISHING '$br'\\n When fixed run:  git flow $typ publish $br\\n\";exit 1;};}; f"
-fstart = "!f() { b=$1; shift; git flow feature start $b ${2} && git br && git flow feature publish $b || { printf \" ERROR PUBLISHING '$b'\\n When fixed run:  git flow feature publish $b\\n\";exit 1;};}; f }; f"
+fstart = "!f() { b=$1; echo $@; shift; git flow feature start \"$b\" ${2} && git br && git flow feature publish \"$b\" || { printf \" ERROR PUBLISHING '$b'\\n When fixed run:  git flow feature publish '$b'\\n\";exit 1;};}; f"
 fco = flow feature checkout
 fpl = flow feature pull
 fps = flow feature push
 frb = flow feature rebase
-hstart = "!f() { b=$1; shift; git flow hotfix start $b ${2} && git br && git flow hotfix publish $b || { printf \" ERROR PUBLISHING '$b'\\n When fixed run:  git flow hotfix publish $b\\n\";exit 1;};}; f }; f"
+hstart = "!f() { b=$1; shift; git flow hotfix start \"$b\" ${2} && git br && git flow hotfix publish \"$b\" || { printf \" ERROR PUBLISHING '$b'\\n When fixed run:  git flow hotfix publish '$b'\\n\";exit 1;};}; f"
 hco = flow hotfix checkout
 hpl = flow hotfix pull
 hps = flow hotfix push
 hrb = flow hotfix rebase
+
+hchanges = "!f() { b=$1; shift; git log $@ master..${b};}; f"
+fchanges = "!f() { b=$1; shift; git log $@ develop..${b};}; f"
 
 # git-gitlab plugin required. To install: gem install git-gitlab
 gl-req = "!f(){ b=$(git rev-parse --abbrev-ref HEAD); git gitlab merge $b develop --assign \"$@\"; }; f"
