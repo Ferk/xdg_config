@@ -12,12 +12,19 @@ then
 	alias ag=ack
 	
 else
-	ag() {
+	alias ag=_ag_function
+	_ag_function() {
 		[ "$1" ] || { echo 'usage: ag PATTERN [FILES OR DIRECTORIES]'; return; }
-		
-		local pattern="$1"
-		shift
-		grep "${@:-.}"	--color=always --exclude=.[^.]* --exclude=node_modules -nHre "$pattern" | less -R -F -X
+
+		# Use git-grep if possible
+		if git rev-parse --git-dir >/dev/null 2>&1
+		then
+			git grep "$@"
+		else
+			local pattern="$1"
+			shift
+			grep "${@:-.}"	--color=always --exclude=.[^.]* --exclude=node_modules -nHre "$pattern" | less -R -F -X
+		fi
 	}
 fi
 
