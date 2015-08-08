@@ -401,7 +401,7 @@ awful.rules.rules = {
       properties = { floating = true } },
     -- Set Browsers to always map on tags number 2 of screen 1.
     { rule_any = { class = {"Firefox","Chromium","Google-chrome","Google-chrome-beta"} },
-      properties = { tag = tags[2][2] } },
+      properties = { tag = tags[1][2] } },
 	-- Messaging programs
 	{ rule_any = { class = {"Pidgin","Hipchat","Trillian","Mail","Thunderbird"} },
       properties = { tag = tags[1][4] } },
