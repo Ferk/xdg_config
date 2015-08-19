@@ -1,5 +1,5 @@
 
-This is actually my $XDG_CONFIG_HOME folder (well, the bits I'm willing to share at least).
+This is actually my [$XDG_CONFIG_HOME](http://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html#basics) folder (well, the bits I'm willing to share at least).
 
 There are also a few special folders..
 
