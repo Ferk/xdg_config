@@ -8,7 +8,7 @@ whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
 st = status -sb
 ##
 ci = commit
-amend= commit --amend
+amend= commit -a --amend
 ##
 co = checkout
 ##
@@ -21,7 +21,8 @@ rb = rebase
 ##
 ps = push
 pl = pull --recurse-submodules
-up-submod = submodule update --recursive --init --remote
+up = !git pull --rebase --prune $@ && git submodule update --init --recursive --remote
+ups = !find -maxdepth 2 -type d -name '.git' | xargs -P10 -I{} git -C {}/.. up
 ##
 df = diff
 dc = diff --cached
@@ -29,6 +30,8 @@ changes = diff --stat -r
 ##
 re = rebase
 rei = rebase --interactive
+##
+undo = reset HEAD~1 --mixed
 #
 l = log --decorate --pretty=format:'\n~~~ %C(yellow)commit %H%Creset %C(magenta)%d%Creset\nAuthor: %C(cyan)%aN <%ae>%Creset\nDate: %Cgreen%cd\n\n%Creset %s'
 lg = log --graph --pretty=format:'%C(red reverse)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
