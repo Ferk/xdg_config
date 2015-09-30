@@ -6,6 +6,10 @@ whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
 
 [alias]
 st = status -sb
+sst = submodule foreach git st
+##
+rt = remote -v
+srt = submodule foreach git remote -v
 ##
 ci = commit
 amend= commit -a --amend
