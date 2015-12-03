@@ -20,8 +20,8 @@ brl = branch -v -a
 rb = rebase
 ##
 ps = push
-pl = pull --recurse-submodules
-up = !git pull --rebase --prune $@ && git submodule update --init --recursive --remote
+pl = pull --rebase --recurse-submodules=on-demand
+up = !git pull --rebase --prune $@ && git ll HEAD@{1}.. && git submodule update --init --recursive --remote
 ups = !find -maxdepth 2 -type d -name '.git' | xargs -P10 -I{} git -C {}/.. up
 ##
 df = diff
@@ -31,7 +31,7 @@ changes = diff --stat -r
 re = rebase
 rei = rebase --interactive
 ##
-undo = reset HEAD~1 --mixed
+undo = reset HEAD~1 --
 #
 l = log --decorate --pretty=format:'\n~~~ %C(yellow)commit %H%Creset %C(magenta)%d%Creset\nAuthor: %C(cyan)%aN <%ae>%Creset\nDate: %Cgreen%cd\n\n%Creset %s'
 lg = log --graph --pretty=format:'%C(red reverse)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
