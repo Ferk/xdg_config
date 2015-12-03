@@ -5,7 +5,13 @@ whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
 #pager = less -+F
 
 [alias]
+foreach = !find -maxdepth 2 -type d -name '.git' | xargs --verbose -P10 -I{} git -C {}/..
+##
 st = status -sb
+sst = submodule foreach git st
+##
+rt = remote -v
+srt = submodule foreach git remote -v
 ##
 ci = commit
 amend= commit -a --amend
@@ -21,8 +27,8 @@ rb = rebase
 ##
 ps = push
 pl = pull --rebase --recurse-submodules=on-demand
-up = !git pull --rebase --prune $@ && git ll HEAD@{1}.. && git submodule update --init --recursive --remote
-ups = !find -maxdepth 2 -type d -name '.git' | xargs -P10 -I{} git -C {}/.. up
+up = !git pl $@ && git ll HEAD@{1}.. && git submodule update --init --recursive --remote
+ups = !git foreach up
 ##
 df = diff
 dc = diff --cached
@@ -36,8 +42,11 @@ undo = reset HEAD~1 --
 l = log --decorate --pretty=format:'\n~~~ %C(yellow)commit %H%Creset %C(magenta)%d%Creset\nAuthor: %C(cyan)%aN <%ae>%Creset\nDate: %Cgreen%cd\n\n%Creset %s'
 lg = log --graph --pretty=format:'%C(red reverse)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
 ll = log --graph --pretty=format:'%C(red reverse)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --decorate --numstat
-lp = log -p
-lme = "!f() { git log --author=\"$(git config --get user.name)\" \"$@\"; }; f"
+
+lshort = log --pretty=format:'%C(green)%ci %C(red reverse)%h%Creset -%C(yellow)%d%Creset %s %C(bold blue)<%an>%Creset'
+lme = "!f() { git lshort --author=\"$(git config --get user.name)\" \"$@\"; }; f"
+lreview = "!f() { { git lme --all && git submodule foreach git lme --all; } | sort -r; }; f"
+lreviews = !git foreach lreview | sort -r
 
 who = shortlog -s --
 new = !sh -c 'git log $1@{1}..$1@{0} "$@"'
