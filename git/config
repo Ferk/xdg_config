@@ -76,8 +76,12 @@ gl-req = "!f(){ b=$(git rev-parse --abbrev-ref HEAD); git gitlab merge $b develo
 gl-feature-merge = gitlab merge SOURCE_BRANCH TARGET_BRANCH --assign USER_NAME
 gl-hotfix-merge = gitlab merge SOURCE_BRANCH TARGET_BRANCH --assign USER_NAME
 gl-ls = gitlab merge --list
-gl-set-project = git config gitlab.project
+gl-set-project = config gitlab.project
 
+# Authors
+authors = shortlog -se
+# git reauthor $START..$END
+reauthor = !sh -c 'eval `git log --reverse --topo-order --pretty=format:\"git cherry-pick %H &&  git commit --amend -C %H --author=\\\"%aN <%aE>\\\" && \" $0 ` "echo success" '
 
 [color]
 ui = always
