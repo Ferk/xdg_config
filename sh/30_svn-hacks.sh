@@ -43,10 +43,10 @@ _svn_editor_cmd() {
 	cat <<EOF >> "${template_file}"
 
 $(_svn_jira_info)
-${SVN_TEMPLATE_EXTRA}
+${CVS_TEMPLATE_EXTRA}
 
 -- svn diff $SVN_ARGS --
-$($SVN_BIN diff "$SVN_ARGS" 2>&1)a
+$($SVN_BIN diff "$SVN_ARGS" 2>&1)
 
 -- svn info $SVN_ARGS --
 $($SVN_BIN info "$SVN_ARGS" 2>&1)
