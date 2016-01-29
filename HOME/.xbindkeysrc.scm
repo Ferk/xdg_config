@@ -86,6 +86,8 @@
  
 
 (xbindkey '(Alt F1)   "t")
+(xbindkey '(mod4 F1)   "t")
+(xbindkey '(Alt Return)   "t")
 (xbindkey '(Alt Help) "$XTERM")
 (xbindkey '(Alt Mod4 F1) "$XTERM")
 
@@ -145,7 +147,7 @@
 (xbindkey '(control mod4 r) "xmacrorec2 -k 9 > $XDG_CACHE_HOME/xmacro; notify-send 'xmacro stopped' \"exit code: $?\"")
 (xbindkey '(control mod4 e) "echo 'Delay 500' | cat - \"$XDG_CACHE_HOME/xmacro\" | xmacroplay -s 0.7")
 (xbindkey '(control mod4 k) 
-	  "pkill turboclick.sh || turboclick.sh")
+	  "pkill turboclick.sh || turboclick.sh 10")
 (xbindkey '(control mod4 l) "keylog.sh")
 
 ;;; Multi Display management
