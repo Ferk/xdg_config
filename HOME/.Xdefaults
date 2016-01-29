@@ -16,60 +16,53 @@
 
 !*background:            #080808
 !*foreground:            #FFF
-*fading:                10
-*fadeColor:             #000
+!*fading:                10
+!*fadeColor:             #000
 *cursorColor:           #FF0
 ! *pointerColorBackground:#222
 ! *pointerColorForeground:#BBB
 *urgentOnBell:  true
 *bellIsUrgent:  true
+*font:                         -*-terminus-*-*-*-*-14-*-*-*-*-*-*-*
 
 ! -------
 ! terminal emulators
 
-*.vt100.font: -*-proggycleanszbp-*-*-*-*-*-*-*-*-*-*-*-*
-*.vt100.encodingMode: locale
-*.vt100.background:           #080808
-*.vt100.foreground:           #f0f0f0
-xterm*.bellIsUrgent:  true
-urxvt*.background:           #080808
-urxvt*.foreground:           #f0f0f0
-urxvt*urgentOnBell:  true
-urxvt.shading: 10
 urxvt.scrollstyle: plain
 URxvt.perl-ext-common:  default,matcher
 URxvt.urlLauncher:      ~/bin/browser
 URxvt.matcher.button:   1
 
 !! black dark/light
-*color0:                #333
-*color8:                #080808
+
+!*color0:                #333
+!*color8:                #080808
 !! red dark/light
-*color1:                #B00
-*color9:                #F33
+!*color1:                #B00
+!*color9:                #F33
 !! green dark/light
-*color2:                #0B0
-*color10:               #2F2
+!*color2:                #0B0
+!*color10:               #2F2
 !! yellow dark/light
-*color3:                #DB0
-*color11:               #FF0
+!*color3:                #DB0
+!*color11:               #FF0
 !! blue dark/light
-*color4:                #22B
-*color12:               #55F
+!*color4:                #22B
+!*color12:               #55F
 !! magenta dark/light
-*color5:                #B0B
-*color13:               #B5B
+!*color5:                #B0B
+!*color13:               #B5B
 !! cyan dark/light
-*color6:                #0BB
-*color14:               #0FF
+!*color6:                #0BB
+!*color14:               #0FF
 !! white dark/light
-*color7:                #BBB
-*color15:               #FFF
+!*color7:                #BBB
+!*color15:               #FFF
 
 ! ---------
 ! xmessage
 
-xmessage*font:                         -*-clean-*-*-*-*-*-120-*-*-*-*-iso8859-1
+xmessage*font:                         -*-clean-*-*-*-*-*-120-*-*-*-*-*-*
 xmessage*center:                        true
 xmessage*Scrollbar.width:               1
 xmessage*Scrollbar.borderWidth:         0
@@ -87,5 +80,5 @@ xmessage*Text.?.cursorColor:           white
 
 
 
+#include "/home/ferk/.config/solarized"
 
- 
