@@ -31,7 +31,9 @@ up = !git pl $@ && git ll HEAD@{1}.. && git submodule update --init --recursive 
 ups = !git foreach up
 ##
 df = diff
+di = diff
 dc = diff --cached
+ds = diff --staged
 changes = diff --stat -r
 ##
 re = rebase
