@@ -521,14 +521,14 @@ GtkComboBox.combobox-entry .button:active:nth-child(last),
 GtkComboBox.combobox-entry .button:hover:active:nth-child(last) {
     background-color:@bg_color;
 
-    box-shadow: 1px 0px inset shade(@frame_color, 1.50);
+    box-shadow: 1px 0px inset;
 }
 
 .primary-toolbar GtkComboBox.combobox-entry .button:active:nth-child(first),
 .primary-toolbar GtkComboBox.combobox-entry .button:hover:active:nth-child(first),
 GtkComboBox.combobox-entry .button:active:nth-child(first),
 GtkComboBox.combobox-entry .button:hover:active:nth-child(first) {
-    box-shadow: -1px 0px inset shade(@frame_color, 1.50);
+    box-shadow: -1px 0px inset;
 }
 
 /**************
@@ -1000,13 +1000,13 @@ GtkPathBar .button {
     border-width: 1px 0;
     border-radius: 0;
     border-color: @button_border;
-    box-shadow: 1px 0px inset shade(@button_border, 1.40), -1px 0px inset @button_border;
+    box-shadow: 1px 0px inset, -1px 0px inset;
 }
 
 GtkPathBar .button:active,
 GtkPathBar .button:active:hover {
     border-image: none;
-    box-shadow: -1px 0px inset @button_border;
+    box-shadow: -1px 0px inset;
 }
 
 GtkPathBar .button:nth-child(first),
@@ -1014,11 +1014,11 @@ GtkPathBar .button:active:nth-child(first),
 GtkPathBar .button:active:hover:nth-child(first) {
     border-radius: 3px 0px 0px 3px;
     border-left-width: 1px;
-    box-shadow: -1px 0px inset @button_border;
+    box-shadow: -1px 0px inset;
 }
 
 GtkPathBar .button:nth-child(last) {
-    box-shadow: 1px 0px inset shade(@button_border, 1.40);
+    box-shadow: 1px 0px inset;
     border-radius: 0px 3px 3px 0;
     border-right-width: 1px;
 }
@@ -1268,7 +1268,7 @@ column-header .button {
     border-image: -gtk-gradient(linear,
                                 left top, left bottom,
                                 from(@button_border),
-                                to(shade (@button_border, 1.23))) 1px stretch;
+                                to(shade (@button_border, 1.23))) 1 stretch;
 }
 
 column-header .button GtkArrow {
