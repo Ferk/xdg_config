@@ -1,5 +1,5 @@
 # runs a git pull of the .config repo once a day
-({
+[ -d /tmp ] && ({
 	cd "$HOME/.config/"
     timelimit="$(date +%m%d)0000"
     touch -t $timelimit /tmp/timemarker

@@ -209,7 +209,7 @@ alias ${_Z_CMD:-z}='_z 2>&1'
 
 [ "$_Z_NO_RESOLVE_SYMLINKS" ] || _Z_RESOLVE_SYMLINKS="-P"
 
-if compctl >/dev/null 2>&1; then
+if hash compctl 2>&-; then
     # zsh
     _z_zsh_tab_completion() {
         # tab completion
@@ -218,7 +218,7 @@ if compctl >/dev/null 2>&1; then
         reply=(${(f)"$(_z --complete "$compl")"})
     }
     compctl -U -K _z_zsh_tab_completion _z
-elif complete >/dev/null 2>&1; then
+elif hash complete 2>&-; then
     # bash
     # tab completion
     complete -o filenames -C '_z --complete "$COMP_LINE"' ${_Z_CMD:-z}

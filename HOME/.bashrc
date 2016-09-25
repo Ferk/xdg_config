@@ -173,7 +173,7 @@ fi
 		export TERM=cygwin
     else
 		uptime
-		last -3 | head -n -2
+		hash last 2>&- && last -3 | head -n -2
     fi
     hash fortune 2>&- && echo -e '\033[33m' && fortune -cs
     echo -e '\033[00m'

@@ -49,13 +49,12 @@ alias cp="cp -v"
 alias mv="mv -v"
 alias ln="ln -v"
 
-alias grep='grep --color=always '
 alias g='grep'
 alias gi='g -i '
 
 alias grexp='grep --exclude=*[~#] --exclude-dir=.svn -nIHr . -e '
 
-alias ls='ls --color=always --group-directories-first --classify'
+alias ls='ls --color=always -F'
 alias ll='ls -hl'
 alias la='ls -A'
 
@@ -82,7 +81,6 @@ alias ucodev='ucocp () { cp $@ /media/uco/www-docs/dev/ ; ls /media/uco/www-docs
 #
 alias df='df -h'
 alias bc='bc -lw'
-alias ln='ln -i'
 
 alias dmenu='dmenu -nb "#333" -nf "#ccc" -sb "#111" -sf "#ff0"'
 

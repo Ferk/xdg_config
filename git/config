@@ -149,3 +149,6 @@ helper = cache --timeout=28800
 #     export GIT_AUTHOR_EMAIL="$CORRECT_EMAIL"
 # fi
 # ' --tag-name-filter cat -- --branches --tags
+[user]
+	name = Fernando Carmona Varo
+	email = ferkiwi@gmail.com
