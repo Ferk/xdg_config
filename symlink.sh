@@ -17,3 +17,6 @@ do
     ln -sv $@ "${XDG_CONFIG_HOME}/DATA/$f" "$XDG_DATA_HOME"
 done
 
+# touch ~/.gitconfig so new saved config will go there instead
+touch ~/.gitconfig
+
