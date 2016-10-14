@@ -26,9 +26,11 @@ brl = branch -v -a
 rb = rebase
 ##
 ps = push
+pushF = push --force-with-lease
 pl = pull --rebase --recurse-submodules=on-demand
 up = !git pl $@ && git ll HEAD@{1}.. && git submodule update --init --recursive --remote
 ups = !git foreach up
+pullF = !sh -c 'git fetch && git reset --soft && git rebase "$@"'
 ##
 df = diff
 di = diff
