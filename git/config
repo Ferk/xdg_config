@@ -5,7 +5,7 @@ whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
 #pager = less -+F
 
 [alias]
-foreach = !find -maxdepth 2 -type d -name '.git' | xargs --verbose -P10 -I{} git -C {}/..
+foreach = !find "$GIT_PREFIX" -maxdepth 2 -type d -name '.git' | xargs --verbose -P10 -I{} git -C {}/..
 ##
 st = status -sb
 sst = submodule foreach git st
@@ -29,7 +29,7 @@ ps = push
 pushF = push --force-with-lease
 pl = pull --rebase --recurse-submodules=on-demand
 up = !git pl $@ && git ll HEAD@{1}.. && git submodule update --init --recursive --remote
-ups = !git foreach up
+ups = !git -C "${GIT_PREFIX:-.}" foreach up
 pullF = !sh -c 'git fetch && git reset --soft && git rebase "$@"'
 ##
 df = diff
@@ -151,6 +151,3 @@ helper = cache --timeout=28800
 #     export GIT_AUTHOR_EMAIL="$CORRECT_EMAIL"
 # fi
 # ' --tag-name-filter cat -- --branches --tags
-[user]
-	name = Fernando Carmona Varo
-	email = ferkiwi@gmail.com
