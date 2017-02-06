@@ -27,6 +27,9 @@
     return
 }
 
+# To measure startup time performance
+startup=$(date +%s)
+
 # List of commands to ignore ("&" means ignore duplicates)
 export HISTIGNORE="&:?:??:exit:history"
 
@@ -131,21 +134,26 @@ fi
 	    # to allow for proper calculation of its size
 	    local PSR=" $(date +'%a %Y-%m-%d')"
 
-	    # Add number of running jobs
-	    local jobn=$(jobs | wc -l)
-	    [ "$jobn" = "0" ] || PSR="(bg:$jobn)$PSR" 
 	    # Add error code
 	    [ "$retcode" = "0" ] || PSR=" err:$retcode$PSR"
-		# Add __git_ps1	
-		if hash __git_ps1 2>/dev/null; then
+	    
+	    if [[ ! "$TERM_SLOW" ]]
+	    then
+		    # Add number of running jobs
+		    local jobn=$(jobs | wc -l)
+		    [ "$jobn" = "0" ] || PSR="(bg:$jobn)$PSR"
+		
+		    # Add __git_ps1
+		    if hash __git_ps1 2>/dev/null; then
 			PSR="$(GIT_PS1_SHOWDIRTYSTATE=y GIT_PS1_SHOWUPSTREAM=auto __git_ps1)$PSR"
-		fi
+		    fi
+	    fi
 
-	    if hash tput 2>/dev/null
+	    if [[ ! "$TERM_SLOW" ]] && hash tput 2>/dev/null
 	    then
 		echo -ne "$(tput sc)$(tput cup $LINES $((COLUMNS-${#PSR})))\e[37m${PSR}\e[0m$(tput rc)"
 	    else
-		 echo -ne "\e[s\e[$LINES;$((COLUMNS-${#PSR}+1))f\e[37m${PSR}\e[0m\e[u"
+		echo -ne "\e[s\e[$LINES;$((COLUMNS-${#PSR}+1))f\e[37m${PSR}\e[0m\e[u"
 	    fi
 	}
 
@@ -167,7 +175,8 @@ fi
     # Since it's not a dumb terminal, display initial messages
 
     echo -ne "\033[36m"
-    if [[ "$OS" =~ "CYGWIN" ]]
+     
+    if [[ "$OS" =~ "CYGWIN" || "$OS" =~ "MINGW" ]]
     then
 		tasklist /fi "memusage gt 100000"
 		export TERM=cygwin
@@ -198,5 +207,11 @@ do
     [[ -f "$src" ]] && . "$src"
 done
 
-
+# Determine startup time taken (seconds)
+# If more than 3 seconds, system is slow
+startup=$(($(date +%s) - startup))
+if [[ $startup > 1 ]]
+then
+	export TERM_SLOW=$startup
+fi
 
