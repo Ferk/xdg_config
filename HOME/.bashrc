@@ -178,7 +178,7 @@ fi
      
     if [[ "$OS" =~ "CYGWIN" || "$OS" =~ "MINGW" ]]
     then
-		tasklist /fi "memusage gt 100000"
+		tasklist -fi "memusage gt 100000"
 		export TERM=cygwin
     else
 		uptime
