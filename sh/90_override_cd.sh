@@ -2,7 +2,6 @@
 
 # Custom 'cd' override for additional info and functions
 cd() {
-
 	case "$1" in
 		-|-[0-9]*|+[0-9]*)
 			printf "\e[36m"
@@ -24,7 +23,7 @@ cd() {
 	}
 
 	## Show version control status
-	if git rev-parse --git-dir >/dev/null 2>&1
+	if [ -d '.git' ] || { [ -z "$TERM_SLOW" ] && git rev-parse >/dev/null 2>&1; }
 	then
 		# if it takes more than 2 seconds, cleanup and optimize
 		if ! timeout 2s git status -bs --untracked-files="no" #| column -c $COLUMNS
@@ -34,7 +33,7 @@ cd() {
 			git log -3 --pretty=format:'%an, %ar: %s' | cut -c -$COLUMNS
 		fi
 
-	elif timeout 0.5s svn info >/dev/null 2>&1
+	elif [ -d '.svn' ] || { [ -z "$TERM_SLOW" ] && timeout 0.5s svn info >/dev/null 2>&1; }
 	then
 		# if it takes more than 1 second only cache it on background
 		if ! timeout 1s svn status --non-interactive -q 2>/dev/null
