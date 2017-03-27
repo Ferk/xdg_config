@@ -413,6 +413,27 @@ color brightyellow ""(\\.|[^"])*"" "'(\\.|[^'])*'"
 color ,green "[[:space:]]+$"
 
 #################
+## Git EDITMSG
+##
+syntax "gitcommit" "(COMMIT|MERGE|TAG)_EDITMSG$"
+color red "^[^#]+"
+color white "^[^#]{0,72}"
+color brightwhite "^[^#]{0,50}"
+color white "#.*"
+color green "#.(modified|deleted).*"
+color yellow start="# Changes.*" end="# Changed.*"
+color cyan start="# Untracked.*" end="diff"
+color cyan start="# Untracked.*" end="$$"
+color brightred "^deleted file mode .*"
+color brightgreen "^\+.*"
+color brightred "^-.*"
+color brightyellow "^(diff|index|---|\+\+\+).*"
+color brightmagenta "@@.*@@"
+color white "# (Change[ds]|Untracked) .*"
+color white "#.*\(use .*"
+color white "^#"
+
+#################
 ## Generic Config files
 ##
 syntax "conf" "\.(c(onf|nf|fg))$"
