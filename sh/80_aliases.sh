@@ -49,7 +49,7 @@ alias cp="cp -v"
 alias mv="mv -v"
 alias ln="ln -v"
 
-alias g='grep'
+alias g='grep --color=always'
 alias gi='g -i '
 
 alias grexp='grep --exclude=*[~#] --exclude-dir=.svn -nIHr . -e '
