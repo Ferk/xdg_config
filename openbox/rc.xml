@@ -254,7 +254,7 @@
         <to>6</to>
       </action>
     </keybind>
-    <keybind key="W-d">
+    <keybind key="W-n">
       <action name="ToggleShowDesktop"/>
     </keybind>
     <!-- Keybindings for window actions -->
@@ -281,6 +281,7 @@
     <keybind key="W-w">
       <action name="NextWindow">
         <dialog>icons</dialog>
+        <raise>yes</raise>
         <finalactions>
           <action name="Focus"/>
           <action name="Raise"/>
@@ -291,6 +292,7 @@
     <keybind key="W-s">
       <action name="PreviousWindow">
         <dialog>icons</dialog>
+        <raise>yes</raise>
         <finalactions>
           <action name="Focus"/>
           <action name="Raise"/>
