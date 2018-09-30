@@ -14,56 +14,59 @@
 ! --------
 ! general
 
-!*background:            #080808
-!*foreground:            #FFF
-!*fading:                10
-!*fadeColor:             #000
-*cursorColor:           #FF0
-! *pointerColorBackground:#222
-! *pointerColorForeground:#BBB
 *urgentOnBell:  true
 *bellIsUrgent:  true
 *font:                         -*-terminus-*-*-*-*-14-*-*-*-*-*-*-*
 
+*background: #081018
+*foreground: #F8F0E8
+
+*cursorColor:           #EE1
+*pointerColorBackground:#222
+*pointerColorForeground:#BBB
+*fading:                10
+*fadeColor:             #111
+
+! black dark/light
+*color0:                #333
+*color8:                #111
+!! red dark/light
+*color1:                #B00
+*color9:                #E33
+!! green dark/light
+*color2:                #0B0
+*color10:               #2D2
+!! yellow dark/light
+*color3:                #CA0
+*color11:               #FD0
+!! blue dark/light
+*color4:                #66B
+*color12:               #88E
+!! magenta dark/light
+*color5:                #B4A
+*color13:               #C5B
+!! cyan dark/light
+*color6:                #0AA
+*color14:               #0EE
+!! white dark/light
+*color7:                #BBB
+*color15:               #EEE
+
+
 ! -------
 ! terminal emulators
 
-urxvt.scrollstyle: plain
+urxvt.scrollstyle:      plain
 URxvt.perl-ext-common:  default,matcher
 URxvt.urlLauncher:      ~/bin/browser
 URxvt.matcher.button:   1
-URxvt.font: xft:Terminus:pixelsize=14:style=bold
-
-!! black dark/light
-
-!*color0:                #333
-!*color8:                #080808
-!! red dark/light
-!*color1:                #B00
-!*color9:                #F33
-!! green dark/light
-!*color2:                #0B0
-!*color10:               #2F2
-!! yellow dark/light
-!*color3:                #DB0
-!*color11:               #FF0
-!! blue dark/light
-!*color4:                #22B
-!*color12:               #55F
-!! magenta dark/light
-!*color5:                #B0B
-!*color13:               #B5B
-!! cyan dark/light
-!*color6:                #0BB
-!*color14:               #0FF
-!! white dark/light
-!*color7:                #BBB
-!*color15:               #FFF
+URxvt.geometry:         115x58
+! URxvt.font: xft:Terminus:pixelsize=14:style=bold
 
 ! ---------
 ! xmessage
 
-xmessage*font:                         -*-clean-*-*-*-*-*-120-*-*-*-*-*-*
+xmessage*font:                         -*-clean-*-*-*-*-16-*-*-*-*-*-*-*
 xmessage*center:                        true
 xmessage*Scrollbar.width:               1
 xmessage*Scrollbar.borderWidth:         0
@@ -80,6 +83,4 @@ xmessage*Command.shapeStyle:           rectangle
 xmessage*Text.?.cursorColor:           white
 
 
-
-#include "/home/ferk/.config/solarized"
 
