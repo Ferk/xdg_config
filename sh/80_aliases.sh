@@ -67,6 +67,9 @@ alias history.top="cat $HISTFILE | sort | uniq -c | sort -rn | head"
 #alias hg=' history | gi '
 alias j=' jobs -l '
 
+# Process list
+alias pls='sh -ic "pgrep \$@ | xargs -r ps -p" --'
+
 # Check the return value of last command and act accordingly
 # Useful when entering commands one after the other before the prompt appears
 alias :='[ "$?" = 0 ] &&'
