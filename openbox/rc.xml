@@ -43,7 +43,7 @@
                   'Active' - where the active window is -->
   </placement>
   <theme>
-    <name>Lubuntu-default</name>
+    <name>Onyx</name>
     <titleLayout>NLIMC</titleLayout>
     <!--
       available characters are NDSLIMC, each can occur at most once.
@@ -154,7 +154,7 @@
      Many programs reserve space automatically, but you can use this in other
      cases. -->
   <margins>
-    <top>0</top>
+    <top>2</top>
     <bottom>0</bottom>
     <left>0</left>
     <right>0</right>
@@ -364,12 +364,12 @@
     <!-- Keybindings for running Run menu from Lxpanel on Home + R-->
     <keybind key="W-r">
       <action name="Execute">
-        <command>lxpanelctl run</command>
+		<command><![CDATA[pgrep lxpanel && exec lxpanelctl run || exec dmenu_run]]></command>
       </action>
     </keybind>
     <keybind key="A-F2">
       <action name="Execute">
-        <command>lxpanelctl run</command>
+		<command><![CDATA[pgrep lxpanel && exec lxpanelctl run || exec dmenu_run]]></command>
       </action>
     </keybind>
     <!-- Keybindings for running Menu from Lxpanel -->
@@ -820,9 +820,9 @@
   <!--**-->
   <menu>
     <!-- You can specify more than one menu file in here and they are all loaded,
-       just don't make menu ids clash or, well, it'll be kind of pointless -->
+		 just don't make menu ids clash or, well, it'll be kind of pointless -->
+	<!--file>/usr/share/lubuntu/openbox/menu.xml</file-->
     <!-- default menu file (or custom one in $HOME/.config/openbox/) -->
-    <file>/usr/share/lubuntu/openbox/menu.xml</file>
     <file>menu.xml</file>
     <hideDelay>200</hideDelay>
     <!-- if a press-release lasts longer than this setting (in milliseconds), the

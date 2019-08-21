@@ -110,6 +110,11 @@
 (xbindkey '(XF86AudioRaiseVolume) "vol.sh +5")
 (xbindkey '(XF86AudioMute) "vol.sh mute")
 
+(xbindkey '(mod4 minus) "vol.sh -7")
+(xbindkey '(mod4 plus) "vol.sh +5")
+
+
+
 ;;; Screenshotting
 (xbindkey '(Print) "scrot 'screenshot-%m%d-%H%M(%S).png'")
 (xbindkey '(Shift Print) "scrot -s 'screenshot-%m%d-%H%M(%S).png'")

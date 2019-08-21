@@ -42,6 +42,7 @@ re = rebase
 rei = rebase --interactive
 ##
 undo = reset HEAD~1 --
+undoh = reset --hard HEAD~1 --
 #
 l = log --decorate --pretty=format:'\n~~~ %C(yellow)commit %H%Creset %C(magenta)%d%Creset\nAuthor: %C(cyan)%aN <%ae>%Creset\nDate: %Cgreen%cd\n\n%Creset %s'
 lg = log --graph --pretty=format:'%C(red reverse)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
@@ -50,7 +51,7 @@ ll = log --graph --pretty=format:'%C(red reverse)%h%Creset -%C(yellow)%d%Creset 
 lshort = log --pretty=format:'%C(green)%ci %C(red reverse)%h%Creset -%C(yellow)%d%Creset %s %C(bold blue)<%an>%Creset'
 lme = "!f() { git lshort --author=\"$(git config --get user.name)\" \"$@\"; }; f"
 lreview = "!f() { { git lme --all && git submodule foreach git lme --all; } | sort -r; }; f"
-lreviews = !git foreach lreview | sort -r
+lreviews = !git foreach lreview | sort -r | uniq | less
 
 who = shortlog -s --
 new = !sh -c 'git log $1@{1}..$1@{0} "$@"'

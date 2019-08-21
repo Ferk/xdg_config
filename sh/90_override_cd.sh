@@ -42,16 +42,18 @@ cd() {
 		fi
 	fi
 
-	# Load the directory into the 'z' history (see z.sh)
-	if hash _z >/dev/null
-	then
-		_z --add "$(pwd $_Z_RESOLVE_SYMLINKS 2>/dev/null)" 2>/dev/null
-	fi
+	{
+		# Load the directory into the 'z' history (see z.sh)
+		if hash _z >/dev/null
+		then
+			_z --add "$(pwd $_Z_RESOLVE_SYMLINKS 2>/dev/null)" 2>/dev/null
+		fi
 
-	# Add old directory to the top of pushd stack
-	# if not already there
-	if [ "$(dirs +1 2>/dev/null)" != "$OLDPWD" ]
-	then
-		pushd -n "$OLDPWD" >/dev/null
-	fi
+		# Add old directory to the top of pushd stack
+		# if not already there
+		if [ "$(dirs +1 2>/dev/null)" != "$OLDPWD" ]
+		then
+			pushd -n "$OLDPWD" >/dev/null
+		fi
+	} &
 }

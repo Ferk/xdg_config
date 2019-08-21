@@ -18,6 +18,9 @@ export PATH="$PATH:$HOME/bin"
 # other executable folders wanted
 export PATH="$PATH:$(echo $HOME/.gem/ruby/*/bin | head -1)"
 export PATH="$PATH:/usr/local/share/npm/bin"
+export PATH=$PATH:$HOME/.local/bin
+export PATH=$PATH:$HOME/.local/share/flatpak/exports/bin
+export PATH=$PATH:/var/lib/flatpak/exports/bin
 
 # In a mac, use coreutils
 if [ "$(uname -s)" = "Darwin" ]
