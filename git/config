@@ -36,6 +36,7 @@ df = diff
 di = diff
 dc = diff --cached
 ds = diff --staged
+dw = diff -w --minimal
 changes = diff --stat -r
 ##
 re = rebase
@@ -59,6 +60,13 @@ lcount = shortlog -sn
 #
 patch-out = format-patch --stdout
 patch-in = apply
+
+# Add only non-whitespace changes
+addw = "!f(){ git diff -U0 -w --no-color \"$@\" | git apply --cached --ignore-whitespace --unidiff-zero -; };f"
+
+#
+grepheads = "!f(){ git show-ref --heads | xargs git grep \"$@\"; };f"
+grepstash = "!f(){ git stash list -q | cut -d':' -f 1 | xargs git grep \"$@\"; };f"
 
 # git-flow plugin required
 flow-startnpublish = "!f() { typ=$1; br=$2; bs=$3; shift; git flow $typ start $br $bs && git br && git flow $typ publish $b || { printf \" ERROR PUBLISHING '$br'\\n When fixed run:  git flow $typ publish $br\\n\";exit 1;};}; f"
