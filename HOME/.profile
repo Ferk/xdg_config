@@ -57,7 +57,7 @@ for cmd in "google-chrome-beta" "chromium --purge-memory-button --proxy-pac-url=
     BROWSER="$cmd"
     hash ${BROWSER%% *} 2>&- && break
 done
-for cmd in "urxvt" "rxvt" "st" "xterm"; do
+for cmd in "alacritty" "urxvt" "rxvt" "st" "xterm"; do
     XTERM="$cmd"
     hash ${XTERM%% *} 2>&- && break
 done
