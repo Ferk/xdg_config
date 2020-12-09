@@ -176,7 +176,7 @@ fi
 
     echo -ne "\033[36m"
      
-    if [[ "$OS" =~ "CYGWIN" || "$OS" =~ "MINGW" ]]
+    if [[ "$OS" =~ (CYGWIN|MSYS|MINGW) ]]
     then
 		tasklist -fi "memusage gt 100000"
 		export TERM=cygwin
