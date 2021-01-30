@@ -1,7 +1,7 @@
 # -*- conf -*-
 
 [submodule "HOME/.emacs.d"]
-	path = HOME/.emacs.d
+	path = emacs
 	url = https://github.com/Ferk/emacs.d.git
 	fetchRecurseSubmodules = true
 	update = merge
