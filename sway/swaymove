@@ -1,0 +1,71 @@
+#!/bin/sh
+
+PROGNAME=$(basename $0)
+USAGE="move a floating window to the edges because sway lacks a way to do it!"
+
+case $1 in
+    -h|--help)
+        echo "$USAGE"
+        exit 0
+        ;;
+    top-left|top-center|top-right|center-left|center-center|center-right|bottom-left|bottom-center|bottom-right)
+            command="$1"
+            ;;
+        *)
+            echo "$PROG: bad argument" >&2
+            exit 1
+            ;;
+    esac
+
+dimensions=$(swaymsg -t get_outputs |
+    jq -r '.. | select(.focused?) | .current_mode | "\(.width)x\(.height)"')
+
+monitor_width=${dimensions%x*}
+monitor_height=${dimensions#*x}
+
+win_dim=$( swaymsg -t get_tree |
+    jq '.. | select(.type?) | select(.type=="floating_con") | select(.focused?)|.rect.width, .rect.height, .deco_rect.height')
+
+win_width=${win_dim[0]}
+win_height=${win_dim[1]}
+deco_height=${win_dim[2]}
+
+spacing_x=5
+spacing_y=35
+new_x=$spacing_x
+new_y=0
+case $command in
+  ## top
+  top-center)
+    new_x=$(( (monitor_width - win_width)/2 ))
+    ;;
+  top-right)
+    new_x=$(( monitor_width - win_width - 2*spacing_x ))
+    ;;
+  ## center
+  center-left)
+    new_y=$(( (monitor_height - win_height - deco_height - spacing_y)/2 ))
+    ;;
+  center-center)
+    new_x=$(( (monitor_width - win_width)/2 ))
+    new_y=$(( (monitor_height - win_height - deco_height - spacing_y)/2 ))
+    ;;
+  center-right)
+    new_x=$(( monitor_width - win_width -2*spacing_x ))
+    new_y=$(( (monitor_height - win_height - deco_height - spacing_y)/2 ))
+    ;;
+  ## bottom
+  bottom-left)
+    new_y=$(( monitor_height - win_height - deco_height - spacing_y ))
+    ;;
+  bottom-center)
+    new_x=$(( (monitor_width - win_width)/2 ))
+    new_y=$(( monitor_height - win_height - deco_height - spacing_y ))
+    ;;
+  bottom-right)
+    new_x=$(( monitor_width - win_width -2*spacing_x ))
+    new_y=$(( monitor_height - win_height - deco_height - spacing_y ))
+    ;;
+esac
+
+swaymsg "move position $new_x $new_y"

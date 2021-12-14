@@ -1,0 +1,77 @@
+
+
+[theme]
+name = "solarized-dark"
+#[theme.overrides]
+#critical.bg = "#ff0000"
+#critical.fg = "#ffffff"
+
+
+[icons]
+name = "awesome"
+[icons.overrides]
+thermometer = " 🌡 "
+cpu = "💻"
+
+# ---------------
+
+[[block]]
+block = "pacman"
+interval = 3600
+format = "{pacman}+{aur} updates"
+format_singular = "{both} update"
+hide_when_uptodate = true
+critical_updates_regex = "(linux |linux-lts|linux-zen)"
+# aur_command should output available updates to stdout (ie behave as echo -ne "update\n")
+aur_command = "paru -Qua"
+on_click = "$XTERM -e sh -c 'sudo paru -Syu'"
+
+[[block]]
+block = "temperature"
+good = 49
+idle = 59
+
+[[block]]
+block = "disk_space"
+path = "/"
+alias = "/"
+info_type = "available"
+unit = "GB"
+interval = 20
+warning = 20.0
+alert = 10.0
+
+[[block]]
+block = "memory"
+interval = 5
+display_type = "memory"
+format_mem = "{mem_total_used_percents}%"
+format_swap = "{swap_used_percents}%"
+
+[[block]]
+block = "cpu"
+interval = 1
+
+[[block]]
+block = "load"
+interval = 1
+format = "{1m} {5m}"
+
+
+[[block]]
+block = "networkmanager"
+on_click = "$XTERM -e nmtui"
+interface_name_exclude = ["br\\-[0-9a-f]{12}", "docker\\d+"]
+interface_name_include = []
+ap_format = "{ssid^10}"
+
+[[block]]
+block = "sound"
+
+[[block]]
+block = "time"
+interval = 60
+format = "%a %d/%m %R"
+
+
+

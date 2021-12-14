@@ -1,0 +1,54 @@
+#!/bin/sh
+
+PROGNAME=$(basename "$0")
+
+case "$1" in
+	-h|--help)
+		PROGPATH=$(readlink -f "$0")
+		cat <<EOF
+Usage: ${PROGNAME}
+
+shows the properties of the focused window
+
+ Requirements:
+  - 'swaymsg': to read properties of current window
+  - 'jq': json utility to parse swaymsg output
+ Optional:
+  - Set "XTERM" environment variable to your default terminal emulator
+
+This is meant to be bound from sway, as the example below:
+  bindsym  $mod+question exec ${PROGPATH}
+
+but if running from a terminal rather than a sway key binding,
+there will be a delay of 2 seconds to give some time to switch window
+and afterwards an alert control command will highlight the terminal.
+EOF
+		exit 0
+		;;
+esac
+
+
+output_prop() {
+	# Set title
+	printf "\033]0;${PROGNAME}\007"
+	swaymsg -t get_tree | jq -C '.. | select(.type?) | select(.focused==true)'
+}
+
+
+if [[ "$1" || -t 1 ]]; then
+	# Already executing from a terminal, simply output the prop
+	sleep 2
+	output_prop
+	printf '\a'
+else
+	# Not executing from  a terminal, try to run one
+	if hash ${XTERM:-xterm} 2>/dev/null
+	then
+		# Use XTERM env variable to determine default  terminal
+		${XTERM:-xterm} -e /bin/sh -c "printf '$(output_prop)\n\nPress any key to close..';read -sn1"
+	else
+		# If not possible, fall back to swaynag
+		output_prop | swaynag -l -m "$PROGNAME"
+	fi
+fi
+
