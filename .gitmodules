@@ -1,14 +1,16 @@
 # -*- conf -*-
 
-[submodule "HOME/.emacs.d"]
+[submodule "emacs"]
 	path = emacs
 	url = https://github.com/Ferk/emacs.d.git
+	branch = .
+	update = rebase
+	ignore = all
 	fetchRecurseSubmodules = true
-	update = merge
-	ignore = untracked
 
 [submodule "dwm"]
 	path = dwm
 	url = http://git.suckless.org/dwm
+	branch = .
+	update = rebase
 	fetchRecurseSubmodules = true
-	update = checkout

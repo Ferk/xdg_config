@@ -14,7 +14,7 @@ rt = remote -v
 srt = submodule foreach git remote -v
 ##
 ci = commit
-amend= commit -a --amend
+amend= commit --amend --no-edit
 ##
 co = checkout
 ##
