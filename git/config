@@ -95,6 +95,8 @@ gl-set-project = config gitlab.project
 authors = shortlog -se
 # git reauthor $START..$END
 reauthor = !sh -c 'eval `git log --reverse --topo-order --pretty=format:\"git cherry-pick %H &&  git commit --amend -C %H --author=\\\"%aN <%aE>\\\" && \" $0 ` "echo success" '
+# git redate $DATE $commit   -   changes both author and committer date from commit (HEAD, if no $commit given)
+redate="!f() { export GIT_COMMITTER_DATE=\"$1\"; shift; git commit --amend --date=\"$GIT_COMMITTER_DATE\" --no-edit $@; }; f"
 
 [color]
 ui = always
