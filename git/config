@@ -68,6 +68,11 @@ addw = "!f(){ git diff -U0 -w --no-color \"$@\" | git apply --cached --ignore-wh
 grepheads = "!f(){ git show-ref --heads | xargs git grep \"$@\"; };f"
 grepstash = "!f(){ git stash list -q | cut -d':' -f 1 | xargs git grep \"$@\"; };f"
 
+
+# stashing
+stash-all = stash --include-untracked
+unstash = stash pop
+
 # git-flow plugin required
 flow-startnpublish = "!f() { typ=$1; br=$2; bs=$3; shift; git flow $typ start $br $bs && git br && git flow $typ publish $b || { printf \" ERROR PUBLISHING '$br'\\n When fixed run:  git flow $typ publish $br\\n\";exit 1;};}; f"
 fstart = "!f() { b=$1; echo $@; shift; git flow feature start \"$b\" ${2} && git br && git flow feature publish \"$b\" || { printf \" ERROR PUBLISHING '$b'\\n When fixed run:  git flow feature publish '$b'\\n\";exit 1;};}; f"
