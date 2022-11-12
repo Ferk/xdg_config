@@ -16,6 +16,11 @@ cpu = "💻"
 # ---------------
 
 [[block]]
+block = "rofication"
+interval = 1
+#format = "{num}"
+
+[[block]]
 block = "pacman"
 interval = 3600
 format = "{pacman}+{aur} updates"
@@ -24,12 +29,15 @@ hide_when_uptodate = true
 critical_updates_regex = "(linux |linux-lts|linux-zen)"
 # aur_command should output available updates to stdout (ie behave as echo -ne "update\n")
 aur_command = "paru -Qua"
-on_click = "$XTERM -e sh -c 'sudo paru -Syu'"
+on_click = "$XTERM -e sh -c 'sudo paru -Syui && ( hash flatpak && flatpak update ); sleep 4'"
 
 [[block]]
 block = "temperature"
-good = 49
-idle = 59
+format = "{average} [max:{max}]"
+good = 59
+idle = 69
+info = 79
+warning = 89
 
 [[block]]
 block = "disk_space"
