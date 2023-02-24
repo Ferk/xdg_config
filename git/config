@@ -48,6 +48,7 @@ undoh = reset --hard HEAD~1 --
 l = log --decorate --pretty=format:'\n~~~ %C(yellow)commit %H%Creset %C(magenta)%d%Creset\nAuthor: %C(cyan)%aN <%ae>%Creset\nDate: %Cgreen%cd\n\n%Creset %s'
 lg = log --graph --pretty=format:'%C(red reverse)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
 ll = log --graph --pretty=format:'%C(red reverse)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --decorate --numstat
+lf = log --format=fuller
 
 lshort = log --pretty=format:'%C(green)%ci %C(red reverse)%h%Creset -%C(yellow)%d%Creset %s %C(bold blue)<%an>%Creset'
 lme = "!f() { git lshort --author=\"$(git config --get user.name)\" \"$@\"; }; f"
@@ -102,6 +103,7 @@ authors = shortlog -se
 reauthor = !sh -c 'eval `git log --reverse --topo-order --pretty=format:\"git cherry-pick %H &&  git commit --amend -C %H --author=\\\"%aN <%aE>\\\" && \" $0 ` "echo success" '
 # git redate $DATE $commit   -   changes both author and committer date from commit (HEAD, if no $commit given)
 redate="!f() { export GIT_COMMITTER_DATE=\"$1\"; shift; git commit --amend --date=\"$GIT_COMMITTER_DATE\" --no-edit $@; }; f"
+redatea = redate "$(git show --format='%ai' -q)"
 
 [color]
 ui = always
