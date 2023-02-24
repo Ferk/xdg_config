@@ -37,6 +37,11 @@ fi
     PATH="$HOME/perl5/bin:$PATH";
 }
 
+[ -d "$HOME/.guix-profile" ] && {
+    export GUIX_PROFILE="$HOME/.guix-profile"
+    . "$GUIX_PROFILE/etc/profile"
+}
+
 # search path for "cd", for faster directory switching
 #export CDPATH=".:$HOME"
 
