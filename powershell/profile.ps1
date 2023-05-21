@@ -12,6 +12,7 @@ if (Get-Module -ListAvailable PSReadLine) {
         Set-PSReadlineKeyHandler -Key Tab -Function Complete
         Set-PSReadLineOption -PredictionSource History
 
+        Set-PSReadLineOption -HistorySearchCursorMovesToEnd
         Set-PSReadLineKeyHandler -Key Ctrl+P -Function HistorySearchBackward
         Set-PSReadlineKeyHandler -Key Ctrl+N -Function HistorySearchForward
 }
