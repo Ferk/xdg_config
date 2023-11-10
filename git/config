@@ -37,7 +37,8 @@ di = diff
 dc = diff --cached
 ds = diff --staged
 dw = diff -w --minimal
-changes = diff --stat -r
+changes = diff --stat --raw
+dfiles = diff --diff-filter=DA --stat
 ##
 re = rebase
 rei = rebase --interactive
