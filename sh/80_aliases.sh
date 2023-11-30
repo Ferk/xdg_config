@@ -97,6 +97,7 @@ alias lsnew="ls -alh --time-style=+%D | /bin/grep `date +%D`"
 alias taill='tail -f `ls -t1 | head -n1`' 
 
 # youtube-dl
+alias youtube-dl="yt-dlp"
 alias youtube-dl='youtube-dl --write-sub -t'
 alias youtube-dl-low='youtube-dl -f 17'
 alias youtube-dl-mp3='youtube-dl -f bestaudio --extract-audio --audio-format mp3 --ignore-errors'
