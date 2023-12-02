@@ -46,7 +46,7 @@ fi
 #export CDPATH=".:$HOME"
 
 export LANG="C.UTF-8"
-export LC_ALL="C"
+export LC_ALL="C.UTF-8"
 export LC_COLLATE="C"
 
 # Find the preferred basic tools and hash them for faster access
