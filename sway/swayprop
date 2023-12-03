@@ -35,7 +35,7 @@ output_prop() {
 }
 
 
-if [[ "$1" || -t 1 ]]; then
+if [ "$1" ] ; then
 	# Already executing from a terminal, simply output the prop
 	sleep 2
 	output_prop
@@ -45,7 +45,7 @@ else
 	if hash ${XTERM:-xterm} 2>/dev/null
 	then
 		# Use XTERM env variable to determine default  terminal
-		${XTERM:-xterm} -e /bin/sh -c "printf '$(output_prop)\n\nPress any key to close..';read -sn1"
+		${XTERM:-xterm} -e /bin/sh -c "printf '$(output_prop)\n\nPress ENTER to close..';read q"
 	else
 		# If not possible, fall back to swaynag
 		output_prop | swaynag -l -m "$PROGNAME"

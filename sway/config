@@ -12,6 +12,9 @@
 # - clipman: A simple clipboard manager for Wayland
 # - i3status-rust: Resourcefriendly placement for i3status, written in Rust
 #
+# Press $mod+Shift+Insert to RELOAD the configuration
+# Press $mod+f1           to display properties of focused window
+#
 
 
 ### Variables
@@ -41,7 +44,7 @@ set $right l
 # Note that terminals that dont support '--class' will fail
 set $term ${XTERM:-kitty}
 # alias for running a floating term with sh command (eg. for fzf)
-set $fterm FZF_DEFAULT_OPTS='--layout=reverse --inline-info' $term --class fterm -e sh -c
+set $fterm FZF_DEFAULT_OPTS='--layout=reverse --inline-info' $term --class fterm -e ${SHELL:-sh} -c
 
 
 # Your preferred application launcher
@@ -50,7 +53,7 @@ set $fterm FZF_DEFAULT_OPTS='--layout=reverse --inline-info' $term --class fterm
 #set $menu $term --class dmenu -e sh -c | dmenu | xargs swaymsg exec --
 
 # Set the sway directory and some commands on it
-set $swaydir ~/.config/sway
+set $swaydir $HOME/.config/sway
 set $swayprop exec $swaydir/swayprop
 set $swaymove exec $swaydir/swaymove
 
@@ -58,25 +61,28 @@ set $swaymove exec $swaydir/swaymove
 ### Focus & workspace configuration
 focus_follows_mouse yes
 focus_wrapping workspace
-workspace_layout default
+workspace_layout tabbed
 
 ### Window Assignments
 # You may run 'swayinfo' from swaytools to find out the selectors to use
 # or use the included script 'swayprop' (bound to `$mod+?`)
 assign [class=.*-browser]  2
 assign [app_id=.*-browser] 2
-assign [class=Steam]       4
-
-# some notifications are blank on their info (eg. brave), make them float
-for_window  [title="^$" app_id="^$"] floating enable, $swaymove bottom-right, focus tiling
-#no_focus [title="^$" app_id="^$"]
+assign [class="[Ss]team" title="Friends *"]  6
+assign [class="[Ss]team"]  4
 
 for_window [app_id="fterm"] floating enable
 for_window [app_id="mpv"] floating enable
 for_window [app_id="dmenu"] floating enable
+for_window [app_id="io.github.celluloid_player.Celluloid"] floating enable
+
 
 assign [instance="^Godot_Engine$" title="(DEBUG)"] 8
 
+for_window [app_id="-browser"] title_format "<span foreground='#FF6611'><tt>[🌍]</tt></span> %title"
+for_window [app_id="firefox"] title_format "<span foreground='#FF6611'><tt>[]</tt></span> %title"
+for_window [app_id="[Aa]lacritty"]   title_format "<span foreground='#00FF00'><tt></tt></span> %title"
+for_window [app_id="telegramdesktop"] title_format "<span foreground='#84b3ff'><tt></tt></span> %title"
 
 ### Wallpaper configuration
 #
@@ -105,6 +111,9 @@ output * bg ~/Pictures/wallpapers/.wallpaper fill
 # your displays after another 300 seconds, and turn your screens back on when
 # resumed. It will also lock your screen before your computer goes to sleep.
 
+# Below will turn off screens but not lock the session
+exec swayidle -w timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"'
+
 ### Input configuration
 #
 # Example configuration:
@@ -131,12 +140,11 @@ output * bg ~/Pictures/wallpapers/.wallpaper fill
     bindsym $mod+Shift+c kill
 
     # Start your launcher
-    bindsym $mod+e exec SHELL="swaymsg exec -- $SHELL" dmenu_run
-
-    bindsym  $mod+question $swayprop
-
-    bindsym $mod+Shift+e exec $fterm 'compgen -c | grep -v fzf | sort -u | fzf | xargs swaymsg exec --'
+    bindsym $mod+e exec $fterm 'SHELL="swaymsg exec -- $SHELL" $swaydir/fzf_launcher'
     for_window [class="^dmenu$"] floating enable, border none, opacity 0.8
+
+    bindsym  $mod+f1       $swayprop
+    bindsym  $mod+question $swayprop
 
 
     # Take a screenshot
@@ -280,7 +288,7 @@ bindsym $mod+r mode "resize"
 #
 # Title Bars
 #
-font pango:Sans 8
+font pango:Sans 8, FontAwesome 8
 for_window [title="."] title_format <b>%title</b> ~~~%app_id~~~ %class/%instance (%shell)
 titlebar_border_thickness 0
 titlebar_padding 10 0
@@ -301,7 +309,7 @@ bar {
     position top
     # When the status_command prints a new line to stdout, swaybar updates.
     #status_command while date +'%Y-%m-%d %l:%M:%S %p'; do sleep 1; done
-    status_command hash i3status-rs && exec i3status-rs $swaydir/status.toml || while date +'%a %F %R'; do sleep 20; done
+    status_command hash i3status-rs && swaydir="$swaydir" exec i3status-rs "$swaydir"/status.toml || while date +'%a %F %R'; do sleep 20; done
     colors {
         separator  #666666
         background #323232
