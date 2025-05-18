@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=DOSBox-Pure
+Comment=Run on DOSBox-Pure libretro core
+Exec=retroarch -L dosbox_pure %F
+Icon=steam_icon_1472070
+Terminal=false
+Type=Application
+Categories=Game;
+MimeType=application/x-dosz;application/zip
