@@ -117,6 +117,20 @@ format = " $icon {$signal_strength $ssid $frequency|$ip} "
 button = "left"
 cmd = "$XTERM -e nmtui"
 
+
+[[block]]
+block = "music"
+format = "$icon {$combo.str(max_w:20,rot_interval:0.5) $play $next |}"
+format_alt = " format 2 "
+[[block.click]]
+button = "left"
+action = "play_pause"
+[[block.click]]
+button = "middle"
+widget = "."
+action = "toggle_format"
+
+
 [[block]]
 block = "sound"
 [[block.click]]
