@@ -8,6 +8,15 @@
 	ignore = all
 	fetchRecurseSubmodules = true
 
+
+[submodule "vimfiles"]
+	path = vim
+	url = https://github.com/Ferk/vimfiles.git
+	branch = .
+	update = rebase
+	ignore = all
+	fetchRecurseSubmodules = true
+
 [submodule "dwm"]
 	path = dwm
 	url = http://git.suckless.org/dwm
