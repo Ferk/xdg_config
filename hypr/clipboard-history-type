@@ -1,0 +1,79 @@
+#!/bin/sh
+
+notify() {
+    if command -v notify-send >/dev/null 2>&1; then
+        notify-send -t 2200 "Clipboard history" "$1"
+    fi
+}
+
+type_current_clipboard() {
+    "${XDG_CONFIG_HOME:-$HOME/.config}/hypr/clipboard-type"
+    exit "$?"
+}
+
+cliphist_active() {
+    command -v cliphist >/dev/null 2>&1 || return 1
+    command -v pgrep >/dev/null 2>&1 || return 1
+    pgrep -f 'wl-paste.*--watch.*cliphist store' >/dev/null 2>&1
+}
+
+if ! cliphist_active; then
+    type_current_clipboard
+fi
+
+if ! command -v fzf >/dev/null 2>&1 || ! command -v xdg-terminal-exec >/dev/null 2>&1; then
+    type_current_clipboard
+fi
+
+tmpdir="$(mktemp -d "${TMPDIR:-/tmp}/hypr-cliphist.XXXXXX")" || type_current_clipboard
+done_file="$tmpdir/done"
+cancel_file="$tmpdir/cancel"
+failed_file="$tmpdir/failed"
+trap 'rm -rf "$tmpdir"' EXIT HUP INT TERM
+
+if ! xdg-terminal-exec --app-id=dialog sh -c '
+    done_file=$1
+    cancel_file=$2
+    failed_file=$3
+
+    item="$(cliphist list | fzf --no-sort --reverse --prompt="clipboard> ")" || {
+        : > "$cancel_file"
+        exit 0
+    }
+
+    if [ -z "$item" ]; then
+        : > "$cancel_file"
+        exit 0
+    fi
+
+    if printf "%s" "$item" | cliphist decode | wl-copy; then
+        : > "$done_file"
+    else
+        : > "$failed_file"
+    fi
+' sh "$done_file" "$cancel_file" "$failed_file"; then
+    type_current_clipboard
+fi
+
+i=0
+while [ "$i" -lt 1200 ]; do
+    if [ -e "$done_file" ]; then
+        sleep 0.15
+        type_current_clipboard
+    fi
+
+    if [ -e "$cancel_file" ]; then
+        exit 0
+    fi
+
+    if [ -e "$failed_file" ]; then
+        notify "Could not restore selected item."
+        exit 1
+    fi
+
+    i=$((i + 1))
+    sleep 0.1
+done
+
+notify "Clipboard history picker timed out."
+exit 1

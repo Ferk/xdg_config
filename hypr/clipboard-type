@@ -1,0 +1,29 @@
+#!/bin/sh
+
+notify() {
+    if command -v notify-send >/dev/null 2>&1; then
+        notify-send -t 2200 "Clipboard" "$1"
+    fi
+}
+
+if ! command -v wl-paste >/dev/null 2>&1; then
+    notify "Install wl-clipboard for wl-paste."
+    exit 1
+fi
+
+tmp="${TMPDIR:-/tmp}/hypr-clipboard-text.$$"
+trap 'rm -f "$tmp"' EXIT HUP INT TERM
+
+if ! wl-paste --type text/plain > "$tmp"; then
+    notify "Clipboard does not contain typeable text."
+    exit 1
+fi
+
+if command -v wtype >/dev/null 2>&1; then
+    wtype - < "$tmp"
+elif command -v ydotool >/dev/null 2>&1; then
+    ydotool type -- "$(cat "$tmp")"
+else
+    notify "Install wtype for Wayland typing, or ydotool for uinput typing."
+    exit 1
+fi

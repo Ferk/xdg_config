@@ -1,0 +1,27 @@
+#!/bin/sh
+
+notify() {
+    if command -v notify-send >/dev/null 2>&1; then
+        notify-send -t 1500 "Clipboard" "$1"
+    fi
+}
+
+if ! command -v wl-paste >/dev/null 2>&1 || ! command -v wl-copy >/dev/null 2>&1; then
+    notify "Install wl-clipboard for wl-copy and wl-paste."
+    exit 1
+fi
+
+tmp="${TMPDIR:-/tmp}/hypr-primary-selection.$$"
+trap 'rm -f "$tmp"' EXIT HUP INT TERM
+
+if ! wl-paste --primary --type text/plain > "$tmp"; then
+    notify "No text in primary selection."
+    exit 1
+fi
+
+if ! wl-copy --type text/plain < "$tmp"; then
+    notify "Could not write to clipboard."
+    exit 1
+fi
+
+notify "Primary selection copied to clipboard."

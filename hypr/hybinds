@@ -1,0 +1,24 @@
+#!/bin/sh
+
+
+hyprctl binds -j | jq -r '
+.[] | 
+  # 1. Translate masks using math and standard array filters
+  ( [ if ((.modmask / 64) % 2 >= 1) then "Super" else empty end,
+      if ((.modmask / 16) % 2 >= 1) then "Ctrl"  else empty end,
+      if ((.modmask / 8)  % 2 >= 1) then "Alt"   else empty end,
+      if ((.modmask / 1)  % 2 >= 1) then "Shift" else empty end ] 
+    | join("+")
+  ) as $mods |
+
+  # 2. Map structural empty/numerical keys concisely 
+  ( if (.key == "") then "MouseClick" elif (.key | test("^[0-9]+$")) then "Keycode:" + .key else .key end ) as $keyName |
+
+  # 3. Pull description, falling back cleanly to the raw command parameters
+  ( if (.description != "") then .description else (.dispatcher + " " + .arg) end ) as $action |
+
+  # 4. Join the shortcut to its action 
+  ( if ($mods != "") then $mods + "+" + $keyName else $keyName end ) + "  ->  " + $action
+'
+
+

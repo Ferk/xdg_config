@@ -1,0 +1,48 @@
+#!/bin/sh
+
+notify() {
+    if command -v notify-send >/dev/null 2>&1; then
+        notify-send -t 1800 "Clipboard history" "$1"
+    fi
+}
+
+need() {
+    if ! command -v "$1" >/dev/null 2>&1; then
+        notify "Install $1."
+        exit 1
+    fi
+}
+
+pick_item() {
+    case "${CLIPHIST_PICKER:-wofi}" in
+        fzf)
+            need fzf
+            cliphist list | fzf --no-sort --reverse --prompt='clipboard> '
+            ;;
+        pick)
+            need pick
+            cliphist list | pick
+            ;;
+        rofi)
+            need rofi
+            cliphist list | rofi -dmenu -p clipboard
+            ;;
+        wofi|*)
+            need wofi
+            cliphist list | wofi --dmenu --prompt clipboard
+            ;;
+    esac
+}
+
+need cliphist
+need wl-copy
+
+item="$(pick_item)" || exit 0
+[ -n "$item" ] || exit 0
+
+if printf '%s' "$item" | cliphist decode | wl-copy; then
+    notify "Restored selected item to clipboard."
+else
+    notify "Could not restore selected item."
+    exit 1
+fi

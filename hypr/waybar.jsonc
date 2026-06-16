@@ -1,0 +1,45 @@
+{
+  // Pull in everything from original master config
+  "include": [
+      "~/.config/waybar/config.jsonc"
+  ],
+
+  // Override to inject Hyprland-specific widgets
+  "modules-left": ["custom/system-menu", "hyprland/workspaces"],
+  "modules-center": ["custom/voxtype", "custom/screenrecording-indicator", "hyprland/window"],
+
+  "hyprland/workspaces": {
+    "on-click": "activate",
+    "format": "{icon}",
+    "format-icons": {
+      "default": "",
+      "1": "1",
+      "2": "2",
+      "3": "3",
+      "4": "4",
+      "5": "5",
+      "6": "6",
+      "7": "7",
+      "8": "8",
+      "9": "9",
+      "10": "0"
+      //"active": "󱓻"
+    }
+    //"persistent-workspaces": {
+    //  "1": [],
+    //  "2": [],
+    //  "3": [],
+    //  "4": [],
+    //  "5": []
+    //},
+    //"all-outputs": false
+  },
+  
+  "custom/system-menu": {
+    "format": "<span>☰</span>",
+    "on-click": "system-menu",
+    "on-click-right": "xdg-terminal-exec",
+    "tooltip-format": "System Menu\n\nSuper + Alt + Space"
+  }
+
+}
